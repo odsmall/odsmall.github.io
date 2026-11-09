@@ -3,331 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ODSMALL X - Alien Marketplace</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>ODSMALL X - DRAG HEXA TOOLBAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    background:#000;
-    color:#fff;
-    font-family:'Inter',sans-serif;
-    overflow-x:hidden;
-    min-height:100vh;
-  }
-  /* Alien Background - Energy Lines */
-  body::before{
-    content:"";
-    position:fixed;inset:0;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(0,240,255,.15), transparent 40%),
-      radial-gradient(circle at 80% 80%, rgba(168,85,247,.18), transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(0,0,0,.8), #000);
-    z-index:-1;
-  }
-  .wrap{max-width:1200px;margin:0 auto;padding:18px}
+  body{background:#020204;color:#fff;font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+  .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 50% 30%, rgba(0,240,255,.15), transparent 45%), radial-gradient(circle at 80% 90%, rgba(168,85,247,.18), transparent 40%), #020204}
 
-  /* HEADER */
-  header{
-    display:flex;justify-content:space-between;align-items:center;
-    border:1px solid #1e3a4a;border-radius:16px;
-    padding:14px 18px;
-    background:rgba(5,15,25,.85);
-    box-shadow:0 0 30px rgba(0,240,255,.15);
+  /* LOGO FIX - TOP LEFT - NEVER MOVES */
+  .logo-fixed{
+    position:fixed;top:14px;left:16px;z-index:100;
+    font-family:'Orbitron';font-size:24px;font-weight:900;letter-spacing:1px;
+    background:rgba(2,2,4,.7);padding:8px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
   }
-  .logo{font-family:'Orbitron';font-size:28px;font-weight:900;letter-spacing:1px}
-  .logo span{color:#00f0ff}
-  .logo b{color:#a855f7}
-  .morph{
-    display:flex;align-items:center;gap:10px;
-    background:#0a1a2a;border:1px solid #00f0ff;
-    padding:8px 14px;border-radius:999px;
-    font-family:'Orbitron';font-size:12px;
-  }
-  .morph button{
-    border:none;padding:7px 14px;border-radius:999px;
-    cursor:pointer;font-weight:700;font-family:'Orbitron';font-size:11px;
-  }
-  .morph .active{background:#00f0ff;color:#000}
-  .morph .off{background:transparent;color:#a855f7;border:1px solid #a855f7}
-  .top-actions{display:flex;gap:8px;align-items:center}
-  .lang-btn{
-    background:#111;border:1px solid #333;color:#fff;
-    padding:9px 12px;border-radius:999px;cursor:pointer;
-    font-weight:600;font-size:13px;
-  }
-  .lang-menu{
-    display:none;position:absolute;right:18px;top:72px;
-    background:#0a0a0a;border:1px solid #333;border-radius:14px;
-    padding:8px;z-index:99;width:180px;
-  }
-  .lang-menu button{
-    width:100%;text-align:left;background:transparent;border:none;color:#fff;
-    padding:9px 10px;border-radius:8px;cursor:pointer;
-  }
-  .lang-menu button:hover{background:#1a1a1a}
+  .logo-fixed span{color:#00f0ff}
+  .logo-fixed b{color:#a855f7}
+  .logo-fixed small{display:block;font-family:'Inter';font-size:8px;letter-spacing:3px;color:#94a3b8}
 
-  /* TICKER */
-  .ticker{
-    margin-top:16px;border:1px solid #a855f7;border-radius:12px;
-    overflow:hidden;background:#0a0514;
+  .lang-fixed{
+    position:fixed;top:14px;right:16px;z-index:100;
+    background:#fff;color:#000;border:none;padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer;
   }
-  .ticker-top{
-    display:flex;justify-content:space-between;
-    padding:10px 14px;font-family:'Orbitron';font-size:11px;letter-spacing:1px;
-  }
-  .ticker-top span:first-child{color:#a855f7}
-  .ticker-top span:last-child{color:#00f0ff}
-  .ticker-body{
-    white-space:nowrap;overflow:hidden;
-    padding:10px 0;border-top:1px solid #2a1a4a;
-    font-size:12px;color:#cbd5e1;
-  }
-  .ticker-body span{
-    display:inline-block;padding-left:100%;
-    animation:scroll 22s linear infinite;
-  }
-  @keyframes scroll{to{transform:translateX(-100%)}}
 
-  /* GRID */
-  .grid{
-    display:grid;grid-template-columns:1fr 1.1fr;gap:18px;margin-top:18px;
-  }
-  @media(max-width:800px){.grid{grid-template-columns:1fr}}
+  .stage{padding:84px 16px 60px;max-width:1000px;margin:0 auto}
+  .ticker{border:1px solid #333;border-radius:999px;padding:10px 14px;font-size:12px;white-space:nowrap;overflow:hidden;background:#0a0a12}
+  .ticker span{display:inline-block;animation:scroll 18s linear infinite}
+  @keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
 
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}}
   .card{
-    border:1px solid #1e3a4a;border-radius:18px;
-    background:linear-gradient(180deg, rgba(10,20,35,.95), rgba(5,5,15,.95));
-    padding:18px;position:relative;
-    box-shadow:0 0 25px rgba(0,240,255,.08);
+    border:1px solid rgba(255,255,255,.15);border-radius:22px;padding:20px;
+    background:linear-gradient(145deg, rgba(20,20,35,.95), rgba(5,5,12,.95));
+    cursor:pointer;transition:.3s;animation:breathe 4s infinite;
   }
-  .card h3{font-family:'Orbitron';font-size:15px;letter-spacing:1px;margin-bottom:6px}
-  .card p{font-size:13px;color:#94a3b8;line-height:1.5}
+  @keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .card:hover{border-color:#00f0ff;box-shadow:0 20px 50px rgba(0,240,255,.2)}
+  .card h2{font-family:'Orbitron';font-size:17px}
+  .card p{font-size:13px;color:#94a3b8;margin-top:6px;line-height:1.6}
+  .card .big{font-family:'Orbitron';font-size:34px;font-weight:900;margin-top:10px}
+  .badge{display:inline-block;margin-top:10px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#00f0ff;color:#000}
+  .badge.p{ background:#a855f7;color:#fff }
+  .badge.g{ background:#22c55e;color:#000 }
 
-  /* TRUST PULSE */
-  canvas{width:100%;height:110px;margin:12px 0;background:#020617;border-radius:10px}
-  .pulse-meta{display:flex;justify-content:space-between;font-size:12px;color:#cbd5e1}
-  .pulse-meta b{color:#fff}
-
-  /* BALANCE */
-  .big{font-family:'Orbitron';font-size:42px;font-weight:900;color:#00f0ff;margin:10px 0}
-  .big span{font-size:18px;color:#fff}
-  .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
-  .stats div{background:#0a0a0a;border:1px solid #1e293b;padding:10px;border-radius:10px}
-  .stats small{color:#94a3b8;font-size:11px}
-  .stats b{display:block;margin-top:4px;font-size:13px}
-  .bar{height:6px;background:#1e293b;border-radius:999px;margin-top:14px;overflow:hidden}
-  .bar i{display:block;height:100%;width:42%;background:linear-gradient(90deg,#00f0ff,#a855f7)}
-
-  /* LISTINGS */
-  .item{
-    display:flex;justify-content:space-between;align-items:center;gap:10px;
-    border:1px solid #1e293b;border-radius:12px;padding:12px;margin-top:10px;
-    background:#050510;
+  /* ===== DRAG LIGHT - THE TOOLBAR ===== */
+  #dragLight{
+    position:fixed;left:50%;top:62%;z-index:500;
+    width:56px;height:56px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #fff, #00f0ff 40%, #a855f7 90%);
+    box-shadow:0 0 0 3px #fff, 0 0 40px #00f0ff, 0 0 80px #a855f7;
+    cursor:grab;display:flex;align-items:center;justify-content:center;
+    font-size:20px;user-select:none;touch-action:none;
+    animation:lightPulse 2s infinite;
+    transition:width .35s, height .35s, border-radius .35s;
   }
-  .item b{font-size:13px}
-  .item small{color:#94a3b8;font-size:11px}
-  .pill{padding:7px 12px;border-radius:999px;font-size:11px;font-weight:700;border:1px solid #00f0ff;color:#00f0ff;background:transparent;white-space:nowrap}
-  .pill.purple{border-color:#a855f7;color:#c084fc}
+  #dragLight:active{cursor:grabbing}
+  @keyframes lightPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  #dragLight span{pointer-events:none}
 
-  .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-  .btn{padding:13px;border-radius:12px;border:none;font-weight:800;cursor:pointer;font-size:13px}
-  .btn-cyan{background:#00f0ff;color:#000}
-  .btn-purple{background:#a855f7;color:#fff}
-
-  footer{
-    margin-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
-    font-size:11px;color:#64748b;border-top:1px solid #1e293b;padding-top:14px;
+  /* HEXAGON EXPANDED */
+  #hexa{
+    position:fixed;z-index:499;display:none;
+    width:340px;height:340px;pointer-events:none;
   }
+  #hexa.open{display:block}
+  .hexa-shape{
+    position:absolute;inset:0;
+    background:rgba(8,8,18,.96);
+    border:2px solid #00f0ff;
+    clip-path:polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    box-shadow:0 0 60px rgba(0,240,255,.4);
+    backdrop-filter:blur(20px);
+    pointer-events:auto;
+  }
+  .hexa-btn{
+    position:absolute;width:64px;height:64px;border-radius:50%;
+    background:#111;border:1px solid #333;color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-size:20px;cursor:pointer;z-index:2;transition:.2s;
+  }
+  .hexa-btn small{font-size:8px;margin-top:2px;font-weight:700;letter-spacing:.5px}
+  .hexa-btn:hover{transform:scale(1.15);border-color:#00f0ff;box-shadow:0 0 20px #00f0ff}
+  .hexa-btn.active{background:#00f0ff;color:#000;border-color:#fff}
+
+  /* CENTER SEARCH - ONLY SEARCH ON WHOLE SITE */
+  .hexa-search{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:150px;text-align:center;z-index:2;
+  }
+  .hexa-search input{
+    width:100%;padding:12px 10px;border-radius:999px;border:1px solid #00f0ff;
+    background:#000;color:#fff;text-align:center;font-size:13px;outline:none;
+  }
+  .hexa-search input::placeholder{color:#64748b}
+  .hexa-search p{font-size:9px;color:#94a3b8;margin-top:6px;letter-spacing:1px}
+  .hexa-search .result{font-size:11px;color:#00f0ff;margin-top:6px;min-height:14px}
+
+  .close-hexa{
+    position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);
+    background:#fff;color:#000;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-weight:900;z-index:3;
+  }
+  .hint{ text-align:center;color:#64748b;font-size:12px;margin-top:16px;line-height:1.6 }
 </style>
 </head>
 <body>
-<div class="wrap" style="position:relative">
+<div class="bg"></div>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">ODS<span>MALL</span> <b>X</b></div>
+<div class="logo-fixed">ODS<span>MALL</span> <b>X</b><small>LIVING • 4D</small></div>
+<button class="lang-fixed" onclick="toggleLang()">🌐 <span id="langLabel">EN</span></button>
 
-    <div class="morph">
-      <span data-i18n="morph">MORPHING HUB</span>
-      <button id="btnMarket" class="active" onclick="switchHub('market')">MARKET</button>
-      <button id="btnCreator" class="off" onclick="switchHub('creator')">CREATOR</button>
-    </div>
+<div id="langMenu" style="display:none;position:fixed;top:62px;right:14px;z-index:600;background:#0a0a12;border:1px solid #333;border-radius:14px;padding:8px;width:170px">
+  <button onclick="setLang('en')" style="width:100%;text-align:left;background:transparent;border:none;color:#fff;padding:9px;cursor:pointer">English</button>
+  <button onclick="setLang('ur')" style="width:100%;text-align:left;background:transparent;border:none;color:#fff;padding:9px;cursor:pointer">Urdu - اردو</button>
+  <button onclick="setLang('ar')" style="width:100%;text-align:left;background:transparent;border:none;color:#fff;padding:9px;cursor:pointer">Arabic - العربية</button>
+  <button onclick="setLang('es')" style="width:100%;text-align:left;background:transparent;border:none;color:#fff;padding:9px;cursor:pointer">Spanish</button>
+</div>
 
-    <div class="top-actions">
-      <button class="lang-btn" onclick="toggleLang()">🌐 <span id="langLabel">EN</span> ▾</button>
-    </div>
-  </header>
+<div class="stage">
+  <div class="ticker"><span>LIVE: Ahmed bought Neural Processor • 12,450 ODSX in Escrow • Trust Pulse 98.6 • Drag the Light Anywhere • Click Light to Open Hexagon • Search Only Inside Hexagon •</span></div>
 
-  <!-- LANGUAGE MENU -->
-  <div class="lang-menu" id="langMenu">
-    <button onclick="setLang('en')">English - EN</button>
-    <button onclick="setLang('ur')">Urdu - اردو</button>
-    <button onclick="setLang('ar')">Arabic - العربية</button>
-    <button onclick="setLang('hi')">Hindi - हिन्दी</button>
-    <button onclick="setLang('es')">Spanish - ES</button>
-    <button onclick="setLang('fr')">French - FR</button>
-    <button onclick="setLang('tr')">Turkish - TR</button>
-    <button onclick="setLang('de')">German - DE</button>
+  <div class="grid" id="grid">
+    <div class="card"><h2>MARKET HUB</h2><p>Products, Templates, Digital Goods. Search via Hexagon Light.</p><div class="big">1,200 <span style="font-size:16px">ODSX</span></div><span class="badge">● LIVE MARKET</span></div>
+    <div class="card"><h2>CREATOR HUB</h2><p>Deploy contracts, mint, earn. Search via Hexagon Light.</p><div class="big">87<span style="font-size:16px">%</span></div><span class="badge p">COMPILING...</span></div>
+    <div class="card"><h2>TRUST PULSE</h2><p>Live heartbeat of seller. Stable = Trusted.</p><div class="big">98.6 <span style="font-size:16px">/ 100</span></div><span class="badge g">STABLE • LOW RISK</span></div>
+    <div class="card"><h2>BALANCE</h2><p>Your money - alive.</p><div class="big">4,820.11 <span style="font-size:16px">ODSX</span></div><span class="badge">STAKED 1,920 • AVAILABLE 2,550</span></div>
   </div>
 
-  <!-- TICKER -->
-  <div class="ticker">
-    <div class="ticker-top">
-      <span data-i18n="tickerTitle">LIVE ESCROW TICKER</span>
-      <span>● LIVE • NODE 12.9</span>
-    </div>
-    <div class="ticker-body">
-      <span id="tickerText">ESCROW LIVE: TX 0x7F9...A12 • 12,450.00 ODSX ESCROWED • SELLER VERIFIED • FUNDS RELEASE IN 02:14 • 3 DEALS PENDING • COLLATERAL STAKED 8,200 ODSX • CONTRACT ACTIVE</span>
-    </div>
+  <p class="hint">👆 <b>Light ko khainch ke kahin bhi le jao</b> - Upar, neeche, left, right<br>💡 <b>Light pe click karo</b> - Hexagon khulega - Beech me SEARCH hai<br>🔍 <b>Website pe aur kahin Search nahi hai</b> - Sirf Hexagon me</p>
+</div>
+
+<!-- DRAG LIGHT -->
+<div id="dragLight"><span>✦</span></div>
+
+<!-- HEXAGON TOOLBAR -->
+<div id="hexa">
+  <div class="hexa-shape"></div>
+  <!-- 6 Buttons around hexagon -->
+  <button class="hexa-btn active" style="left:50%;top:4%;transform:translateX(-50%)" onclick="setPage('Market',this)">🛒<small>MARKET</small></button>
+  <button class="hexa-btn" style="right:4%;top:22%" onclick="setPage('Creator',this)">🎨<small>CREATOR</small></button>
+  <button class="hexa-btn" style="right:4%;bottom:22%" onclick="setPage('Wallet',this)">💳<small>WALLET</small></button>
+  <button class="hexa-btn" style="left:50%;bottom:4%;transform:translateX(-50%)" onclick="setPage('Chat',this)">💬<small>CHAT</small></button>
+  <button class="hexa-btn" style="left:4%;bottom:22%" onclick="setPage('Orders',this)">📦<small>ORDERS</small></button>
+  <button class="hexa-btn" style="left:4%;top:22%" onclick="setPage('Support',this)">🛟<small>SUPPORT</small></button>
+
+  <!-- CENTER SEARCH - ONLY ONE -->
+  <div class="hexa-search">
+    <input id="hexaSearch" placeholder="Search..." oninput="doSearch(this.value)">
+    <p id="searchLabel">SEARCH IN MARKET</p>
+    <div class="result" id="searchResult"></div>
   </div>
-
-  <!-- GRID -->
-  <div class="grid">
-
-    <!-- LEFT -->
-    <div>
-      <div class="card">
-        <h3 data-i18n="trust">TRUST PULSE</h3>
-        <p data-i18n="trustDesc">Live seller trust heartbeat. Stable pulse = trusted seller.</p>
-        <canvas id="pulseCanvas" width="500" height="110"></canvas>
-        <div class="pulse-meta">
-          <span><span data-i18n="score">TRUST SCORE</span> <b>98.6</b> • <span data-i18n="active">ACTIVE</span></span>
-          <span>+2.4% (24H) • LOW RISK</span>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:18px">
-        <h3 data-i18n="balance">BALANCE & HOLDINGS</h3>
-        <div class="big">4,820.11 <span>ODSX</span></div>
-        <div class="stats">
-          <div><small data-i18n="staked">STAKED</small><b>1,920.00 ODSX</b></div>
-          <div><small data-i18n="pending">PENDING</small><b>350.00 ODSX</b></div>
-          <div><small data-i18n="available">AVAILABLE</small><b>2,550.11 ODSX</b></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:12px">
-          <span data-i18n="escrowUse">ESCROW UTILIZATION</span><b>42%</b>
-        </div>
-        <div class="bar"><i></i></div>
-      </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="card">
-      <h3 id="hubTitle">MARKET → CREATOR</h3>
-      <p id="hubDesc" data-i18n="hubDesc">Morphing Hub Active - Switch to see Creator Studio</p>
-
-      <div style="margin-top:14px">
-        <b style="font-size:13px" data-i18n="listings">ACTIVE LISTINGS</b>
-
-        <div class="item">
-          <div><b>NEURAL PROCESSOR v9</b><br><small>1,200 ODSX // 0.8µs LATENCY</small></div>
-          <button class="pill" data-i18n="escrowed">ESCROWED</button>
-        </div>
-
-        <div class="item">
-          <div><b>QUANTUM CIRCUIT CORE</b><br><small>3,450 ODSX // VERIFIED SELLER</small></div>
-          <button class="pill purple" data-i18n="awaiting">AWAITING FUND</button>
-        </div>
-
-        <div class="item">
-          <div><b>HOLO STORAGE NODE</b><br><small>780 ODSX // READY</small></div>
-          <button class="pill" data-i18n="open">OPEN</button>
-        </div>
-      </div>
-
-      <div style="margin-top:16px">
-        <b style="font-size:13px" data-i18n="creator">CREATOR STUDIO</b>
-        <p style="margin-top:6px" data-i18n="mint">MINT SMART CONTRACT</p>
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:8px">
-          <span data-i18n="compiling">COMPILING ALIEN SCRIPT...</span><b>87%</b>
-        </div>
-        <div class="bar"><i style="width:87%"></i></div>
-      </div>
-
-      <div class="cta-row">
-        <button class="btn btn-cyan" data-i18n="createListing">CREATE LISTING</button>
-        <button class="btn btn-purple" data-i18n="deploy">DEPLOY CONTRACT</button>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <span>NETWORK: OSMAL-Δ7 • BLOCK 142,889,013 • LATENCY 6ms</span>
-    <span>SECURITY: QUANTUM-LOCKED • ESCROW PROTOCOL V3.1</span>
-    <span>SYNCED • 2026.11.10</span>
-  </footer>
+  <button class="close-hexa" onclick="closeHexa()">×</button>
 </div>
 
 <script>
-  // TRANSLATIONS - ALL LANGUAGES
-  const translations = {
-    en: { morph:"MORPHING HUB", tickerTitle:"LIVE ESCROW TICKER", trust:"TRUST PULSE", trustDesc:"Live seller trust heartbeat. Stable pulse = trusted seller.", score:"TRUST SCORE", active:"ACTIVE", balance:"BALANCE & HOLDINGS", staked:"STAKED", pending:"PENDING", available:"AVAILABLE", escrowUse:"ESCROW UTILIZATION", hubDesc:"Morphing Hub Active - Switch to see Creator Studio", listings:"ACTIVE LISTINGS", escrowed:"ESCROWED", awaiting:"AWAITING FUND", open:"OPEN", creator:"CREATOR STUDIO", mint:"MINT SMART CONTRACT", compiling:"COMPILING ALIEN SCRIPT...", createListing:"CREATE LISTING", deploy:"DEPLOY CONTRACT" },
-    ur: { morph:"مورفنگ ہب", tickerTitle:"لائیو ایسکرو ٹکر", trust:"ٹرسٹ پلس", trustDesc:"لائیو سیلر ٹرسٹ دل کی دھڑکن۔ مستحکم پلس = قابل اعتماد سیلر۔", score:"ٹرسٹ اسکور", active:"فعال", balance:"بیلنس اور ہولڈنگز", staked:"اسٹیکڈ", pending:"زیر التواء", available:"دستیاب", escrowUse:"ایسکرو استعمال", hubDesc:"مورفنگ ہب فعال ہے - کریئیٹر اسٹوڈیو دیکھنے کے لیے سوئچ کریں", listings:"فعال لسٹنگز", escrowed:"ایسکروڈ", awaiting:"فنڈ کا انتظار", open:"کھلا", creator:"کریئیٹر اسٹوڈیو", mint:"منٹ اسمارٹ کانٹریکٹ", compiling:"ایلین اسکرپٹ مرتب ہو رہا ہے...", createListing:"لسٹنگ بنائیں", deploy:"کانٹریکٹ ڈیپلائی کریں" },
-    ar: { morph:"مركز التحول", tickerTitle:"شريط الضمان المباشر", trust:"نبض الثقة", trustDesc:"نبض ثقة البائع المباشر. نبض مستقر = بائع موثوق.", score:"نقاط الثقة", active:"نشط", balance:"الرصيد والممتلكات", staked:"مرهون", pending:"معلق", available:"متاح", escrowUse:"استخدام الضمان", hubDesc:"مركز التحول نشط - قم بالتبديل لرؤية استوديو المبدع", listings:"القوائم النشطة", escrowed:"مضمون", awaiting:"بانتظار التمويل", open:"مفتوح", creator:"استوديو المبدع", mint:"سك عقد ذكي", compiling:"تجميع نص فضائي...", createListing:"إنشاء قائمة", deploy:"نشر العقد" },
-    hi: { morph:"मॉर्फिंग हब", tickerTitle:"लाइव एस्क्रो टिकर", trust:"ट्रस्ट पल्स", trustDesc:"लाइव सेलर ट्रस्ट हार्टबीट। स्थिर पल्स = भरोसेमंद सेलर।", score:"ट्रस्ट स्कोर", active:"सक्रिय", balance:"बैलेंस और होल्डिंग्स", staked:"स्टेक्ड", pending:"लंबित", available:"उपलब्ध", escrowUse:"एस्क्रो उपयोग", hubDesc:"मॉर्फिंग हब सक्रिय है - क्रिएटर स्टूडियो देखने के लिए स्विच करें", listings:"सक्रिय लिस्टिंग", escrowed:"एस्क्रोड", awaiting:"फंड की प्रतीक्षा", open:"खुला", creator:"क्रिएटर स्टूडियो", mint:"मिंट स्मार्ट कॉन्ट्रैक्ट", compiling:"एलियन स्क्रिप्ट संकलित हो रही है...", createListing:"लिस्टिंग बनाएं", deploy:"कॉन्ट्रैक्ट डिप्लॉय करें" },
-    es: { morph:"HUB MORFANTE", tickerTitle:"TICKER DE ESCROW EN VIVO", trust:"PULSO DE CONFIANZA", trustDesc:"Latido de confianza del vendedor en vivo. Pulso estable = vendedor confiable.", score:"PUNTUACIÓN", active:"ACTIVO", balance:"SALDO Y TENENCIAS", staked:"APOSTADO", pending:"PENDIENTE", available:"DISPONIBLE", escrowUse:"UTILIZACIÓN DE ESCROW", hubDesc:"Hub Morfante Activo - Cambia para ver Creator Studio", listings:"LISTADOS ACTIVOS", escrowed:"EN ESCROW", awaiting:"ESPERANDO FONDO", open:"ABIERTO", creator:"ESTUDIO DEL CREADOR", mint:"ACUÑAR CONTRATO INTELIGENTE", compiling:"COMPILANDO SCRIPT ALIEN...", createListing:"CREAR LISTADO", deploy:"DESPLEGAR CONTRATO" },
-    fr: { morph:"HUB MORPHING", tickerTitle:"TICKER ESCROW EN DIRECT", trust:"POULS DE CONFIANCE", trustDesc:"Battement de confiance du vendeur en direct. Pouls stable = vendeur fiable.", score:"SCORE", active:"ACTIF", balance:"SOLDE & AVOIRS", staked:"MISÉ", pending:"EN ATTENTE", available:"DISPONIBLE", escrowUse:"UTILISATION ESCROW", hubDesc:"Hub Morphing Actif - Basculez pour voir Creator Studio", listings:"ANNONCES ACTIVES", escrowed:"SOUS ESCROW", awaiting:"EN ATTENTE DE FONDS", open:"OUVERT", creator:"STUDIO CRÉATEUR", mint:"MINT CONTRAT INTELIGENT", compiling:"COMPILATION SCRIPT ALIEN...", createListing:"CRÉER ANNONCE", deploy:"DÉPLOYER CONTRAT" },
-    tr: { morph:"MORPHING HUB", tickerTitle:"CANLI ESCROW TICKER", trust:"GÜVEN NABZI", trustDesc:"Canlı satıcı güven nabzı. Stabil nabız = güvenilir satıcı.", score:"GÜVEN SKORU", active:"AKTİF", balance:"BAKİYE & VARLIKLAR", staked:"STAKE", pending:"BEKLEYEN", available:"KULLANILABİLİR", escrowUse:"ESCROW KULLANIMI", hubDesc:"Morphing Hub Aktif - Creator Studio görmek için değiştir", listings:"AKTİF LİSTELER", escrowed:"ESCROW'DA", awaiting:"FON BEKLİYOR", open:"AÇIK", creator:"CREATOR STÜDYOSU", mint:"AKILLI SÖZLEŞME BAS", compiling:"UZAYLI SCRIPT DERLENİYOR...", createListing:"LİSTE OLUŞTUR", deploy:"SÖZLEŞME DAĞIT" },
-    de: { morph:"MORPHING HUB", tickerTitle:"LIVE ESCROW TICKER", trust:"VERTRAUENS PULS", trustDesc:"Live Verkäufer Vertrauens Herzschlag. Stabiler Puls = vertrauenswürdiger Verkäufer.", score:"VERTRAUENS SCORE", active:"AKTIV", balance:"GUTHABEN & BESTÄNDE", staked:"GESTAKT", pending:"AUSSTEHEND", available:"VERFÜGBAR", escrowUse:"ESCROW NUTZUNG", hubDesc:"Morphing Hub Aktiv - Wechsle um Creator Studio zu sehen", listings:"AKTIVE ANGEBOTE", escrowed:"IM ESCROW", awaiting:"WARTET AUF GELD", open:"OFFEN", creator:"CREATOR STUDIO", mint:"SMART CONTRACT MINTEN", compiling:"ALIEN SCRIPT KOMPILIERT...", createListing:"ANGEBOT ERSTELLEN", deploy:"CONTRACT DEPLOYEN" }
-  };
+  const light = document.getElementById('dragLight');
+  const hexa = document.getElementById('hexa');
+  let isDragging = false, startX, startY, origX, origY, moved = false;
+  let currentPage = 'Market';
 
+  // DRAG - LIGHT KO KAHIN BHI KHAINCHO
+  light.addEventListener('pointerdown', e=>{
+    isDragging = true; moved = false;
+    startX = e.clientX; startY = e.clientY;
+    origX = light.offsetLeft; origY = light.offsetTop;
+    light.setPointerCapture(e.pointerId);
+  });
+  light.addEventListener('pointermove', e=>{
+    if(!isDragging) return;
+    const dx = e.clientX - startX, dy = e.clientY - startY;
+    if(Math.abs(dx)>5 || Math.abs(dy)>5) moved = true;
+    let nx = origX + dx, ny = origY + dy;
+    nx = Math.max(10, Math.min(window.innerWidth-66, nx));
+    ny = Math.max(70, Math.min(window.innerHeight-66, ny));
+    light.style.left = nx+'px'; light.style.top = ny+'px';
+    // Hexagon follows light if open
+    if(hexa.classList.contains('open')) positionHexa();
+  });
+  light.addEventListener('pointerup', e=>{
+    isDragging = false;
+    if(!moved){
+      // CLICK - NOT DRAG - OPEN HEXAGON
+      if(hexa.classList.contains('open')) closeHexa();
+      else openHexa();
+    }
+  });
+
+  function positionHexa(){
+    const r = light.getBoundingClientRect();
+    let hx = r.left + 28 - 170;
+    let hy = r.top + 28 - 170;
+    hx = Math.max(8, Math.min(window.innerWidth-348, hx));
+    hy = Math.max(70, Math.min(window.innerHeight-348, hy));
+    hexa.style.left = hx+'px'; hexa.style.top = hy+'px';
+  }
+  function openHexa(){
+    positionHexa();
+    hexa.classList.add('open');
+    light.style.boxShadow = '0 0 0 3px #fff, 0 0 60px #a855f7';
+    setTimeout(()=>document.getElementById('hexaSearch').focus(), 100);
+  }
+  function closeHexa(){
+    hexa.classList.remove('open');
+    light.style.boxShadow = '';
+  }
+
+  function setPage(page, btn){
+    currentPage = page;
+    document.querySelectorAll('.hexa-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('searchLabel').innerText = 'SEARCH IN ' + page.toUpperCase();
+    document.getElementById('searchResult').innerText = page + ' selected - Now search for ' + page;
+    document.getElementById('hexaSearch').placeholder = 'Search in ' + page + '...';
+  }
+
+  // ONLY SEARCH - IN HEXAGON CENTER - FOR CURRENT PAGE
+  function doSearch(val){
+    const res = document.getElementById('searchResult');
+    if(!val) { res.innerText=''; return; }
+    const items = {
+      Market:['Neural Processor 1,200 ODSX','Quantum Core 3,450 ODSX','Holo Node 780 ODSX'],
+      Creator:['Mint Contract','Deploy Studio','Creator Pro'],
+      Wallet:['Balance 4,820 ODSX','Staked 1,920 ODSX','Send Money'],
+      Chat:['Ahmed - Online','Sara - Typing...','Support - Online'],
+      Orders:['Order #1042 - Escrowed','Order #1041 - Delivered','Order #1040 - Pending'],
+      Support:['Help Center','Dispute','Contact']
+    };
+    const list = items[currentPage] || items.Market;
+    const found = list.filter(x=>x.toLowerCase().includes(val.toLowerCase()));
+    res.innerText = found.length ? '✓ ' + found.join(' • ') : 'No result in ' + currentPage;
+  }
+
+  // RANDOM LAYOUT EVERY RELOAD - LOGO FIXED
+  const grid = document.getElementById('grid');
+  const cards = Array.from(grid.children);
+  cards.sort(()=>Math.random()-0.5);
+  cards.forEach(c=>grid.appendChild(c));
+
+  // LANG
   function toggleLang(){
-    const m = document.getElementById('langMenu');
-    m.style.display = m.style.display === 'block' ? 'none' : 'block';
+    const m=document.getElementById('langMenu');
+    m.style.display=m.style.display==='block'?'none':'block';
   }
   function setLang(code){
-    document.getElementById('langLabel').innerText = code.toUpperCase();
-    document.getElementById('langMenu').style.display = 'none';
-    const t = translations[code] || translations.en;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      const k = el.getAttribute('data-i18n');
-      if(t[k]) el.innerText = t[k];
-    });
-    document.documentElement.lang = code;
-    if(code==='ur' || code==='ar') document.body.style.direction='rtl';
+    document.getElementById('langLabel').innerText=code.toUpperCase();
+    document.getElementById('langMenu').style.display='none';
+    if(code==='ur'||code==='ar') document.body.style.direction='rtl';
     else document.body.style.direction='ltr';
   }
-
-  function switchHub(mode){
-    const m = document.getElementById('btnMarket');
-    const c = document.getElementById('btnCreator');
-    const title = document.getElementById('hubTitle');
-    if(mode==='market'){
-      m.className='active'; c.className='off';
-      title.innerText='MARKET → CREATOR';
-    } else {
-      c.className='active'; m.className='off';
-      title.innerText='CREATOR → MARKET';
-    }
-  }
-
-  // TRUST PULSE - CANVAS HEARTBEAT
-  const canvas = document.getElementById('pulseCanvas');
-  const ctx = canvas.getContext('2d');
-  let offset = 0;
-  function drawPulse(){
-    ctx.clearRect(0,0,500,110);
-    ctx.strokeStyle='#00f0ff'; ctx.lineWidth=2;
-    ctx.beginPath();
-    for(let x=0;x<500;x++){
-      let y = 55 + Math.sin((x+offset)*0.08)*8;
-      if(x%90===45) y = 55 - Math.abs(Math.sin(offset*0.2))*35;
-      if(x%140===70) y = 55 + 28;
-      if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.stroke();
-    // Purple second line
-    ctx.strokeStyle='#a855f7'; ctx.lineWidth=1.5;
-    ctx.beginPath();
-    for(let x=0;x<500;x++){
-      let y = 55 + Math.cos((x+offset)*0.06)*12;
-      if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.stroke();
-    offset+=2;
-    requestAnimationFrame(drawPulse);
-  }
-  drawPulse();
 </script>
 </body>
 </html>
