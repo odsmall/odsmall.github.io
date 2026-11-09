@@ -3,148 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ODSMALL - Poori Duniya Ek Website Me</title>
+<title>ODSMALL - Secure Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:Arial,sans-serif;background:#f5f5f5;color:#111}
-  header{background:#000;color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-  header b{font-size:24px;letter-spacing:1px}
-  header b span{color:#00e5ff}
-  header button{background:#fff;color:#000;border:none;padding:9px 14px;border-radius:999px;font-weight:800;cursor:pointer}
-  .hero{background:#000;color:#fff;padding:40px 18px;text-align:center}
-  .hero h1{font-size:34px;line-height:1.2}
-  .hero h1 span{color:#00e5ff}
-  .hero p{color:#bbb;margin-top:12px;line-height:1.6}
-  .hero input{margin-top:18px;width:90%;max-width:480px;padding:14px;border-radius:999px;border:none;outline:none;font-size:15px;text-align:center}
-  .grid{max-width:1000px;margin:0 auto;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:650px){.grid{grid-template-columns:1fr}}
-  .box{background:#fff;border-radius:18px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
-  .box h2{font-size:20px}
-  .box p{color:#666;font-size:14px;margin-top:6px;line-height:1.6}
-  .box .price{font-size:26px;font-weight:900;margin-top:12px}
-  .box button{margin-top:12px;width:100%;padding:12px;border:none;border-radius:12px;font-weight:800;cursor:pointer;font-size:14px}
-  .btn-black{background:#000;color:#fff}
-  .btn-blue{background:#00e5ff;color:#000}
-  .btn-purple{background:#7c3aed;color:#fff}
-  .btn-green{background:#16a34a;color:#fff}
-  .section{max-width:1000px;margin:0 auto;padding:6px 18px 18px}
-  .section h2{font-size:22px;margin-bottom:10px}
-  .list{background:#fff;border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-  .list b{font-size:15px}
-  .list small{color:#777}
-  .list span{font-weight:900}
-  footer{background:#000;color:#999;text-align:center;padding:20px;font-size:13px;line-height:1.6}
-  /* Drag Light */
-  #light{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#00e5ff;border:3px solid #fff;box-shadow:0 10px 30px rgba(0,229,255,.6);display:flex;align-items:center;justify-content:center;font-size:22px;cursor:grab;z-index:100;user-select:none;touch-action:none}
-  #menu{display:none;position:fixed;right:18px;bottom:84px;background:#fff;border-radius:16px;padding:10px;width:200px;box-shadow:0 10px 40px rgba(0,0,0,.2);z-index:99}
-  #menu button{width:100%;text-align:left;background:transparent;border:none;padding:11px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700}
-  #menu button:hover{background:#f0f0f0}
+  body{background:#050508;color:#fff;font-family:'Inter',sans-serif;min-height:100vh}
+  body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 10% 10%, rgba(0,240,255,.12), transparent 40%), radial-gradient(circle at 90% 90%, rgba(168,85,247,.14), transparent 40%);z-index:-1}
+  .phone{max-width:480px;margin:0 auto;padding:14px;padding-bottom:90px}
+  @media(min-width:900px){.phone{max-width:1100px}}
+  /* HEADER */
+  .top{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #2a2a4a;border-radius:16px;padding:12px 14px;background:rgba(10,10,20,.9);box-shadow:0 0 20px rgba(0,240,255,.1)}
+  .logo{font-family:'Orbitron';font-size:24px;font-weight:900;letter-spacing:1px}
+  .logo span{color:#00f0ff}
+  .logo b{color:#a855f7}
+  .wallet{background:linear-gradient(90deg,#00f0ff,#a855f7);color:#fff;border:none;padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer;font-size:12px}
+  .search{margin-top:12px;display:flex;gap:8px}
+  .search input{flex:1;background:#0a0a14;border:1px solid #a855f7;border-radius:999px;padding:12px 14px;color:#fff;outline:none}
+  .search input::placeholder{color:#777}
+  /* NAV TABS */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .tabs button{background:#111;border:1px solid #333;color:#fff;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:600}
+  .tabs button.active{background:linear-gradient(90deg,#00f0ff,#a855f7);border:none;color:#fff}
+  /* CARD */
+  .card{border:1px solid rgba(0,240,255,.4);border-radius:20px;padding:16px;margin-top:14px;background:linear-gradient(145deg, rgba(15,15,28,.95), rgba(5,5,12,.95));box-shadow:0 0 25px rgba(0,240,255,.08);cursor:pointer}
+  .card.purple{border-color:rgba(168,85,247,.5);box-shadow:0 0 25px rgba(168,85,247,.12)}
+  .card h2{font-family:'Orbitron';font-size:18px}
+  .card p{font-size:13px;color:#94a3b8;margin-top:6px;line-height:1.5}
+  .trust{float:right;background:#0a0a14;border:1px solid #333;border-radius:10px;padding:5px 8px;font-size:11px}
+  .trust b{color:#00f0ff;font-size:13px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+  @media(max-width:600px){.grid3{grid-template-columns:1fr 1fr}}
+  .prod{border:1px solid #2a2a4a;border-radius:14px;overflow:hidden;background:#0a0a14}
+  .prod .img{height:90px;display:flex;align-items:center;justify-content:center;font-size:36px;background:linear-gradient(135deg,#0e2a3a,#2a0e4a)}
+  .prod div{padding:10px}
+  .prod b{font-size:12px}
+  .prod .price{color:#00f0ff;font-weight:800;font-size:12px;margin-top:4px}
+  .btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:800;cursor:pointer;margin-top:12px;font-size:14px}
+  .btn-grad{background:linear-gradient(90deg,#00f0ff,#a855f7);color:#fff}
+  .btn-cyan{background:#00f0ff;color:#000}
+  .btn-outline{background:transparent;border:1px solid #00f0ff;color:#00f0ff}
+  /* CHAT */
+  .chat-bubble{max-width:85%;padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.5;margin-top:12px}
+  .left{border:1px solid #00f0ff;background:#0a1a2a;align-self:flex-start}
+  .right{border:1px solid #a855f7;background:linear-gradient(135deg,#2a0e4a,#3a0e6a);margin-left:auto}
+  .warn{border:1px solid #facc15;background:#1a1405;border-radius:14px;padding:12px;margin-top:14px;font-size:13px;line-height:1.5}
+  .blocked{border:1px solid #ef4444;background:#1a0505;border-radius:14px;padding:12px;margin-top:14px;font-size:13px;line-height:1.5}
+  .blocked b{color:#ef4444}
+  /* INPUTS */
+  .field{margin-top:12px}
+  .field label{font-size:13px;font-weight:700;display:block;margin-bottom:6px}
+  .field input,.field textarea{width:100%;background:#0a0a14;border:1px solid #a855f7;border-radius:12px;padding:13px;color:#fff;outline:none;font-size:14px}
+  .field textarea{min-height:90px;resize:vertical}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .wallet-opt{border:1px solid #a855f7;border-radius:14px;padding:13px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;background:#0a0a14}
+  .wallet-opt.active{border-color:#00f0ff;background:#0a1a2a}
+  /* BOTTOM NAV - LIKE YOUR PHOTO */
+  .bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:min(440px,92%);background:rgba(10,10,20,.96);border:1px solid #333;border-radius:999px;display:flex;justify-content:space-around;padding:10px;z-index:100;backdrop-filter:blur(20px)}
+  .bottom button{background:transparent;border:none;color:#94a3b8;cursor:pointer;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .bottom button.active{color:#00f0ff}
+  .bottom .plus{width:44px;height:44px;border-radius:50%;background:linear-gradient(90deg,#00f0ff,#a855f7);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;margin-top:-22px;border:3px solid #050508}
+  .page{display:none}
+  .page.show{display:block}
+  .faq{border:1px solid #222;border-radius:12px;padding:12px;margin-top:10px;cursor:pointer}
+  .faq b{font-size:14px}
+  .faq p{font-size:13px;color:#94a3b8;margin-top:6px;display:none}
+  .faq.open p{display:block}
 </style>
 </head>
 <body>
+<div class="phone">
 
-<header>
-  <b>ODS<span>MALL</span></b>
-  <button onclick="toggleLang()">🌐 <span id="lang">EN</span></button>
-</header>
+  <!-- TOP BAR - LIKE YOUR PHOTOS -->
+  <div class="top">
+    <div class="logo">ODS<span>MALL</span></div>
+    <button class="wallet" onclick="showPage('wallet')">👛 Connect Wallet</button>
+  </div>
 
-<div class="hero">
-  <h1>Poori Duniya,<br><span>Ek Website Me.</span></h1>
-  <p>Yahan se khareedo, yahan se becho, yahan se kaam karwao, yahan se seekho.<br>Kahin aur jaane ki zaroorat nahi.</p>
-  <input id="search" placeholder="Kya chahiye? Yahan likho...  (Example: Logo, Website, Video)" oninput="doSearch(this.value)">
-  <p id="searchResult" style="color:#00e5ff;font-size:13px;margin-top:10px"></p>
+  <div class="search">
+    <input id="mainSearch" placeholder="Search templates, ebooks, code, design..." oninput="doSearch(this.value)">
+  </div>
+  <div id="searchOut" style="font-size:12px;color:#00f0ff;margin-top:6px"></div>
+
+  <div class="tabs">
+    <button class="active" onclick="showPage('home',this)">Home</button>
+    <button onclick="showPage('market',this)">Market</button>
+    <button onclick="showPage('creator',this)">Creator Hub</button>
+    <button onclick="showPage('product',this)">Product</button>
+    <button onclick="showPage('chat',this)">Chat</button>
+    <button onclick="showPage('join',this)">Join</button>
+    <button onclick="showPage('support',this)">Support</button>
+  </div>
+
+  <!-- HOME - PHOTO 6 -->
+  <div id="home" class="page show">
+    <div class="card" onclick="showPage('market')">
+      <h2 style="color:#00f0ff">🏪 MARKET HUB →</h2>
+      <p>Explore • Buy • Trade NFTs & Assets</p>
+    </div>
+    <div class="card purple" onclick="showPage('creator')">
+      <h2 style="color:#c084fc">🎨 CREATOR HUB →</h2>
+      <p>Mint • Manage • Monetize Creations</p>
+    </div>
+    <h3 style="margin-top:18px">Trending Digital Products <span style="float:right;color:#00f0ff;font-size:12px;cursor:pointer" onclick="showPage('market')">See all →</span></h3>
+    <div class="grid3">
+      <div class="prod" onclick="showPage('product')"><div class="img">👟</div><div><b>Nova Sneakers #1024</b><div class="price">125.50 USDC</div><small>🛡 Trust Score 94%</small></div></div>
+      <div class="prod" onclick="showPage('product')"><div class="img">💎</div><div><b>Crystal Drift Art</b><div class="price">89.00 USDC</div><small>🛡 Trust Score 91%</small></div></div>
+      <div class="prod" onclick="showPage('product')"><div class="img">🤖</div><div><b>Cyber Avatar v.3</b><div class="price">210.00 USDC</div><small>🛡 Trust Score 88%</small></div></div>
+    </div>
+  </div>
+
+  <!-- MARKET - PHOTO 7 -->
+  <div id="market" class="page">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+      <h2>Digital Products</h2><span style="font-size:12px;border:1px solid #333;padding:6px 10px;border-radius:999px">→ Most Popular</span>
+    </div>
+    <p style="font-size:12px;color:#94a3b8;margin-top:4px">1,089 results • Sorted by: Trending</p>
+    <div class="grid3">
+      <div class="prod" onclick="showPage('product')"><div class="img">📊</div><div><b>SaaS Dashboard Template</b><br><small>Templates • ⭐ 4.8 (124 sold)</small><div class="price">45.00 USDC</div><span class="trust">🛡 <b>98</b></span></div></div>
+      <div class="prod" onclick="showPage('product')"><div class="img">📕</div><div><b>Web3 Marketing Guide</b><br><small>Ebooks • ⭐ 4.6 (98 sold)</small><div class="price">12.50 USDC</div><span class="trust">🛡 <b>95</b></span></div></div>
+      <div class="prod" onclick="showPage('product')"><div class="img">💻</div><div><b>React & Solana Bootcamp</b><br><small>Course • ⭐ 4.9 (210 sold)</small><div class="price">120.00 USDC</div><span class="trust">🛡 <b>97</b></span></div></div>
+      <div class="prod"><div class="img">📜</div><div><b>Solidity Smart Contracts Kit</b><br><small>Code • ⭐ 4.7 (356 sold)</small><div class="price">30.00 USDC</div><span class="trust">🛡 <b>94</b></span></div></div>
+      <div class="prod"><div class="img">🎨</div><div><b>NeoUI Design System</b><br><small>Figma • ⭐ 4.8 (142 sold)</small><div class="price">25.00 USDC</div><span class="trust">🛡 <b>96</b></span></div></div>
+      <div class="prod"><div class="img">🎵</div><div><b>Cyber Ambient Sounds Pack</b><br><small>Audio • ⭐ 4.5 (77 sold)</small><div class="price">18.00 USDC</div><span class="trust">🛡 <b>92</b></span></div></div>
+    </div>
+  </div>
+
+  <!-- CREATOR HUB - PHOTO 8 -->
+  <div id="creator" class="page">
+    <h2 style="color:#00f0ff;margin-top:16px">Creator Hub • Development</h2>
+    <p style="font-size:12px;color:#94a3b8">1,240 gigs found • Sorted by: Top Rated</p>
+    <div class="card">
+      <span class="trust">🛡 Trust Score <b>97</b></span>
+      <div style="display:flex;gap:10px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;font-size:20px">👨</div><div><b>by AlexDev • Online now</b></div></div>
+      <h2 style="margin-top:12px">I will build your Solana website</h2>
+      <p>⭐⭐⭐⭐⭐ 4.9 (132 reviews)</p>
+      <p style="text-align:center;color:#fff;font-weight:700">Pricing Tiers</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px">
+        <div style="border:1px solid #00f0ff;border-radius:12px;padding:10px;text-align:center"><small>Basic</small><div style="font-size:20px;font-weight:900;color:#00f0ff">$150</div><small>1 Page • 5 days • 2 Revisions</small></div>
+        <div style="border:1px solid #a855f7;border-radius:12px;padding:10px;text-align:center;background:#1a0e2a"><small>Most Popular • Standard</small><div style="font-size:20px;font-weight:900;color:#c084fc">$350</div><small>Dapp + Wallet • 10 days • 5 Revisions</small></div>
+        <div style="border:1px solid #00f0ff;border-radius:12px;padding:10px;text-align:center"><small>Premium</small><div style="font-size:20px;font-weight:900;color:#00f0ff">$800</div><small>Full Dapp • 20 days • Unlimited</small></div>
+      </div>
+      <button class="btn btn-grad" onclick="showPage('chat')">Buy Now</button>
+      <p style="text-align:center">🔒 Secure checkout & escrow</p>
+    </div>
+    <div class="grid3">
+      <div class="prod"><div class="img">🎨</div><div><b>I will design NFT marketplace UI UX</b><br><small>4.8 (89) • Trust 92</small><div class="price">Basic $120 • Standard $280</div></div></div>
+      <div class="prod"><div class="img">📝</div><div><b>I will write Solana whitepaper & docs</b><br><small>4.9 (210) • Trust 95</small><div class="price">Standard $220 • Premium $450</div></div></div>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL - PHOTO 5 & 9 -->
+  <div id="product" class="page">
+    <div class="card">
+      <span class="trust">🛡 Trust Score <b>98</b></span>
+      <h2>SaaS Dashboard Template</h2>
+      <p>⭐⭐⭐⭐⭐ 4.9 (128 reviews)</p>
+      <div style="font-size:28px;font-weight:900;color:#00f0ff;margin-top:8px">45 USDC <span style="font-size:12px;color:#94a3b8">• ~$45.00 USD • Instant Delivery</span></div>
+      <p>✅ Sold by ODSMALL Labs • 4.9 • 1,243 sales • Joined Jan 2024</p>
+      <h3 style="margin-top:14px">✨ What's Inside</h3>
+      <p>✅ 12+ Prebuilt Dashboard Components<br>✅ Dark & Light Mode Ready<br>✅ Responsive React + Tailwind Setup<br>✅ API Integration Examples Included<br>✅ Figma + Source Files (.zip)</p>
+      <button class="btn btn-grad" onclick="showPage('wallet')">🛡 Buy Now with Escrow</button>
+      <p style="text-align:center">Secured by ODSMALL Escrow • Refundable until delivery</p>
+    </div>
+    <h3 style="margin-top:16px">Reviews (124) <span style="float:right;color:#00f0ff;font-size:12px">See all →</span></h3>
+    <div class="card"><b>alex.dev • 2 days ago</b><p>⭐⭐⭐⭐⭐ Clean, easy to implement. Saved me hours—highly recommend for SaaS builds!</p></div>
+    <div class="card"><b>mira.codes • 1 week ago</b><p>⭐⭐⭐⭐⭐ Great templates and docs. Escrow made checkout smooth.</p></div>
+  </div>
+
+  <!-- CHAT - PHOTO 1 -->
+  <div id="chat" class="page">
+    <div style="display:flex;align-items:center;gap:10px;margin-top:14px;border:1px solid #a855f7;border-radius:14px;padding:12px">
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#00f0ff,#a855f7);display:flex;align-items:center;justify-content:center;font-size:22px">C</div>
+      <div><b>Creator • ODSMALL</b></div>
+      <div style="margin-left:auto;border:1px solid #00f0ff;border-radius:10px;padding:6px 8px;font-size:12px">🛡 Trust Score <b style="color:#00f0ff;font-size:16px">99</b></div>
+    </div>
+    <div class="warn">⚠️ <b style="color:#facc15">Filter Active</b><br>No phone • email • WhatsApp links allowed</div>
+    <div style="display:flex;flex-direction:column">
+      <div class="chat-bubble left">I need custom logo in 3 days<br><small style="color:#94a3b8">Today 9:32 AM • Buyer</small></div>
+      <div class="chat-bubble right">Got it — I can deliver a custom logo in 3 days. I'll include 3 initial concepts + 2 revisions. Sending an offer now.<br><small>Today 9:33 AM • Creator</small></div>
+    </div>
+    <div class="blocked">⚠️ <b>Blocked: Contact attempt detected</b><br>Sharing phone numbers, emails, or WhatsApp links is not allowed. This message was blocked to keep you safe.</div>
+    <div style="display:flex;gap:8px;margin-top:16px;border:1px solid #a855f7;border-radius:999px;padding:8px;background:#0a0a14;align-items:center">
+      <span>📎 😊</span>
+      <input id="chatInput" placeholder="Type a message..." style="flex:1;background:transparent;border:none;color:#fff;outline:none" oninput="checkFilter(this.value)">
+      <button class="wallet" onclick="sendOffer()">Send Offer</button>
+    </div>
+    <div id="filterMsg" style="font-size:12px;color:#ef4444;margin-top:6px"></div>
+    <p style="text-align:center;font-size:12px;color:#00f0ff;margin-top:10px">Offers are protected by ODSMALL SafePay — 100% secure payment</p>
+  </div>
+
+  <!-- JOIN - PHOTO 3 -->
+  <div id="join" class="page">
+    <h2 style="text-align:center;color:#00f0ff;margin-top:16px;font-family:'Orbitron';font-size:24px">Join ODSMALL</h2>
+    <p style="text-align:center;color:#94a3b8">Create your account • Secure & private</p>
+    <div class="field"><label>Email Address</label><input placeholder="✉️ you@example.com"></div>
+    <div class="field"><label>Username</label><input placeholder="👤 choose a username"></div>
+    <div class="field"><label>Password</label><input type="password" placeholder="🔒 ••••••••"></div>
+    <div class="row2">
+      <div class="field"><label>Age</label><input placeholder="📅 25"></div>
+      <div class="field"><label>Location</label><input placeholder="📍 City, Country"></div>
+    </div>
+    <div class="field"><label>About</label><small style="color:#94a3b8">About — skills (up to 500 words)</small><textarea placeholder="Describe your skills, interests, experience... up to 500 words"></textarea><div style="text-align:right;font-size:11px;color:#94a3b8">0/500</div></div>
+    <div style="border:1px solid #00f0ff;border-radius:999px;padding:10px;text-align:center;font-size:12px">ⓘ Filter Active • No phone links allowed</div>
+    <button class="btn btn-grad" onclick="alert('Account Created! Welcome to ODSMALL')">Create Account</button>
+    <button class="btn btn-outline" onclick="alert('Login - Demo')">Login</button>
+    <button class="btn btn-outline" onclick="showPage('home')">Guest Browse →</button>
+    <p style="text-align:center;font-size:11px;color:#94a3b8;margin-top:10px">By creating an account you agree to ODSMALL's Terms & Privacy Policy</p>
+  </div>
+
+  <!-- WALLET - PHOTO 4 -->
+  <div id="wallet" class="page">
+    <h2 style="text-align:center;color:#00f0ff;margin-top:16px">Connect Wallet</h2>
+    <p style="text-align:center;color:#94a3b8">Choose a wallet to connect to ODSMALL</p>
+    <div class="wallet-opt active" onclick="selectWallet(this)"><span>👻 Phantom</span><span>→</span></div>
+    <div class="wallet-opt" onclick="selectWallet(this)"><span>☀️ Solflare</span><span>→</span></div>
+    <div class="wallet-opt" onclick="selectWallet(this)"><span>🎒 Backpack</span><span>→</span></div>
+    <p style="text-align:center;color:#94a3b8;margin-top:14px">or</p>
+    <p style="text-align:center;color:#00f0ff">Manual Wallet Address</p>
+    <div class="field"><input placeholder="Enter wallet address..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+      <button class="btn btn-outline" onclick="showPage('home')">Cancel</button>
+      <button class="btn btn-grad" onclick="alert('Wallet Connected!')">Connect</button>
+    </div>
+  </div>
+
+  <!-- SUPPORT - PHOTO 2 -->
+  <div id="support" class="page">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px"><h2>Support & <span style="color:#00f0ff">About Us</span></h2><span>⚙️</span></div>
+    <div class="card"><span style="background:#a855f7;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800">ABOUT ODSMALL</span><p style="margin-top:10px">ODSMALL is the secure marketplace for small businesses & creators. We protect every trade with escrow, verified users, and instant support. Built for trust, speed, and safety.</p></div>
+    <div class="card"><h2>🤝 How Escrow Works</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;text-align:center;font-size:11px"><div>● Buyer pays →<br><small>Funds held securely</small></div><div>● Seller delivers →<br><small>You confirm receipt</small></div><div>● Funds released →<br><small>Deal complete</small></div></div><button class="btn btn-cyan" onclick="showPage('chat')">💬 Support Chat</button></div>
+    <h3 style="margin-top:16px">FAQ <span style="float:right;color:#a855f7;font-size:12px">3 questions</span></h3>
+    <div class="faq" onclick="this.classList.toggle('open')"><b>✓ What is Trust Score?</b><p>Trust Score is your reliability rating. It increases with completed trades, positive reviews, and verified ID.<br><small>Current: 98 • Excellent</small></p></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><b>How long are funds held in escrow? →</b><p>Funds are held until buyer confirms delivery, usually 48 hours. If no dispute, auto-release.</p></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><b>Can I cancel an order? →</b><p>Yes, before seller starts work. After that, dispute via Support Chat.</p></div>
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>🛡 Report Issue</b><p>Report fraud, dispute, or suspicious activity</p></div><span>→</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"><button class="btn btn-outline">Terms</button><button class="btn btn-outline" style="border-color:#a855f7;color:#c084fc">Privacy</button></div>
+    <p style="text-align:center;margin-top:12px">✉️ Contact Support<br><small style="color:#94a3b8">support@odsmall.com • 24/7 response</small></p>
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>🛡 Trust Score Explanation</b><p>Based on 1,240 secure trades • Updated today</p></div><span>ⓘ</span></div>
+  </div>
+
 </div>
 
-<div class="grid">
-  <div class="box">
-    <h2>🛒 Dukan - Khareedo</h2>
-    <p>Website Template, Logo, Video, Photo - sab ready hai. Pasand karo, khareedo, download karo.</p>
-    <div class="price">Rs. 999 se shuru</div>
-    <button class="btn-black" onclick="alert('Dukan khul gayi - Abhi 12 cheezein hain')">Dukan Dekho →</button>
-  </div>
-  <div class="box">
-    <h2>🎨 Kaam Karwao</h2>
-    <p>Kisi se kaam karwana hai? Logo banwana hai? Website banwani hai? Banda dhoondo, baat karo, kaam karwao.</p>
-    <div class="price">Rs. 500 se shuru</div>
-    <button class="btn-blue" onclick="alert('Kaam wale log - 8 log online hain')">Banda Dhoondo →</button>
-  </div>
-  <div class="box">
-    <h2>💰 Apna Kaam Becho</h2>
-    <p>Tumhe kuch aata hai? Logo banana, Video banana, Website banana? Yahan apna kaam daalo, log khareedenge, tum kamaoge.</p>
-    <div class="price">Tumhari Marzi Ka Rate</div>
-    <button class="btn-purple" onclick="alert('Apna kaam daalo - 2 minute me live ho jayega')">Kaam Daalo →</button>
-  </div>
-  <div class="box">
-    <h2>📚 Seekho</h2>
-    <p>Video dekh ke seekho - Website banana, Logo banana, Paise kamana. Bilkul asaan zubaan me.</p>
-    <div class="price">FREE - Muft</div>
-    <button class="btn-green" onclick="alert('Seekhne wali videos - 5 videos ready hain')">Seekhna Shuru Karo →</button>
-  </div>
-</div>
-
-<div class="section">
-  <h2>🔥 Aaj Sab Se Zyada Bika</h2>
-  <div class="list"><div><b>Business Website Template</b><br><small>Ahmed ne banaya • 120 logon ne khareeda</small></div><span>Rs. 1,499</span></div>
-  <div class="list"><div><b>Logo Pack - 10 Logo</b><br><small>Sara ne banaya • 89 logon ne khareeda</small></div><span>Rs. 999</span></div>
-  <div class="list"><div><b>Intro Video - 30 Second</b><br><small>Ali ne banaya • 67 logon ne khareeda</small></div><span>Rs. 1,999</span></div>
-</div>
-
-<footer>
-  <b style="color:#fff;font-size:16px">ODSMALL</b><br>
-  Banaya - Babbar Sher Spark 6 ne<br>
-  Poori Duniya - Ek Website Me
-</footer>
-
-<!-- Drag Light - Isko khainch ke kahin bhi le jao -->
-<div id="light">✦</div>
-<div id="menu">
-  <button onclick="alert('Dukan')">🛒 Dukan</button>
-  <button onclick="alert('Kaam Karwao')">🎨 Kaam Karwao</button>
-  <button onclick="alert('Apna Kaam Becho')">💰 Becho</button>
-  <button onclick="alert('Seekho')">📚 Seekho</button>
-  <button onclick="alert('Chat')">💬 Chat</button>
+<!-- BOTTOM NAV - LIKE YOUR PHOTO -->
+<div class="bottom">
+  <button class="active" onclick="showPage('home',this)">🏠<span>Home</span></button>
+  <button onclick="showPage('market',this)">🔍<span>Search</span></button>
+  <button onclick="showPage('creator',this)"><span class="plus">+</span><span>Plus</span></button>
+  <button onclick="showPage('product',this)">❤️<span>Favorites</span></button>
+  <button onclick="showPage('join',this)">👤<span>Profile</span></button>
 </div>
 
 <script>
-  // Search
-  function doSearch(v){
-    const r = document.getElementById('searchResult');
-    if(!v){ r.innerText=''; return; }
-    const all = ['Business Website Template - Rs.1499','Logo Pack - Rs.999','Intro Video - Rs.1999','Portfolio Website - Rs.1299'];
-    const found = all.filter(x=>x.toLowerCase().includes(v.toLowerCase()));
-    r.innerText = found.length ? 'Mila: ' + found.join(' | ') : 'Nahi mila - Lekin hum bana denge, Chat karo';
+  function showPage(id, btn){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+    document.getElementById(id).classList.add('show');
+    document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+    if(btn && btn.classList.contains('tabs')) btn.classList.add('active');
+    // Sync tabs
+    const map={home:0,market:1,creator:2,product:3,chat:4,join:5,support:6};
+    const tabs=document.querySelectorAll('.tabs button');
+    if(map[id]!==undefined) tabs[map[id]].classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
   }
-  // Drag Light
-  const light = document.getElementById('light');
-  let drag=false, sx, sy, ox, oy, moved=false;
-  light.addEventListener('pointerdown', e=>{ drag=true; moved=false; sx=e.clientX; sy=e.clientY; ox=light.offsetLeft; oy=light.offsetTop; light.setPointerCapture(e.pointerId); });
-  light.addEventListener('pointermove', e=>{
-    if(!drag) return;
-    const dx=e.clientX-sx, dy=e.clientY-sy;
-    if(Math.abs(dx)>5||Math.abs(dy)>5) moved=true;
-    light.style.left = Math.max(10, Math.min(window.innerWidth-66, ox+dx))+'px';
-    light.style.top = Math.max(70, Math.min(window.innerHeight-66, oy+dy))+'px';
-    light.style.right='auto'; light.style.bottom='auto';
-  });
-  light.addEventListener('pointerup', ()=>{
-    drag=false;
-    if(!moved){
-      const m=document.getElementById('menu');
-      m.style.display = m.style.display==='block' ? 'none' : 'block';
-      m.style.right='18px'; m.style.bottom='84px';
-    }
-  });
-  // Language - English / Urdu
-  let isUrdu=false;
-  function toggleLang(){
-    isUrdu=!isUrdu;
-    document.getElementById('lang').innerText = isUrdu ? 'UR' : 'EN';
-    if(isUrdu){
-      document.querySelector('.hero h1').innerHTML='Poori Duniya,<br><span>Ek Website Me.</span>';
-      document.getElementById('search').placeholder='Kya chahiye? Yahan likho...';
-      alert('Urdu Mode ON - Ab sab Urdu me dikhega (Demo)');
+  function doSearch(v){
+    const o=document.getElementById('searchOut');
+    if(!v){o.innerText='';return;}
+    const items=['SaaS Dashboard Template - 45 USDC','Web3 Marketing Guide - 12.50 USDC','React & Solana Bootcamp - 120 USDC','Nova Sneakers #1024 - 125.50 USDC'];
+    const f=items.filter(x=>x.toLowerCase().includes(v.toLowerCase()));
+    o.innerText=f.length?'Found: '+f.join(' | '):'No result - Try SaaS, Web3, React';
+  }
+  function selectWallet(el){
+    document.querySelectorAll('.wallet-opt').forEach(o=>o.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function checkFilter(v){
+    const m=document.getElementById('filterMsg');
+    if(v.includes('@')||v.includes('030')||v.includes('whatsapp')||v.includes('http')||v.includes('.com')){
+      m.innerText='⚠️ Blocked: Contact attempt detected - Phone / Email / WhatsApp not allowed';
+    } else m.innerText='';
+  }
+  function sendOffer(){
+    const v=document.getElementById('chatInput').value;
+    if(!v) return alert('Type a message first');
+    if(v.includes('@')||v.includes('030')||v.includes('whatsapp')){
+      alert('Blocked: Contact attempt detected');
     } else {
-      alert('English Mode ON');
+      alert('Offer Sent! Protected by ODSMALL SafePay');
+      document.getElementById('chatInput').value='';
     }
   }
 </script>
