@@ -3,23 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ODSmall</title>
+<title>ODSmall - 6 Stages</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#030014;color:#fff;font-family:Arial,sans-serif;padding-bottom:80px}
+.top{text-align:center;padding:28px 16px 10px;background:radial-gradient(circle at 50% 0%,#1a0033,#030014 70%)}
+.top h1{font-size:52px;margin:0;background:linear-gradient(90deg,#fff,#00E5FF,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+.top p{color:#00E5FF;letter-spacing:2px;font-size:11px;font-weight:bold}
+.top small{color:#aaa}
+.nav{position:sticky;top:0;z-index:20;background:#0a0a1a;padding:10px;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid #222}
+.nav button{white-space:nowrap;background:#1a1a2e;color:#fff;border:1px solid #333;padding:9px 14px;border-radius:20px;cursor:pointer}
+.nav button.active{background:#00E5FF;color:#000;font-weight:bold}
+.wrap{max-width:1100px;margin:auto;padding:16px}
+.search{width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#111;color:#fff}
+.cats{display:flex;gap:8px;overflow-x:auto;margin:14px 0}
+.cats button{background:#1a1a2e;color:#fff;border:1px solid #333;padding:8px 14px;border-radius:20px;cursor:pointer;white-space:nowrap}
+.cats button.active{background:#8B5CF6}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+@media(max-width:750px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+.phone{border:2px solid #00E5FF;border-radius:24px;padding:14px;background:linear-gradient(180deg,#0a0a1a,#050010);box-shadow:0 0 20px rgba(0,229,255,.25);position:relative;overflow:hidden}
+.phone.violet{border-color:#8B5CF6;box-shadow:0 0 20px rgba(139,92,246,.35)}
+.phone h3{margin:8px 0;font-size:16px}
+.phone p{color:#aaa;font-size:12px;line-height:1.5}
+.step{ text-align:center;font-weight:bold;margin-top:12px;font-size:15px}
+.pill{display:inline-block;background:#00E5FF;color:#000;font-size:10px;font-weight:bold;padding:4px 8px;border-radius:20px}
+.pill2{display:inline-block;background:#8B5CF6;color:#fff;font-size:10px;font-weight:bold;padding:4px 8px;border-radius:20px}
+.card{background:#111;border:1px solid #222;border-radius:14px;padding:12px;margin:10px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card b{font-size:13px}
+.card small{color:#aaa}
+.btn{background:#00E5FF;color:#000;border:none;padding:8px 12px;border-radius:8px;font-weight:bold;cursor:pointer;white-space:nowrap}
+.btn2{background:#8B5CF6;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:bold;cursor:pointer;white-space:nowrap}
+.btn-off{background:#333;color:#aaa;border:none;padding:8px 12px;border-radius:8px;font-weight:bold;cursor:pointer;white-space:nowrap}
+.freel{display:flex;gap:8px;margin-top:10px}
+.freel div{flex:1;background:#111;border-radius:12px;padding:8px;text-align:center;font-size:11px}
+.freel img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.avatar{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.chatbox{background:#111;border-radius:12px;padding:10px;min-height:180px}
+.msg{padding:8px 10px;border-radius:12px;margin:6px 0;font-size:13px;max-width:85%}
+.me{background:#8B5CF6;margin-left:auto}
+.other{background:#222}
+input{width:100%;padding:11px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin-top:8px}
+.support{border:1px solid #00E5FF;border-radius:14px;padding:14px;text-align:center;margin-top:14px;background:#08131a}
+.support a{color:#00E5FF;font-weight:bold;word-break:break-all}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:99;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modalBox{background:#0a0a1a;border:2px solid #FF9800;border-radius:18px;padding:20px;max-width:420px;width:100%;text-align:center}
+.modalBox h3{color:#FF9800}
+.badge-escrow{display:inline-block;background:#FF9800;color:#000;font-size:10px;font-weight:bold;padding:4px 8px;border-radius:20px;margin-top:6px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a1a;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px;z-index:30}
+.bottom button{background:none;border:none;color:#aaa;font-size:12px;cursor:pointer}
+.bottom button.active{color:#00E5FF;font-weight:bold}
+.page{display:none}
+.page.active{display:block}
+</style>
 </head>
-<body style="margin:0; background:#000;">
-<!-- ODSMALL - 6 STAGES SECTION - FINAL V2 -->
-<section style="background:#000; padding:50px 16px; font-family:Arial,sans-serif;">
-<p style="text-align:center; color:#00E5FF; letter-spacing:3px; font-size:12px; font-weight:bold; margin:0;">FROM DISCOVERY TO PAYOUT — SEAMLESS</p>
-<h2 style="text-align:center; color:#fff; font-size:32px; margin:10px 0 5px;">Explore The <span style="color:#00E5FF;">Experience</span></h2>
-<p style="text-align:center; color:#aaa; font-size:14px; margin:0 0 30px;">6 STAGES • FROM DISCOVERY TO PAYOUT — SEAMLESS</p>
-<div style="display:grid; gap:16px; max-width:900px; margin:0 auto;">
-<div style="background:#0a0a12; border:1px solid #00E5FF; border-radius:16px; padding:20px;"><span style="color:#00E5FF; font-size:12px; font-weight:bold;">STEP 1 • HOME</span><h3 style="color:#fff;">Market Hub / Creator Hub</h3><p style="color:#ccc; font-size:14px;">Categories: Design, Development, Marketing, Video<br>Top Freelancers: Alex, Mia, Noah</p></div>
-<div style="background:#0a0a12; border:1px solid #8B5CF6; border-radius:16px; padding:20px;"><span style="color:#8B5CF6; font-size:12px; font-weight:bold;">STEP 2 • MARKET HUB</span><h3 style="color:#fff;">Buy Ready Products</h3><p style="color:#ccc; font-size:14px;">Logo Design Pack - 50 USDC • Website Template - 120 USDC • Social Media Kit - 35 USDC<br><b style="color:#00E5FF;">[ BUY ]</b></p></div>
-<div style="background:#0a0a12; border:1px solid #00E5FF; border-radius:16px; padding:20px;"><span style="color:#00E5FF; font-size:12px; font-weight:bold;">STEP 3 • CREATOR PROFILE</span><h3 style="color:#fff;">Jordan Lee - UI/UX Designer 4.9 ★</h3><p style="color:#ccc; font-size:14px;">Custom UI Design - Starting at 80 USDC<br>Products: Icon Set Pack, Design System Template</p></div>
-<div style="background:#0a0a12; border:1px solid #8B5CF6; border-radius:16px; padding:20px;"><span style="color:#8B5CF6; font-size:12px; font-weight:bold;">STEP 4 • CHAT</span><h3 style="color:#fff;">ODS SUPPORT • Pinned</h3><p style="color:#ccc; font-size:14px;">Order #1248 - Chat me kaam, Support hamesha upar rahega.</p></div>
-<div style="background:#0a0a12; border:1px solid #00E5FF; border-radius:16px; padding:20px;"><span style="color:#00E5FF; font-size:12px; font-weight:bold;">STEP 5 • WALLET</span><h3 style="color:#fff;">Balance: 1,240.50 USDC</h3><p style="color:#ccc; font-size:14px;">[ CONNECT WALLET ]<br>History: Logo Pack, Payout, Website Template</p></div>
-<div style="background:#0a0a12; border:1px solid #8B5CF6; border-radius:16px; padding:20px;"><span style="color:#8B5CF6; font-size:12px; font-weight:bold;">STEP 6 • PROFILE</span><h3 style="color:#fff;">You - MASTER Badge • Score 980</h3><p style="color:#ccc; font-size:14px;">Orders 24 • Reviews 4.9 ★<br>My Orders: #1248 In Progress, #1201 Completed</p></div>
+<body>
+
+<div class="top">
+<h1>ODSmall</h1>
+<p>6 STAGES • FROM DISCOVERY TO PAYOUT — SEAMLESS</p>
+<small>Listing Open • Selling / Escrow Coming Soon</small>
 </div>
-<div style="max-width:900px; margin:30px auto 0; border:1px solid #00E5FF; border-radius:12px; padding:16px; text-align:center;"><b style="color:#00E5FF;">ODSmall PROMISE</b><p style="color:#fff; font-size:13px;">If a rule is broken, it is a bug, not a feature.</p></div>
-</section>
+
+<div class="nav" id="topNav">
+<button onclick="show('home')" id="b-home" class="active">Home</button>
+<button onclick="show('market')" id="b-market">Market Hub</button>
+<button onclick="show('creator')" id="b-creator">Creator</button>
+<button onclick="show('chat')" id="b-chat">Chat</button>
+<button onclick="show('wallet')" id="b-wallet">Wallet</button>
+<button onclick="show('profile')" id="b-profile">Profile</button>
+</div>
+
+<div class="wrap">
+
+<!-- HOME = STEP 1 -->
+<div id="home" class="page active">
+<input id="searchInput" class="search" placeholder="Search products... e.g. Logo, Website" oninput="doSearch()">
+<div class="cats" id="catBar">
+<button onclick="setCat('All')" class="active">All</button>
+<button onclick="setCat('Design')">Design</button>
+<button onclick="setCat('Development')">Development</button>
+<button onclick="setCat('Marketing')">Marketing</button>
+<button onclick="setCat('Video')">Video</button>
+</div>
+<div class="grid">
+
+<!-- STEP 1 PHONE -->
+<div><div class="phone">
+<span class="pill">MARKET HUB</span> <span class="pill2">CREATOR HUB</span>
+<h3>Categories</h3>
+<div class="freel"><div>🎨<br>Design</div><div>💻<br>Development</div><div>📣<br>Marketing</div><div>🎬<br>Video</div></div>
+<h3>Top Freelancers</h3>
+<div class="freel"><div><img src="https://i.pravatar.cc/100?img=12"><br>Alex R.<br>4.9 ★<br>Brand Designer</div><div><img src="https://i.pravatar.cc/100?img=47"><br>Mia K.<br>4.8 ★<br>Web Designer</div><div><img src="https://i.pravatar.cc/100?img=33"><br>Noah T.<br>5.0 ★<br>Copywriter</div></div>
+</div><div class="step">Step 1 • Home</div></div>
+
+<!-- STEP 2 PHONE -->
+<div><div class="phone violet">
+<h3>Market Hub</h3><p>Product List - Listing Open</p>
+<div id="marketMini"></div>
+<p>BUY abhi Escrow ki wajah se band hai. Listing dekh sakte ho.</p>
+</div><div class="step">Step 2 • Market Hub</div></div>
+
+<!-- STEP 3 PHONE -->
+<div><div class="phone">
+<h3>Creator Profile</h3>
+<div style="display:flex;gap:10px;align-items:center"><img class="avatar" src="https://i.pravatar.cc/100?img=13"><div><b>Jordan Lee</b><br><small>UI/UX Designer • 4.9 ★</small></div></div>
+<h3>Custom Services <span class="pill2">ORDER</span></h3>
+<div class="card"><div><b>Custom UI Design</b><br><small>Starting at 80 USDC</small></div><button class="btn-off" onclick="openEscrowModal('Custom UI Design')">BUY</button></div>
+<h3>Products</h3>
+<div class="card"><div><b>Icon Set Pack</b><br><small>25 USDC</small></div><button class="btn-off" onclick="openEscrowModal('Icon Set Pack')">BUY</button></div>
+<div class="card"><div><b>Design System Template</b><br><small>90 USDC</small></div><button class="btn-off" onclick="openEscrowModal('Design System Template')">BUY</button></div>
+</div><div class="step">Step 3 • Creator Profile</div></div>
+
+<!-- STEP 4 PHONE -->
+<div><div class="phone violet">
+<h3>Chat</h3>
+<div style="background:#00E5FF;color:#000;padding:8px;border-radius:10px;font-size:12px;font-weight:bold">✦ ODS SUPPORT • Pinned</div>
+<div class="chatbox" id="chatBoxHome">
+<div class="msg other"><b>ODS SUPPORT</b><br>Hi! How can we help you today?</div>
+<div class="msg me">I need help with my order #1248</div>
+<div class="msg other"><b>ODS SUPPORT</b><br>Sure, checking your order now...</div>
+</div>
+<input id="chatInputHome" placeholder="Type a message...">
+<button class="btn" style="width:100%;margin-top:8px" onclick="sendChat('home')">SEND</button>
+</div><div class="step">Step 4 • Chat</div></div>
+
+<!-- STEP 5 PHONE -->
+<div><div class="phone">
+<h3>Wallet</h3>
+<button class="btn" style="width:100%" onclick="connectWallet()">CONNECT WALLET</button>
+<p id="walletStatus" style="color:#00E5FF">Not Connected - Demo Mode</p>
+<h2 style="margin:5px 0">1,240.50 <small>USDC</small></h2>
+<p>Balance (Display Only)</p>
+<h3>History</h3>
+<div class="card"><div><b>- 50 USDC • Logo Design Pack</b><br><small>Sep 12</small></div><span>›</span></div>
+<div class="card"><div><b>+ 200 USDC • Payout</b><br><small>Sep 10</small></div><span>›</span></div>
+<div class="card"><div><b>- 120 USDC • Website Template</b><br><small>Sep 09</small></div><span>›</span></div>
+<div class="badge-escrow">🔒 ESCROW SLOT - YAHAN ESCROW AAYEGA</div>
+<div id="escrowSlot" style="background:#1a1200;border:1px dashed #FF9800;border-radius:12px;padding:12px;margin-top:10px;font-size:12px;color:#FFCC80">Escrow System: Coming Soon<br>Is jaga pe baad me Payment + Escrow add kar denge.<br>Abhi BUY band hai.</div>
+</div><div class="step">Step 5 • Wallet</div></div>
+
+<!-- STEP 6 PHONE -->
+<div><div class="phone violet">
+<h3>Profile</h3>
+<div style="display:flex;gap:10px;align-items:center"><img class="avatar" src="https://i.pravatar.cc/100?img=59"><div><b>You</b><br><span class="pill2">✦ MASTER</span> Score 980</div></div>
+<div class="freel"><div><b>Orders<br>24</b></div><div><b>Reviews<br>4.9 ★</b></div><div><b>Member<br>Sep 2024</b></div></div>
+<h3>My Orders</h3>
+<div class="card" style="border-color:#8B5CF6"><div><b>Order #1248 • In Progress</b></div></div>
+<div class="card" style="border-color:#00E5FF"><div><b>Order #1201 • Completed</b></div></div>
+<p>⚙️ Account Settings</p>
+</div><div class="step">Step 6 • Profile</div></div>
+
+</div>
+
+<div class="support">
+<b>📧 SUPPORT</b><br>
+<a href="mailto:odsmall.support@gmail.com?subject=ODSmall Support">odsmall.support@gmail.com</a><br>
+<small style="color:#aaa">Koi bhi masla ho to is email pe likho. 24h me jawab milega.</small><br>
+<a href="mailto:odsmall.support@gmail.com"><button class="btn" style="margin-top:10px">EMAIL SUPPORT</button></a>
+</div>
+
+</div>
+
+<!-- MARKET PAGE -->
+<div id="market" class="page"><div class="wrap"><h2>Market Hub - Full Listing</h2><p style="color:#aaa">Sab products listing me hain. BUY abhi band hai - Escrow slot reserved hai.</p><div id="marketFull"></div></div></div>
+
+<!-- CREATOR PAGE -->
+<div id="creator" class="page"><div class="wrap"><h2>Creator Hub</h2><div id="creatorFull"></div></div></div>
+
+<!-- CHAT PAGE -->
+<div id="chat" class="page"><div class="wrap"><h2>Chat / Support</h2>
+<div class="support"><b>ODS SUPPORT • Pinned</b><br><a href="mailto:odsmall.support@gmail.com">odsmall.support@gmail.com</a></div>
+<div class="chatbox" id="chatBoxPage" style="margin-top:12px"><div class="msg other"><b>ODS SUPPORT</b><br>Hi! How can we help you today?</div></div>
+<input id="chatInputPage" placeholder="Type a message..."><button class="btn" style="width:100%;margin-top:8px" onclick="sendChat('page')">SEND</button>
+</div></div>
+
+<!-- WALLET PAGE -->
+<div id="wallet" class="page"><div class="wrap"><h2>Wallet</h2><div class="card"><div><b>Balance: 1,240.50 USDC</b><br><small>Display Only - Real payment baad me</small></div><button class="btn" onclick="connectWallet()">CONNECT WALLET</button></div>
+<div id="escrowSlot2" style="background:#1a1200;border:1px dashed #FF9800;border-radius:12px;padding:14px;font-size:13px;color:#FFCC80"><b>🔒 ESCROW PLACEHOLDER</b><br>Yahan Escrow System aayega.<br>File me is jagah ko <b>ESCROW_SLOT</b> likh ke chhoda hai taake baad me aasani se add ho jaye.</div>
+</div></div>
+
+<!-- PROFILE PAGE -->
+<div id="profile" class="page"><div class="wrap"><h2>Profile</h2><p>You - MASTER • Score 980 • Support: <a href="mailto:odsmall.support@gmail.com" style="color:#00E5FF">odsmall.support@gmail.com</a></p><div class="card"><div><b>Order #1248 - In Progress</b></div></div><div class="card"><div><b>Order #1201 - Completed</b></div></div></div></div>
+
+</div>
+
+<!-- ESCROW MODAL -->
+<div class="modal" id="escrowModal"><div class="modalBox">
+<h3>🔒 BUY Abhi Band Hai</h3>
+<p style="font-size:14px;color:#ccc">Ye product listing me hai, lekin <b>Payment + Escrow</b> abhi nahi bana.<br><br>Isliye BUY button kaam nahi karega.<br><br><b>ESCROW_SLOT</b> pe kaam chal raha hai.</p>
+<p style="font-size:13px">Madad chahiye? <a href="mailto:odsmall.support@gmail.com" style="color:#00E5FF">odsmall.support@gmail.com</a></p>
+<button class="btn" onclick="closeEscrowModal()">SAMAJH GAYA</button>
+<a href="mailto:odsmall.support@gmail.com?subject=Escrow Kab Aayega?"><button class="btn2" style="margin-top:8px">SUPPORT KO EMAIL KARO</button></a>
+</div></div>
+
+<div class="bottom">
+<button onclick="show('home')" id="bb-home" class="active">🏠 Home</button>
+<button onclick="show('market')" id="bb-market">🛒 Market</button>
+<button onclick="show('chat')" id="bb-chat">💬 Chat</button>
+<button onclick="show('wallet')" id="bb-wallet">👛 Wallet</button>
+<button onclick="show('profile')" id="bb-profile">👤 Profile</button>
+</div>
+
+<script>
+let products=[
+{name:"Logo Design Pack",price:50,cat:"Design"},
+{name:"Website Template",price:120,cat:"Development"},
+{name:"Social Media Kit",price:35,cat:"Marketing"},
+{name:"Video Intro Pack",price:60,cat:"Video"},
+{name:"Icon Set Pack",price:25,cat:"Design"},
+{name:"Design System Template",price:90,cat:"Design"},
+];
+let currentCat='All';
+function show(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+let nb=document.getElementById('b-'+id); if(nb) nb.classList.add('active');
+document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));
+let bb=document.getElementById('bb-'+id); if(bb) bb.classList.add('active');
+window.scrollTo(0,0);
+}
+function setCat(c){
+currentCat=c;
+document.querySelectorAll('#catBar button').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+renderAll();
+}
+function doSearch(){renderAll();}
+function filtered(){
+let q=(document.getElementById('searchInput')?.value||'').toLowerCase();
+return products.filter(p=>(currentCat=='All'||p.cat==currentCat)&&(p.name.toLowerCase().includes(q)));
+}
+function cardHTML(p){
+return `<div class="card"><div><b>${p.name}</b><br><small>${p.price} USDC • ${p.cat} • Listing Open</small><br><span class="badge-escrow">ESCROW COMING SOON</span></div><button class="btn-off" onclick="openEscrowModal('${p.name}')">BUY</button></div>`;
+}
+function renderAll(){
+let list=filtered();
+document.getElementById('marketMini').innerHTML=list.slice(0,3).map(cardHTML).join('');
+document.getElementById('marketFull').innerHTML=list.map(cardHTML).join('')||'<p>No result</p>';
+document.getElementById('creatorFull').innerHTML=products.map(cardHTML).join('');
+}
+function openEscrowModal(name){
+document.getElementById('escrowModal').classList.add('open');
+}
+function closeEscrowModal(){document.getElementById('escrowModal').classList.remove('open');}
+function connectWallet(){
+document.getElementById('walletStatus').innerText="Wallet Connect: Coming Soon - Escrow ke sath aayega. Support: odsmall.support@gmail.com";
+alert("Wallet Connect abhi Demo hai. Real Wallet + Escrow, ESCROW_SLOT me baad me add hoga. Support: odsmall.support@gmail.com");
+}
+function sendChat(where){
+let inp=where=='home'?document.getElementById('chatInputHome'):document.getElementById('chatInputPage');
+let box=where=='home'?document.getElementById('chatBoxHome'):document.getElementById('chatBoxPage');
+let v=inp.value.trim(); if(!v) return;
+box.innerHTML+=`<div class="msg me">${v}</div>`; inp.value='';
+setTimeout(()=>{box.innerHTML+=`<div class="msg other"><b>ODS SUPPORT</b><br>Sure, checking your order now... Agar urgent hai to email karo: odsmall.support@gmail.com</div>`},700);
+}
+renderAll();
+</script>
 </body>
 </html>
