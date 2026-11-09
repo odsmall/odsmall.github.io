@@ -1,109 +1,333 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ODSMALL - Pro</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ODSMALL X - Alien Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
-:root{--cyan:#00E5FF;--purple:#A855F7;--bg:#05050A;--card:#0D0D1A}
-body{background:var(--bg);color:#fff;min-height:100vh;padding-bottom:96px;background-image:radial-gradient(600px 300px at 0% 0%,rgba(0,229,255,.12),transparent),radial-gradient(600px 400px at 100% 20%,rgba(168,85,247,.18),transparent),radial-gradient(400px 300px at 50% 100%,rgba(168,85,247,.10),transparent)}
-/* LOGO */
-.logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:22px;letter-spacing:.5px;white-space:nowrap;cursor:pointer}
-.logo .hex{width:32px;height:32px;background:linear-gradient(135deg,var(--cyan),var(--purple));clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);display:flex;align-items:center;justify-content:center;font-size:18px}
-.logo i{font-style:normal;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-/* NEON CARD - CUT CORNER */
-.neon{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid rgba(0,229,255,.45);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);box-shadow:0 0 22px rgba(0,229,255,.18),inset 0 0 22px rgba(168,85,247,.08)}
-.neon-purple{border-color:rgba(168,85,247,.55);box-shadow:0 0 22px rgba(168,85,247,.25)}
-.neon-yellow{border-color:rgba(245,158,11,.7);box-shadow:0 0 18px rgba(245,158,11,.2)}
-.neon-red{border-color:rgba(239,68,68,.7);box-shadow:0 0 18px rgba(239,68,68,.25)}
-.btn-grad{background:linear-gradient(90deg,var(--cyan),var(--purple));color:#000;font-weight:900;border:none;box-shadow:0 0 22px rgba(168,85,247,.45);cursor:pointer}
-.btn-grad:hover{filter:brightness(1.1)}
-.btn-ghost{background:transparent;color:var(--cyan);border:1px solid var(--cyan);cursor:pointer}
-.top{position:sticky;top:0;z-index:90;background:rgba(5,5,10,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,229,255,.25);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.top .searchTop{display:none;flex:1;max-width:480px}
-@media(min-width:900px){.top .searchTop{display:flex}}
-.searchTop input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(168,85,247,.5);color:#fff;padding:11px 14px;border-radius:999px;outline:none}
-.wrap{max-width:1180px;margin:0 auto;padding:16px}
-.hero{padding:10px 0 14px}.hero h1{font-size:34px;line-height:1.05;font-weight:900}.hero h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hubs{display:grid;grid-template-columns:1fr;gap:14px}
-@media(min-width:720px){.hubs{grid-template-columns:1fr 1fr}.hero h1{font-size:48px}}
-.hub{padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer}
-.hub .ic{width:68px;height:68px;flex-shrink:0;border:1px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:32px;background:rgba(0,229,255,.08);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
-.hub h2{font-size:20px;color:var(--cyan)}.hub.purple h2{color:#C084FC}.hub p{font-size:12px;color:#9CA3AF;margin-top:4px}
-.cats{display:flex;gap:8px;overflow:auto;padding:8px 0;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
-.cat{white-space:nowrap;padding:9px 16px;border-radius:999px;border:1px solid rgba(168,85,247,.5);background:rgba(255,255,255,.03);font-size:13px;cursor:pointer}.cat.active{background:var(--cyan);color:#000;font-weight:800;border-color:var(--cyan);box-shadow:0 0 16px rgba(0,229,255,.5)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{overflow:hidden;cursor:pointer;background:rgba(255,255,255,.04)}
-.card .img{height:148px;display:flex;align-items:center;justify-content:center;font-size:56px;background:linear-gradient(135deg,#0F172A,#1E1B4B,#0E7490);position:relative}
-.card .img img{width:100%;height:100%;object-fit:cover}
-.card .body{padding:14px}.card h3{font-size:14px;line-height:1.35;min-height:38px}
-.price{color:var(--cyan);font-weight:900}.trust{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.65);border:1px solid rgba(0,229,255,.5);padding:4px 8px;font-size:11px;border-radius:999px;backdrop-filter:blur(6px)}
-.trust b{color:var(--cyan)}
-.page{display:none}.page.active{display:block}
-.box{padding:16px;margin-top:14px}.box h3{margin-bottom:8px}.box li{margin-left:18px;color:#CBD5E1;font-size:13px;line-height:1.9}
-.detailImg{height:240px;border-radius:4px;overflow:hidden;background:linear-gradient(135deg,#0F172A,#4C1D95,#0891B2);display:flex;align-items:center;justify-content:center;font-size:70px;border:1px solid rgba(0,229,255,.4)}
-.detailImg img{width:100%;height:100%;object-fit:cover}
-.form input,.form textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(168,85,247,.55);color:#fff;padding:13px 14px;border-radius:4px;margin-top:8px;outline:none;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}.form label{font-size:12px;color:#fff;font-weight:700;margin-top:14px;display:block}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tiers{display:flex;gap:12px;overflow:auto;padding:10px 2px}.tier{min-width:175px;padding:16px}.tier.pop{border-color:var(--cyan);box-shadow:0 0 24px rgba(0,229,255,.3)}.tier .p{font-size:26px;font-weight:900;color:var(--cyan);margin:8px 0}.tier p{font-size:12px;color:#CBD5E1;line-height:1.6}
-.chatBox{height:320px;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:12px;background:rgba(0,0,0,.3)}
-.msg{max-width:82%;padding:12px 14px;font-size:13px;line-height:1.55;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
-.msg.me{align-self:flex-end;background:linear-gradient(135deg,#7C3AED,#00E5FF);color:#fff}
-.msg.them{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(0,229,255,.4)}
-.chatInput{display:flex;gap:8px;margin-top:12px;align-items:center;padding:12px;background:rgba(255,255,255,.04);border:1px solid rgba(0,229,255,.5);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
-.chatInput input{flex:1;background:transparent;border:none;color:#fff;outline:none;padding:8px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,18,.95);backdrop-filter:blur(16px);border-top:1px solid rgba(0,229,255,.3);display:flex;justify-content:space-around;padding:10px 0 14px;z-index:90}.bottom button{background:none;color:#9CA3AF;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:3px;border:none}.bottom button.active{color:var(--cyan)}.bottom .plus{width:52px;height:52px;border-radius:50%;background:linear-gradient(90deg,var(--cyan),var(--purple));color:#000;font-size:24px;margin-top:-28px;border:4px solid #05050A;box-shadow:0 0 20px rgba(0,229,255,.6)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;z-index:200;padding:16px}.modal.open{display:flex}.modalBox{width:100%;max-width:420px;padding:22px}
-.modalBox button{width:100%;padding:13px;margin-top:10px;border-radius:4px;background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(168,85,247,.6);text-align:left;font-size:14px;display:flex;justify-content:space-between;align-items:center}
-.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:700;display:none;z-index:300;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.shield{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);border:1px solid rgba(0,229,255,.5);padding:6px 10px;border-radius:999px;font-size:12px}.shield b{color:var(--cyan);font-size:16px}
-.filterBar{background:rgba(245,158,11,.12);border:1px solid #F59E0B;padding:12px;display:flex;gap:10px;align-items:center;font-size:13px}
-.blockBar{background:rgba(239,68,68,.12);border:1px solid #EF4444;padding:12px;display:none;font-size:13px}
-</style></head><body>
-<div class="top"><div class="logo" onclick="go('home')"><span class="hex">⬢</span>ODS<i>MALL</i></div><div class="searchTop"><input placeholder="🔍 Search templates, ebooks, code, design..." oninput="document.getElementById('marketSearch').value=this.value;renderMarket()"></div><div style="display:flex;gap:8px;align-items:center"><button onclick="go('support')" style="background:#1A1A2A;color:#fff;padding:10px 12px;border-radius:999px;font-size:12px">Support</button><button class="btn-grad" onclick="openWallet()" style="padding:10px 16px;border-radius:999px;font-size:13px">💼 Connect Wallet</button></div></div>
-<div class="wrap">
-<!-- HOME -->
-<div id="page-home" class="page active"><div class="hero"><h1>Digital Mall.<br><span>Buy. Sell. Hire.</span></h1><p style="color:#9CA3AF;margin-top:8px;font-size:13px">14 Categories • Escrow Protected • No Hidden Charges</p></div>
-<div class="hubs"><div class="hub neon" onclick="go('market')"><div class="ic">🏪</div><div><h2>MARKET HUB</h2><p>Explore • Buy • Trade NFTs & Assets</p></div><div style="margin-left:auto;font-size:22px;color:var(--cyan)">›</div></div><div class="hub neon neon-purple" onclick="go('creator')"><div class="ic" style="border-color:var(--purple)">🪄</div><div><h2 style="color:#C084FC">CREATOR HUB</h2><p>Mint • Manage • Monetize Creations</p></div><div style="margin-left:auto;font-size:22px;color:var(--purple)">›</div></div></div>
-<div style="display:flex;justify-content:space-between;align-items:center;margin:18px 0 12px"><h3>Trending Digital Products</h3><span style="color:var(--cyan);font-size:13px;cursor:pointer" onclick="go('market')">See all →</span></div><div class="grid" id="homeGrid"></div>
-<div class="box neon"><h3>Why ODSMALL?</h3><ul><li>Escrow: Paisa pehle system ke paas, confirm pe release</li><li>48h Check: Pasand na aaye to dispute</li><li>No Bypass: Chat me number/link block</li><li>Guest Browse: Dekhne ke liye login nahi chahiye</li></ul></div></div>
-<!-- MARKET -->
-<div id="page-market" class="page"><h2 style="font-size:28px">Digital Products</h2><p style="color:#9CA3AF;font-size:13px;margin:6px 0">1,089 results • Sorted by: Trending ↓</p><div style="display:flex;gap:10px;margin:10px 0"><input id="marketSearch" placeholder="🔍 Search..." oninput="renderMarket()" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(168,85,247,.5);color:#fff;padding:12px;border-radius:999px;outline:none"><button onclick="renderMarket()" class="btn-grad" style="padding:12px 16px;border-radius:999px">Search</button></div><div class="cats" id="cats"></div><div class="grid" id="marketGrid"></div></div>
-<!-- CREATOR -->
-<div id="page-creator" class="page"><h2 style="font-size:28px;color:var(--cyan)">Creator Hub • Development</h2><p style="color:#9CA3AF;font-size:13px;margin:6px 0">1,240 gigs found • Sorted by: Top Rated</p><div class="grid" id="creatorGrid"></div></div>
-<!-- PRODUCT -->
-<div id="page-product" class="page"><button onclick="go(lastPage)" style="background:#1A1A2A;color:#fff;padding:9px 14px;border-radius:999px;border:1px solid #333">← Back</button><div class="detailImg" id="pImg" style="margin-top:12px">📦</div><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-top:16px;gap:10px"><div><h2 id="pTitle" style="font-size:22px;line-height:1.2">SaaS Dashboard Template</h2><p style="color:#F59E0B;margin-top:6px">★★★★★ <span style="color:#9CA3AF">4.9 (124 reviews)</span></p></div><div style="text-align:right"><div class="price" style="font-size:22px" id="pPrice">45 USDC</div><div style="font-size:11px;color:#9CA3AF">~$45.00 USD • Instant Delivery</div></div></div><div style="display:flex;gap:10px;margin-top:12px;align-items:center"><span class="shield">🛡️ Trust Score <b id="pTrust">98</b></span><span style="font-size:13px">Sold by <b>ODSMALL Labs ✓</b></span></div><div class="box neon"><h3>✨ What's Inside</h3><ul><li>12+ Prebuilt Dashboard Components</li><li>Dark & Light Mode Ready</li><li>Responsive React + Tailwind Setup</li><li>API Integration Examples Included</li><li>Figma + Source Files (.zip)</li></ul></div><div class="box neon"><h3>Reviews (124)</h3><p style="font-size:13px;color:#CBD5E1;margin-top:6px"><b>alex.dev</b> ⭐⭐⭐⭐⭐ - Clean, easy to implement. Saved me hours—highly recommend</p><p style="font-size:13px;color:#CBD5E1;margin-top:8px"><b>mira.codes</b> ⭐⭐⭐⭐⭐ - Great templates and docs. Escrow made checkout smooth.</p></div><button class="btn-grad" onclick="needLogin()" style="width:100%;padding:16px;border-radius:999px;font-size:16px;margin-top:14px">🛡️ Buy Now with Escrow</button><p style="text-align:center;color:#9CA3AF;font-size:12px;margin-top:8px">Secured by ODSMALL Escrow • Refundable until delivery</p></div>
-<!-- GIG -->
-<div id="page-gig" class="page"><button onclick="go('creator')" style="background:#1A1A2A;color:#fff;padding:9px 14px;border-radius:999px;border:1px solid #333">← Creator Hub</button><div class="box neon" style="display:flex;gap:12px;align-items:center"><div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#0F172A,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0">👨‍💻</div><div style="flex:1"><h2 id="gTitle" style="font-size:16px;line-height:1.3">I will build your Solana website</h2><p style="color:#9CA3AF;font-size:12px;margin-top:4px">Web3 Development • Solana • Smart Contracts • dApp Design</p></div><div class="shield">🛡️ Trust<br><b style="font-size:22px">99</b></div></div><div style="display:flex;gap:8px;margin-top:10px"><span style="background:var(--cyan);color:#000;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800">Verified Creator</span><span style="background:var(--purple);padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800">Top Rated</span></div><h3 style="margin:16px 0 8px">Choose a package <span style="float:right;color:var(--purple);font-size:13px">Swipe →</span></h3><div class="tiers" id="gTiers"></div><button class="btn-grad" onclick="needLogin()" style="width:100%;padding:16px;border-radius:999px;font-size:16px;margin-top:6px">Order Now →</button><button onclick="go('chat')" style="width:100%;padding:13px;border-radius:999px;background:#1A1A2A;color:#fff;margin-top:10px;border:1px solid #333">💬 Chat - Apni Demand Batao</button></div>
-<!-- LOGIN -->
-<div id="page-login" class="page"><div style="text-align:center;padding:10px 0"><div class="logo" style="justify-content:center;font-size:30px"><span class="hex" style="width:42px;height:42px">⬢</span>ODS<i>MALL</i></div><h2 style="font-size:28px;margin-top:10px">Join ODSMALL</h2><p style="color:var(--purple);font-size:13px;margin-top:4px">Create your account • Secure & private</p></div><div class="form box neon"><label>Email Address</label><input id="email" placeholder="✉️ you@example.com"><label>Username</label><input id="username" placeholder="👤 choose a username"><label>Password</label><input type="password" id="pass" placeholder="🔒 ••••••••"><div class="row"><div><label>Age</label><input id="age" type="number" placeholder="📅 25"></div><div><label>Location</label><input id="loc" placeholder="📍 City, Country"></div></div><label>About</label><p style="font-size:12px;color:#9CA3AF">About — skills (up to 500 words)</p><textarea id="about" rows="4" placeholder="Describe your skills, interests, experience... up to 500 words" oninput="checkFilter()"></textarea><div id="aboutCount" style="font-size:11px;color:#9CA3AF;text-align:right">0/500</div><div id="filterWarn" class="blockBar" style="margin-top:10px">🚫 Contact info not allowed</div><div style="margin-top:12px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);padding:10px;border-radius:999px;font-size:12px;text-align:center">ⓘ Filter Active • No phone links allowed</div><button class="btn-grad" onclick="doSignup()" style="width:100%;padding:15px;border-radius:999px;font-size:16px;margin-top:14px">Create Account</button><button onclick="go('home')" style="width:100%;padding:13px;border-radius:999px;background:transparent;color:var(--cyan);margin-top:10px;border:1px solid var(--cyan)">Login</button><button onclick="go('home')" style="width:100%;padding:13px;border-radius:999px;background:transparent;color:#A855F7;margin-top:8px;border:1px solid #A855F7">Guest Browse →</button></div><p style="text-align:center;color:#9CA3AF;font-size:11px;margin-top:10px">By creating an account you agree to ODSMALL's Terms & Privacy Policy</p></div>
-<!-- CHAT -->
-<div id="page-chat" class="page"><div class="box neon" style="display:flex;gap:12px;align-items:center;margin-top:0"><button onclick="go('creator')" style="background:none;color:var(--cyan);font-size:22px">‹</button><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">C</div><div style="flex:1"><b>Creator • ODSMALL</b><p style="font-size:11px;color:#4ADE80">● Online</p></div><div class="shield">🛡️ Trust Score <b>99</b></div></div><div class="filterBar neon-yellow" style="margin-top:12px"><span style="font-size:20px">⚠️</span><div><b style="color:#FBBF24">Filter Active</b><br><span style="color:#FDE68A">No phone • email • WhatsApp links allowed</span></div></div><div class="chatBox" id="chatBox"><div><div class="msg them">I need custom logo in 3 days</div><p style="font-size:11px;color:#9CA3AF;margin-top:4px">Today 9:32 AM • Buyer</p></div><div><div class="msg me">Got it — I can deliver a custom logo in 3 days. I'll include 3 initial concepts + 2 revisions. Sending an offer now.</div><p style="font-size:11px;color:#9CA3AF;margin-top:4px;text-align:right">Today 9:33 AM • Creator</p></div></div><div id="chatBlocked" class="blockBar" style="margin-top:10px"><b style="color:#FCA5A5">⚠️ Blocked: Contact attempt detected</b><br><span style="color:#FCA5A5">Sharing phone numbers, emails, or WhatsApp links is not allowed. This message was blocked to keep you safe.</span></div><div class="chatInput"><span>📎</span><span>😊</span><input id="chatInput" placeholder="Type a message..."><button onclick="sendChat()" class="btn-grad" style="padding:10px 16px;border-radius:999px">Send Offer</button></div><p style="text-align:center;color:var(--cyan);font-size:12px;margin-top:10px">Offers are protected by ODSMALL SafePay — 100% secure payment</p></div>
-<!-- SUPPORT -->
-<div id="page-support" class="page"><h2>Support & About Us</h2><div class="box neon"><h3>About ODSMALL</h3><p style="color:#9CA3AF;font-size:13px;line-height:1.6">ODSMALL is the secure marketplace for small businesses & creators. We protect every trade with escrow, verified users, and instant support.</p></div><div class="box neon"><h3>How Escrow Works</h3><p style="font-size:13px;color:#9CA3AF;line-height:1.7">1. Buyer pays → Funds held securely<br>2. Seller delivers → Link + Proof<br>3. You confirm → Funds released • 48h auto-release</p><button class="btn-grad" onclick="go('chat')" style="width:100%;padding:13px;border-radius:999px;margin-top:10px">Support Chat →</button></div></div>
-<div id="page-sell" class="page"><div class="box neon"><h2>➕ Sell on ODSMALL</h2><p style="color:#9CA3AF;font-size:13px">Product ya Gig - Dono yahin se</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"><button onclick="go('market')" style="padding:16px;border-radius:14px;background:#0E2A33;color:#fff;border:1px solid var(--cyan)">🛍️ Sell Product</button><button onclick="go('creator')" style="padding:16px;border-radius:14px;background:#2A1440;color:#fff;border:1px solid var(--purple)">✨ Create Gig</button></div></div></div>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:#000;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  /* Alien Background - Energy Lines */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0,240,255,.15), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(168,85,247,.18), transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(0,0,0,.8), #000);
+    z-index:-1;
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding:18px}
+
+  /* HEADER */
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    border:1px solid #1e3a4a;border-radius:16px;
+    padding:14px 18px;
+    background:rgba(5,15,25,.85);
+    box-shadow:0 0 30px rgba(0,240,255,.15);
+  }
+  .logo{font-family:'Orbitron';font-size:28px;font-weight:900;letter-spacing:1px}
+  .logo span{color:#00f0ff}
+  .logo b{color:#a855f7}
+  .morph{
+    display:flex;align-items:center;gap:10px;
+    background:#0a1a2a;border:1px solid #00f0ff;
+    padding:8px 14px;border-radius:999px;
+    font-family:'Orbitron';font-size:12px;
+  }
+  .morph button{
+    border:none;padding:7px 14px;border-radius:999px;
+    cursor:pointer;font-weight:700;font-family:'Orbitron';font-size:11px;
+  }
+  .morph .active{background:#00f0ff;color:#000}
+  .morph .off{background:transparent;color:#a855f7;border:1px solid #a855f7}
+  .top-actions{display:flex;gap:8px;align-items:center}
+  .lang-btn{
+    background:#111;border:1px solid #333;color:#fff;
+    padding:9px 12px;border-radius:999px;cursor:pointer;
+    font-weight:600;font-size:13px;
+  }
+  .lang-menu{
+    display:none;position:absolute;right:18px;top:72px;
+    background:#0a0a0a;border:1px solid #333;border-radius:14px;
+    padding:8px;z-index:99;width:180px;
+  }
+  .lang-menu button{
+    width:100%;text-align:left;background:transparent;border:none;color:#fff;
+    padding:9px 10px;border-radius:8px;cursor:pointer;
+  }
+  .lang-menu button:hover{background:#1a1a1a}
+
+  /* TICKER */
+  .ticker{
+    margin-top:16px;border:1px solid #a855f7;border-radius:12px;
+    overflow:hidden;background:#0a0514;
+  }
+  .ticker-top{
+    display:flex;justify-content:space-between;
+    padding:10px 14px;font-family:'Orbitron';font-size:11px;letter-spacing:1px;
+  }
+  .ticker-top span:first-child{color:#a855f7}
+  .ticker-top span:last-child{color:#00f0ff}
+  .ticker-body{
+    white-space:nowrap;overflow:hidden;
+    padding:10px 0;border-top:1px solid #2a1a4a;
+    font-size:12px;color:#cbd5e1;
+  }
+  .ticker-body span{
+    display:inline-block;padding-left:100%;
+    animation:scroll 22s linear infinite;
+  }
+  @keyframes scroll{to{transform:translateX(-100%)}}
+
+  /* GRID */
+  .grid{
+    display:grid;grid-template-columns:1fr 1.1fr;gap:18px;margin-top:18px;
+  }
+  @media(max-width:800px){.grid{grid-template-columns:1fr}}
+
+  .card{
+    border:1px solid #1e3a4a;border-radius:18px;
+    background:linear-gradient(180deg, rgba(10,20,35,.95), rgba(5,5,15,.95));
+    padding:18px;position:relative;
+    box-shadow:0 0 25px rgba(0,240,255,.08);
+  }
+  .card h3{font-family:'Orbitron';font-size:15px;letter-spacing:1px;margin-bottom:6px}
+  .card p{font-size:13px;color:#94a3b8;line-height:1.5}
+
+  /* TRUST PULSE */
+  canvas{width:100%;height:110px;margin:12px 0;background:#020617;border-radius:10px}
+  .pulse-meta{display:flex;justify-content:space-between;font-size:12px;color:#cbd5e1}
+  .pulse-meta b{color:#fff}
+
+  /* BALANCE */
+  .big{font-family:'Orbitron';font-size:42px;font-weight:900;color:#00f0ff;margin:10px 0}
+  .big span{font-size:18px;color:#fff}
+  .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+  .stats div{background:#0a0a0a;border:1px solid #1e293b;padding:10px;border-radius:10px}
+  .stats small{color:#94a3b8;font-size:11px}
+  .stats b{display:block;margin-top:4px;font-size:13px}
+  .bar{height:6px;background:#1e293b;border-radius:999px;margin-top:14px;overflow:hidden}
+  .bar i{display:block;height:100%;width:42%;background:linear-gradient(90deg,#00f0ff,#a855f7)}
+
+  /* LISTINGS */
+  .item{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    border:1px solid #1e293b;border-radius:12px;padding:12px;margin-top:10px;
+    background:#050510;
+  }
+  .item b{font-size:13px}
+  .item small{color:#94a3b8;font-size:11px}
+  .pill{padding:7px 12px;border-radius:999px;font-size:11px;font-weight:700;border:1px solid #00f0ff;color:#00f0ff;background:transparent;white-space:nowrap}
+  .pill.purple{border-color:#a855f7;color:#c084fc}
+
+  .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  .btn{padding:13px;border-radius:12px;border:none;font-weight:800;cursor:pointer;font-size:13px}
+  .btn-cyan{background:#00f0ff;color:#000}
+  .btn-purple{background:#a855f7;color:#fff}
+
+  footer{
+    margin-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    font-size:11px;color:#64748b;border-top:1px solid #1e293b;padding-top:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap" style="position:relative">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">ODS<span>MALL</span> <b>X</b></div>
+
+    <div class="morph">
+      <span data-i18n="morph">MORPHING HUB</span>
+      <button id="btnMarket" class="active" onclick="switchHub('market')">MARKET</button>
+      <button id="btnCreator" class="off" onclick="switchHub('creator')">CREATOR</button>
+    </div>
+
+    <div class="top-actions">
+      <button class="lang-btn" onclick="toggleLang()">🌐 <span id="langLabel">EN</span> ▾</button>
+    </div>
+  </header>
+
+  <!-- LANGUAGE MENU -->
+  <div class="lang-menu" id="langMenu">
+    <button onclick="setLang('en')">English - EN</button>
+    <button onclick="setLang('ur')">Urdu - اردو</button>
+    <button onclick="setLang('ar')">Arabic - العربية</button>
+    <button onclick="setLang('hi')">Hindi - हिन्दी</button>
+    <button onclick="setLang('es')">Spanish - ES</button>
+    <button onclick="setLang('fr')">French - FR</button>
+    <button onclick="setLang('tr')">Turkish - TR</button>
+    <button onclick="setLang('de')">German - DE</button>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-top">
+      <span data-i18n="tickerTitle">LIVE ESCROW TICKER</span>
+      <span>● LIVE • NODE 12.9</span>
+    </div>
+    <div class="ticker-body">
+      <span id="tickerText">ESCROW LIVE: TX 0x7F9...A12 • 12,450.00 ODSX ESCROWED • SELLER VERIFIED • FUNDS RELEASE IN 02:14 • 3 DEALS PENDING • COLLATERAL STAKED 8,200 ODSX • CONTRACT ACTIVE</span>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div>
+      <div class="card">
+        <h3 data-i18n="trust">TRUST PULSE</h3>
+        <p data-i18n="trustDesc">Live seller trust heartbeat. Stable pulse = trusted seller.</p>
+        <canvas id="pulseCanvas" width="500" height="110"></canvas>
+        <div class="pulse-meta">
+          <span><span data-i18n="score">TRUST SCORE</span> <b>98.6</b> • <span data-i18n="active">ACTIVE</span></span>
+          <span>+2.4% (24H) • LOW RISK</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h3 data-i18n="balance">BALANCE & HOLDINGS</h3>
+        <div class="big">4,820.11 <span>ODSX</span></div>
+        <div class="stats">
+          <div><small data-i18n="staked">STAKED</small><b>1,920.00 ODSX</b></div>
+          <div><small data-i18n="pending">PENDING</small><b>350.00 ODSX</b></div>
+          <div><small data-i18n="available">AVAILABLE</small><b>2,550.11 ODSX</b></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:12px">
+          <span data-i18n="escrowUse">ESCROW UTILIZATION</span><b>42%</b>
+        </div>
+        <div class="bar"><i></i></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="card">
+      <h3 id="hubTitle">MARKET → CREATOR</h3>
+      <p id="hubDesc" data-i18n="hubDesc">Morphing Hub Active - Switch to see Creator Studio</p>
+
+      <div style="margin-top:14px">
+        <b style="font-size:13px" data-i18n="listings">ACTIVE LISTINGS</b>
+
+        <div class="item">
+          <div><b>NEURAL PROCESSOR v9</b><br><small>1,200 ODSX // 0.8µs LATENCY</small></div>
+          <button class="pill" data-i18n="escrowed">ESCROWED</button>
+        </div>
+
+        <div class="item">
+          <div><b>QUANTUM CIRCUIT CORE</b><br><small>3,450 ODSX // VERIFIED SELLER</small></div>
+          <button class="pill purple" data-i18n="awaiting">AWAITING FUND</button>
+        </div>
+
+        <div class="item">
+          <div><b>HOLO STORAGE NODE</b><br><small>780 ODSX // READY</small></div>
+          <button class="pill" data-i18n="open">OPEN</button>
+        </div>
+      </div>
+
+      <div style="margin-top:16px">
+        <b style="font-size:13px" data-i18n="creator">CREATOR STUDIO</b>
+        <p style="margin-top:6px" data-i18n="mint">MINT SMART CONTRACT</p>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:8px">
+          <span data-i18n="compiling">COMPILING ALIEN SCRIPT...</span><b>87%</b>
+        </div>
+        <div class="bar"><i style="width:87%"></i></div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn btn-cyan" data-i18n="createListing">CREATE LISTING</button>
+        <button class="btn btn-purple" data-i18n="deploy">DEPLOY CONTRACT</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>NETWORK: OSMAL-Δ7 • BLOCK 142,889,013 • LATENCY 6ms</span>
+    <span>SECURITY: QUANTUM-LOCKED • ESCROW PROTOCOL V3.1</span>
+    <span>SYNCED • 2026.11.10</span>
+  </footer>
 </div>
-<div class="bottom"><button onclick="go('home')" id="nav-home" class="active">🏠<span>Home</span></button><button onclick="go('market')" id="nav-market">🛍️<span>Market</span></button><button onclick="go('sell')" id="nav-sell"><span class="plus">+</span></button><button onclick="go('creator')" id="nav-creator">✨<span>Creator</span></button><button onclick="go('login')" id="nav-login">👤<span>Profile</span></button></div>
-<div class="modal" id="walletModal" onclick="if(event.target==this)closeWallet()"><div class="modalBox neon"><h2 style="text-align:center;color:var(--cyan)">Connect Wallet</h2><p style="text-align:center;color:#9CA3AF;font-size:13px;margin:6px 0">Choose a wallet to connect to ODSMALL</p><button onclick="connectWallet('Phantom')"><span>👻 Phantom</span><span>›</span></button><button onclick="connectWallet('Solflare')"><span>☀️ Solflare</span><span>›</span></button><button onclick="connectWallet('Backpack')"><span>🎒 Backpack</span><span>›</span></button><p style="text-align:center;color:#9CA3AF;font-size:12px;margin:12px 0">or</p><p style="text-align:center;color:var(--cyan);font-size:13px;font-weight:700">Manual Wallet Address</p><input id="manualWallet" placeholder="Enter wallet address..." style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(168,85,247,.5);color:#fff;padding:12px;border-radius:4px;margin-top:8px"><div style="display:flex;gap:8px;margin-top:12px"><button onclick="closeWallet()" style="flex:1;text-align:center;justify-content:center">Cancel</button><button onclick="connectManual()" class="btn-grad" style="flex:1;text-align:center;justify-content:center;color:#000">Connect</button></div></div></div>
-<div class="toast" id="toast"></div>
+
 <script>
-let lastPage='home',currentCat='All',isLogged=false;
-const cats=['All','Templates','Ebooks','Courses','Code','Design','Audio','Fonts','Presets'];
-const products=[{t:'Nova Sneakers #1024',c:'Design',p:'125.50',e:'👟',r:'4.9',s:'94',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80'},{t:'Crystal Drift Art',c:'Design',p:'89.00',e:'💎',r:'4.8',s:'91',img:'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80'},{t:'Cyber Avatar v.3',c:'Design',p:'210.00',e:'🤖',r:'4.9',s:'88',img:'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=600&q=80'},{t:'SaaS Dashboard Template',c:'Templates',p:'45.00',e:'📊',r:'4.9',s:'98',img:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80'},{t:'Web3 Marketing Guide',c:'Ebooks',p:'12.50',e:'📖',r:'4.6',s:'95',img:'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80'},{t:'React & Solana Bootcamp',c:'Courses',p:'120.00',e:'💻',r:'4.9',s:'97',img:'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&q=80'},{t:'Solidity Smart Contracts Kit',c:'Code',p:'30.00',e:'⚡',r:'4.7',s:'94',img:'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80'},{t:'NeoUI Design System',c:'Design',p:'25.00',e:'🎨',r:'4.8',s:'96',img:'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80'},{t:'Cyber Ambient Sounds Pack',c:'Audio',p:'18.00',e:'🎵',r:'4.8',s:'92',img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80'}];
-const gigs=[{t:'I will build your Solana website',s:'@buildmaster',p1:150,p2:350,p3:800,e:'💻',d:'Modern fast website with wallet connect + escrow ready.'},{t:'I will design your logo in 3 days',s:'@logoking',p1:50,p2:120,p3:250,e:'🎨',d:'3 concepts, unlimited revisions on Premium.'},{t:'I will edit your YouTube video',s:'@editpro',p1:30,p2:80,p3:180,e:'🎬',d:'Clean edits, subtitles, thumbnails included.'}];
-function go(page){lastPage=page;document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+page).classList.add('active');document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));let n=document.getElementById('nav-'+page);if(n)n.classList.add('active');window.scrollTo(0,0)}
-function toast(m){let t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
-function openWallet(){document.getElementById('walletModal').classList.add('open')}
-function closeWallet(){document.getElementById('walletModal').classList.remove('open')}
-function connectWallet(w){closeWallet();toast(w+' Connected');}
-function connectManual(){let v=document.getElementById('manualWallet').value;if(!v){toast('Wallet address likho');return}closeWallet();toast('Manual Wallet Connected')}
-function needLogin(){if(!isLogged){toast('Pehle Login karo');go('login')}else{toast('Escrow me lock ho gaya - 48h Check shuru')}}
-function doSignup(){if(checkFilter(true))return;if(!document.getElementById('email').value||!document.getElementById('username').value){toast('Email + Username zaruri hai');return}isLogged=true;toast('Account ban gaya - Welcome');go('home')}
-function checkFilter(fromBtn){let v=document.getElementById('about').value;let words=v.trim()?v.trim().split(/\s+/).length:0;document.getElementById('aboutCount').textContent=words+'/500';let bad=/(03\d|\+92|@gmail|whatsapp|telegram|t\.me|http|www\.)/i.test(v);document.getElementById('filterWarn').style.display=bad?'block':'none';return bad}
-function card(p){return `<div class="card neon" onclick="openProduct('${p.t}',${p.p},'${p.r}','${p.e}')"><div class="img"><img src="${p.img}" onerror="this.style.display='none'"><span style="position:absolute">${p.e}</span><span class="trust">🛡️ Trust Score <b>${p.s}</b></span></div><div class="body"><h3>${p.t}</h3><div style="display:flex;justify-content:space-between;margin-top:8px"><span class="price">${p.p} USDC</span><span style="font-size:12px;color:#9CA3AF">⭐ ${p.r}</span></div></div></div>`}
-function renderMarket(){let q=(document.getElementById('marketSearch').value||'').toLowerCase();let list=products.filter(p=>(currentCat==='All'||p.c===currentCat)&&(p.t.toLowerCase().includes(q)));document.getElementById('marketGrid').innerHTML=list.map(card).join('')||'<p style="color:#9CA3AF">Kuch nahi mila</p>';document.getElementById('cats').innerHTML=cats.map(c=>`<span class="cat ${c===currentCat?'active':''}" onclick="setCat('${c}')">${c}</span>`).join('')}
-function setCat(c){currentCat=c;renderMarket()}
-function openProduct(t,p,r,e){document.getElementById('pTitle').textContent=t;document.getElementById('pPrice').textContent=p+' USDC';document.getElementById('pTrust').textContent=Math.floor(94+Math.random()*5);document.getElementById('pImg').innerHTML=`<span style="font-size:70px">${e}</span>`;go('product')}
-function openGig(i){let g=gigs[i];document.getElementById('gTitle').textContent=g.t;document.getElementById('gTiers').innerHTML=`<div class="tier neon"><h4 style="color:var(--cyan)">Basic</h4><div class="p">${g.p1} USDC</div><p>✓ Delivery: 3 days<br>✓ 1 Revision<br>Landing page + wallet connect<br>Basic UI design</p></div><div class="tier neon pop"><h4 style="color:var(--purple)">Standard <span style="font-size:10px;background:var(--purple);color:#fff;padding:2px 6px;border-radius:999px">POPULAR</span></h4><div class="p">${g.p2} USDC</div><p>✓ Delivery: 5 days<br>✓ 3 Revisions<br>Full Solana site + staking integration<br>Responsive design + SEO</p><p style="text-align:center;color:var(--cyan);margin-top:6px">Most chosen</p></div><div class="tier neon"><h4 style="color:var(--cyan)">Premium</h4><div class="p">${g.p3} USDC</div><p>✓ Delivery: 7 days<br>✓ 5 Revisions<br>Full dApp + marketplace integration<br>Priority support & maintenance</p></div>`;go('gig')}
-function sendChat(){let inp=document.getElementById('chatInput');let v=inp.value.trim();if(!v)return;let bad=/(03\d|\+92|@gmail|whatsapp|telegram|t\.me|http|www\.|\.com)/i.test(v);if(bad){document.getElementById('chatBlocked').style.display='block';setTimeout(()=>document.getElementById('chatBlocked').style.display='none',4000);inp.value='';return}let b=document.getElementById('chatBox');b.innerHTML+=`<div><div class="msg me">${v}</div><p style="font-size:11px;color:#9CA3AF;margin-top:4px;text-align:right">Now • You</p></div>`;inp.value='';b.scrollTop=b.scrollHeight;setTimeout(()=>{b.innerHTML+=`<div><div class="msg them">Got it, sending offer now.</div><p style="font-size:11px;color:#9CA3AF;margin-top:4px">Now • Creator</p></div>`;b.scrollTop=b.scrollHeight},800)}
-document.getElementById('homeGrid').innerHTML=products.slice(0,6).map(card).join('');
-document.getElementById('creatorGrid').innerHTML=gigs.map((g,i)=>`<div class="card neon" onclick="openGig(${i})"><div class="img"><span>${g.e}</span></div><div class="body"><h3>${g.t}</h3><p style="font-size:12px;color:#9CA3AF">${g.s} • Trust 99</p><div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><span style="background:#1A1A2A;padding:4px 8px;border-radius:999px;font-size:11px">Basic ${g.p1}</span><span style="background:var(--cyan);color:#000;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800">Standard ${g.p2} ⭐</span><span style="background:#1A1A2A;padding:4px 8px;border-radius:999px;font-size:11px">Premium ${g.p3}</span></div></div></div>`).join('');
-renderMarket();
-</script></body></html>
+  // TRANSLATIONS - ALL LANGUAGES
+  const translations = {
+    en: { morph:"MORPHING HUB", tickerTitle:"LIVE ESCROW TICKER", trust:"TRUST PULSE", trustDesc:"Live seller trust heartbeat. Stable pulse = trusted seller.", score:"TRUST SCORE", active:"ACTIVE", balance:"BALANCE & HOLDINGS", staked:"STAKED", pending:"PENDING", available:"AVAILABLE", escrowUse:"ESCROW UTILIZATION", hubDesc:"Morphing Hub Active - Switch to see Creator Studio", listings:"ACTIVE LISTINGS", escrowed:"ESCROWED", awaiting:"AWAITING FUND", open:"OPEN", creator:"CREATOR STUDIO", mint:"MINT SMART CONTRACT", compiling:"COMPILING ALIEN SCRIPT...", createListing:"CREATE LISTING", deploy:"DEPLOY CONTRACT" },
+    ur: { morph:"مورفنگ ہب", tickerTitle:"لائیو ایسکرو ٹکر", trust:"ٹرسٹ پلس", trustDesc:"لائیو سیلر ٹرسٹ دل کی دھڑکن۔ مستحکم پلس = قابل اعتماد سیلر۔", score:"ٹرسٹ اسکور", active:"فعال", balance:"بیلنس اور ہولڈنگز", staked:"اسٹیکڈ", pending:"زیر التواء", available:"دستیاب", escrowUse:"ایسکرو استعمال", hubDesc:"مورفنگ ہب فعال ہے - کریئیٹر اسٹوڈیو دیکھنے کے لیے سوئچ کریں", listings:"فعال لسٹنگز", escrowed:"ایسکروڈ", awaiting:"فنڈ کا انتظار", open:"کھلا", creator:"کریئیٹر اسٹوڈیو", mint:"منٹ اسمارٹ کانٹریکٹ", compiling:"ایلین اسکرپٹ مرتب ہو رہا ہے...", createListing:"لسٹنگ بنائیں", deploy:"کانٹریکٹ ڈیپلائی کریں" },
+    ar: { morph:"مركز التحول", tickerTitle:"شريط الضمان المباشر", trust:"نبض الثقة", trustDesc:"نبض ثقة البائع المباشر. نبض مستقر = بائع موثوق.", score:"نقاط الثقة", active:"نشط", balance:"الرصيد والممتلكات", staked:"مرهون", pending:"معلق", available:"متاح", escrowUse:"استخدام الضمان", hubDesc:"مركز التحول نشط - قم بالتبديل لرؤية استوديو المبدع", listings:"القوائم النشطة", escrowed:"مضمون", awaiting:"بانتظار التمويل", open:"مفتوح", creator:"استوديو المبدع", mint:"سك عقد ذكي", compiling:"تجميع نص فضائي...", createListing:"إنشاء قائمة", deploy:"نشر العقد" },
+    hi: { morph:"मॉर्फिंग हब", tickerTitle:"लाइव एस्क्रो टिकर", trust:"ट्रस्ट पल्स", trustDesc:"लाइव सेलर ट्रस्ट हार्टबीट। स्थिर पल्स = भरोसेमंद सेलर।", score:"ट्रस्ट स्कोर", active:"सक्रिय", balance:"बैलेंस और होल्डिंग्स", staked:"स्टेक्ड", pending:"लंबित", available:"उपलब्ध", escrowUse:"एस्क्रो उपयोग", hubDesc:"मॉर्फिंग हब सक्रिय है - क्रिएटर स्टूडियो देखने के लिए स्विच करें", listings:"सक्रिय लिस्टिंग", escrowed:"एस्क्रोड", awaiting:"फंड की प्रतीक्षा", open:"खुला", creator:"क्रिएटर स्टूडियो", mint:"मिंट स्मार्ट कॉन्ट्रैक्ट", compiling:"एलियन स्क्रिप्ट संकलित हो रही है...", createListing:"लिस्टिंग बनाएं", deploy:"कॉन्ट्रैक्ट डिप्लॉय करें" },
+    es: { morph:"HUB MORFANTE", tickerTitle:"TICKER DE ESCROW EN VIVO", trust:"PULSO DE CONFIANZA", trustDesc:"Latido de confianza del vendedor en vivo. Pulso estable = vendedor confiable.", score:"PUNTUACIÓN", active:"ACTIVO", balance:"SALDO Y TENENCIAS", staked:"APOSTADO", pending:"PENDIENTE", available:"DISPONIBLE", escrowUse:"UTILIZACIÓN DE ESCROW", hubDesc:"Hub Morfante Activo - Cambia para ver Creator Studio", listings:"LISTADOS ACTIVOS", escrowed:"EN ESCROW", awaiting:"ESPERANDO FONDO", open:"ABIERTO", creator:"ESTUDIO DEL CREADOR", mint:"ACUÑAR CONTRATO INTELIGENTE", compiling:"COMPILANDO SCRIPT ALIEN...", createListing:"CREAR LISTADO", deploy:"DESPLEGAR CONTRATO" },
+    fr: { morph:"HUB MORPHING", tickerTitle:"TICKER ESCROW EN DIRECT", trust:"POULS DE CONFIANCE", trustDesc:"Battement de confiance du vendeur en direct. Pouls stable = vendeur fiable.", score:"SCORE", active:"ACTIF", balance:"SOLDE & AVOIRS", staked:"MISÉ", pending:"EN ATTENTE", available:"DISPONIBLE", escrowUse:"UTILISATION ESCROW", hubDesc:"Hub Morphing Actif - Basculez pour voir Creator Studio", listings:"ANNONCES ACTIVES", escrowed:"SOUS ESCROW", awaiting:"EN ATTENTE DE FONDS", open:"OUVERT", creator:"STUDIO CRÉATEUR", mint:"MINT CONTRAT INTELIGENT", compiling:"COMPILATION SCRIPT ALIEN...", createListing:"CRÉER ANNONCE", deploy:"DÉPLOYER CONTRAT" },
+    tr: { morph:"MORPHING HUB", tickerTitle:"CANLI ESCROW TICKER", trust:"GÜVEN NABZI", trustDesc:"Canlı satıcı güven nabzı. Stabil nabız = güvenilir satıcı.", score:"GÜVEN SKORU", active:"AKTİF", balance:"BAKİYE & VARLIKLAR", staked:"STAKE", pending:"BEKLEYEN", available:"KULLANILABİLİR", escrowUse:"ESCROW KULLANIMI", hubDesc:"Morphing Hub Aktif - Creator Studio görmek için değiştir", listings:"AKTİF LİSTELER", escrowed:"ESCROW'DA", awaiting:"FON BEKLİYOR", open:"AÇIK", creator:"CREATOR STÜDYOSU", mint:"AKILLI SÖZLEŞME BAS", compiling:"UZAYLI SCRIPT DERLENİYOR...", createListing:"LİSTE OLUŞTUR", deploy:"SÖZLEŞME DAĞIT" },
+    de: { morph:"MORPHING HUB", tickerTitle:"LIVE ESCROW TICKER", trust:"VERTRAUENS PULS", trustDesc:"Live Verkäufer Vertrauens Herzschlag. Stabiler Puls = vertrauenswürdiger Verkäufer.", score:"VERTRAUENS SCORE", active:"AKTIV", balance:"GUTHABEN & BESTÄNDE", staked:"GESTAKT", pending:"AUSSTEHEND", available:"VERFÜGBAR", escrowUse:"ESCROW NUTZUNG", hubDesc:"Morphing Hub Aktiv - Wechsle um Creator Studio zu sehen", listings:"AKTIVE ANGEBOTE", escrowed:"IM ESCROW", awaiting:"WARTET AUF GELD", open:"OFFEN", creator:"CREATOR STUDIO", mint:"SMART CONTRACT MINTEN", compiling:"ALIEN SCRIPT KOMPILIERT...", createListing:"ANGEBOT ERSTELLEN", deploy:"CONTRACT DEPLOYEN" }
+  };
+
+  function toggleLang(){
+    const m = document.getElementById('langMenu');
+    m.style.display = m.style.display === 'block' ? 'none' : 'block';
+  }
+  function setLang(code){
+    document.getElementById('langLabel').innerText = code.toUpperCase();
+    document.getElementById('langMenu').style.display = 'none';
+    const t = translations[code] || translations.en;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k = el.getAttribute('data-i18n');
+      if(t[k]) el.innerText = t[k];
+    });
+    document.documentElement.lang = code;
+    if(code==='ur' || code==='ar') document.body.style.direction='rtl';
+    else document.body.style.direction='ltr';
+  }
+
+  function switchHub(mode){
+    const m = document.getElementById('btnMarket');
+    const c = document.getElementById('btnCreator');
+    const title = document.getElementById('hubTitle');
+    if(mode==='market'){
+      m.className='active'; c.className='off';
+      title.innerText='MARKET → CREATOR';
+    } else {
+      c.className='active'; m.className='off';
+      title.innerText='CREATOR → MARKET';
+    }
+  }
+
+  // TRUST PULSE - CANVAS HEARTBEAT
+  const canvas = document.getElementById('pulseCanvas');
+  const ctx = canvas.getContext('2d');
+  let offset = 0;
+  function drawPulse(){
+    ctx.clearRect(0,0,500,110);
+    ctx.strokeStyle='#00f0ff'; ctx.lineWidth=2;
+    ctx.beginPath();
+    for(let x=0;x<500;x++){
+      let y = 55 + Math.sin((x+offset)*0.08)*8;
+      if(x%90===45) y = 55 - Math.abs(Math.sin(offset*0.2))*35;
+      if(x%140===70) y = 55 + 28;
+      if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    // Purple second line
+    ctx.strokeStyle='#a855f7'; ctx.lineWidth=1.5;
+    ctx.beginPath();
+    for(let x=0;x<500;x++){
+      let y = 55 + Math.cos((x+offset)*0.06)*12;
+      if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    offset+=2;
+    requestAnimationFrame(drawPulse);
+  }
+  drawPulse();
+</script>
+</body>
+</html>
