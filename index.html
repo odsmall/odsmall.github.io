@@ -1,5 +1,198 @@
-<div style="text-align:center;background:#050508;border:1px solid #00f0ff;border-radius:20px;padding:16px;font-family:Arial;box-shadow:0 0 30px rgba(0,240,255,.25)">
-  <b style="font-size:32px;letter-spacing:3px;background:linear-gradient(90deg,#00f0ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">ODSMALL</b>
-  <div style="color:#94a3b8;font-size:11px;letter-spacing:4px;margin-top:4px">SECURE • MARKETPLACE • ESCROW</div>
-  <button style="margin-top:12px;background:#fff;color:#000;border:none;padding:10px 22px;border-radius:999px;font-weight:900">👛 Connect Wallet</button>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ODSMALL - Smart Bazaar</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
+body{background:#07070f;color:#fff;padding-bottom:90px}
+a{color:#22d3ee;text-decoration:none}
+.top{position:sticky;top:0;z-index:99;background:rgba(10,10,25,.92);backdrop-filter:blur(10px);padding:12px 14px;border-bottom:1px solid #2a2a4a;display:flex;align-items:center;gap:10px}
+.logo{font-size:22px;font-weight:900;background:linear-gradient(90deg,#22d3ee,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+.search{flex:1;background:#151528;border:1px solid #3b3b66;border-radius:20px;padding:9px 12px;color:#fff;outline:none;font-size:13px}
+.btn{background:linear-gradient(90deg,#06b6d4,#8b5cf6);border:0;color:#fff;padding:9px 14px;border-radius:20px;font-weight:700;font-size:13px;cursor:pointer}
+.btn2{background:#1a1a33;border:1px solid #8b5cf6;color:#c4b5fd;padding:8px 12px;border-radius:12px;cursor:pointer;font-size:13px}
+.live{margin:12px 14px;background:linear-gradient(90deg,#0e2a3a,#2a1650);border:1px solid #22d3ee55;padding:10px 12px;border-radius:14px;font-size:12px;display:flex;justify-content:space-between}
+.live b{color:#22d3ee}.dot{width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+.wrap{padding:12px 14px}
+.hub{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.hubcard{padding:16px;border-radius:18px;cursor:pointer}
+.hubcard h3{font-size:17px;margin-bottom:4px}.hubcard p{font-size:11px;opacity:.8}
+.mkt{background:linear-gradient(135deg,#0e3a4a,#0a0a20);border:1px solid #22d3ee}
+.crt{background:linear-gradient(135deg,#3b1666,#0a0a20);border:1px solid #a855f7}
+.tabs{display:flex;gap:8px;overflow:auto;margin:10px 0;padding-bottom:4px}
+.tab{white-space:nowrap;padding:8px 16px;border-radius:20px;background:#1a1a33;border:1px solid #333;font-size:13px;cursor:pointer}
+.tab.on{background:#06b6d4;color:#000;font-weight:800;border-color:#06b6d4}
+.card{background:linear-gradient(180deg,#14142b,#0d0d1d);border:1px solid #2e2e55;border-radius:18px;padding:14px;margin-bottom:14px}
+.flex{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#a855f7);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;flex-shrink:0}
+.trust{font-size:11px;background:#0a2a1a;border:1px solid #22c55e;color:#4ade80;padding:4px 8px;border-radius:20px;white-space:nowrap}
+.trust b{color:#fff}
+.price{color:#22d3ee;font-weight:900;font-size:18px}.price small{color:#aaa;font-size:11px;font-weight:400}
+.stars{color:#facc15;font-size:13px;margin:6px 0}
+.tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.tier{background:#0a0a1a;border:1px solid #333;padding:10px;border-radius:12px;text-align:center}
+.tier.pop{border-color:#a855f7;background:#1a0a2e;position:relative}
+.tier.pop:before{content:"MOST POPULAR";position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:#a855f7;font-size:8px;padding:2px 6px;border-radius:10px}
+.tier b{font-size:16px;color:#22d3ee}.tier p{font-size:10px;color:#aaa;margin-top:4px}
+.input{width:100%;padding:12px;background:#0a0a1a;border:1px solid #333;border-radius:12px;color:#fff;margin:6px 0;outline:none}
+select.input{appearance:none}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.badge{display:inline-block;font-size:11px;padding:4px 10px;border-radius:20px;background:#1e1e3a;border:1px solid #444;margin:2px}
+.earn{background:linear-gradient(135deg,#052e22,#0a0a20);border:1px solid #22c55e}
+.hidden{display:none}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#0c0c1e;border-top:1px solid #2a2a4a;display:flex;justify-content:space-around;padding:10px 0;z-index:99}
+.nav button{background:none;border:0;color:#888;font-size:11px;cursor:pointer}.nav button.on{color:#22d3ee}
+.nav span{font-size:20px;display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
+.modal.open{display:flex}.modalbox{background:#131328;border:1px solid #a855f7;border-radius:20px;padding:20px;width:100%;max-width:380px}
+.aiBox{background:#0a1a2e;border:1px solid #22d3ee;border-radius:14px;padding:12px;font-size:13px;line-height:1.6;margin:10px 0}
+.demo{height:120px;border-radius:14px;background:linear-gradient(135deg,#0e7490,#7c3aed,#db2777);display:flex;align-items:center;justify-content:center;font-size:32px;margin:10px 0}
+.filterBar{display:flex;gap:8px;margin:10px 0;overflow:auto}
+</style></head>
+<body>
+
+<div class="top"><div class="logo">ODSMALL</div><input class="search" id="searchInput" placeholder="Search gigs, products, skills..." oninput="doSearch(this.value)"><button class="btn" onclick="openWallet()">Connect Wallet</button></div>
+
+<div class="live"><span><span class="dot"></span> <b id="liveCount">14</b> log abhi Escrow me pay kar rahe hain</span><span>🔥 <b id="liveView">312</b> online</span></div>
+
+<!-- HOME -->
+<div id="page-home" class="wrap">
+<div class="hub">
+<div class="hubcard mkt" onclick="showPage('market')"><h3>🛍️ MARKET HUB</h3><p>Explore • Buy • Trade Digital Products</p><p style="margin-top:8px;color:#22d3ee">1,089 Products →</p></div>
+<div class="hubcard crt" onclick="showPage('creator')"><h3>🎨 CREATOR HUB</h3><p>Mint • Manage • Monetize Gigs</p><p style="margin-top:8px;color:#c084fc">1,240 Gigs →</p></div>
 </div>
+
+<div class="card earn"><div class="flex"><div><p style="font-size:12px;color:#4ade80">💰 EARNINGS WALLET</p><h2 style="font-size:28px;margin:6px 0"><span id="earnBal">0.00</span> USDC</h2><p style="font-size:12px;color:#aaa">Trust Score <b style="color:#fff" id="myScore">98</b> • Lock Time: <b style="color:#4ade80">12h Only</b> (90+ Score Benefit)</p></div><button class="btn" style="background:#22c55e" onclick="withdraw()">Withdraw</button></div><p style="font-size:11px;color:#aaa;margin-top:8px">48h poore hote hi paisa yahan. Ek click pe apne wallet me.</p></div>
+
+<h3 style="margin:6px 0">✨ Smart Search - Gig + Product Ek Saath</h3>
+<p style="font-size:12px;color:#aaa;margin-bottom:10px">Search karo "Solana website" - neeche Gig bhi aayega aur Product bhi. Khud choose karo - Banwana hai ya Bana hua lena hai.</p>
+
+<div class="tabs"><button class="tab on" onclick="filterCat('all',this)">All</button><button class="tab" onclick="filterCat('gig',this)">Gigs Only</button><button class="tab" onclick="filterCat('product',this)">Products Only</button><button class="tab" onclick="filterCat('template',this)">Templates</button><button class="tab" onclick="filterCat('code',this)">Code</button></div>
+
+<div id="feed"></div>
+
+<div class="card"><h3>🤖 AI Deal Maker</h3><p style="font-size:13px;color:#aaa">Baat karne ki zaroorat nahi. AI deal likh dega.</p><input class="input" id="aiNeed" placeholder="Mujhe kya chahiye? e.g. Mujhe Solana website chahiye"><button class="btn" onclick="makeDeal()">AI Se Deal Banao</button><div id="aiOut"></div></div>
+</div>
+
+<!-- MARKET -->
+<div id="page-market" class="wrap hidden">
+<h2>Digital Products</h2><p style="color:#aaa;font-size:13px">1,089 results • Sorted: Trending</p>
+<div class="filterBar"><select class="input" style="width:auto" onchange="filterPrice(this.value)"><option value="all">Price: All</option><option value="low">Under 50 USDC</option><option value="mid">50 - 150 USDC</option><option value="high">150+ USDC</option></select><select class="input" style="width:auto"><option>Rating: 4.0 & up</option><option>4.5 & up</option></select></div>
+<div id="marketFeed"></div>
+</div>
+
+<!-- CREATOR -->
+<div id="page-creator" class="wrap hidden">
+<h2>Creator Hub • Development</h2><p style="color:#aaa;font-size:13px">1,240 gigs found • Sorted: Top Rated</p>
+<div id="creatorFeed"></div>
+</div>
+
+<!-- PRODUCT DETAIL -->
+<div id="page-detail" class="wrap hidden">
+<button class="btn2" onclick="showPage('home')">← Back</button>
+<div class="demo">💻 SaaS Dashboard</div>
+<div class="flex"><div><h2>SaaS Dashboard Template</h2><p class="stars">★★★★★ 4.8 (124 sold)</p></div><div style="text-align:right"><span class="trust">🛡️ Trust <b>98</b></span><div class="price" style="margin-top:6px">45 USDC <small>• Instant Delivery</small></div></div></div>
+<p style="font-size:13px;color:#aaa;margin:8px 0">Sold by <b style="color:#fff">ODSMALL Labs ✓</b> • Joined Jan 2024</p>
+<div class="card"><h3>✨ What's Inside + Live Demo</h3><p style="font-size:13px;line-height:1.9">✓ 12+ Prebuilt Dashboard Components<br>✓ Dark & Light Mode Ready<br>✓ Responsive React + Tailwind<br>✓ API Integration Examples<br>✓ Figma + Source Files (.zip)</p><button class="btn2" onclick="alert('Live Demo khul raha hai... Template ko live test karo, phir buy karo.')">👁️ Live Demo Dekho - Try Before Buy</button></div>
+<div class="card"><h3>Reviews (124)</h3><p style="font-size:13px"><b>alex.dev</b> ★★★★★ • 2 days ago<br><span style="color:#aaa">Clean, easy to implement. Saved me hours - highly recommend!</span></p><p style="font-size:13px;margin-top:10px"><b>mira.codes</b> ★★★★★ • 1 week ago<br><span style="color:#aaa">Great templates and docs. Escrow made checkout smooth.</span></p></div>
+<button class="btn" style="padding:14px;font-size:16px" onclick="buyProduct('SaaS Dashboard Template',45)">🛡️ Buy Now with Escrow - 45 USDC</button><p style="text-align:center;font-size:11px;color:#aaa;margin-top:6px">Secured by ODSMALL Escrow • Refundable until delivery • 48h Lock</p>
+</div>
+
+<!-- CREATOR DETAIL -->
+<div id="page-gig" class="wrap hidden">
+<button class="btn2" onclick="showPage('creator')">← Back</button>
+<div class="card"><div class="flex"><div style="display:flex;gap:12px"><div class="ava">A</div><div><h3>I will build your Solana website</h3><p style="font-size:12px;color:#aaa">Web3 • Solana • Smart Contracts • dApp Design</p><p style="font-size:12px;margin-top:4px">by <b>AlexDev</b> • Online now</p></div></div><span class="trust">🛡️ Trust <b>99</b><br><small style="color:#aaa">98% On-time • 120 Orders</small></span></div>
+<p style="margin-top:10px"><span class="badge">✓ Verified Creator</span><span class="badge" style="background:#2a1650;border-color:#a855f7">★ Top Rated</span></p>
+<h3 style="margin-top:14px">Choose a package</h3>
+<div class="tiers"><div class="tier" onclick="selectTier(150,'Basic','3 days')"><p>Basic</p><b>150 USDC</b><p>Delivery: 3 days<br>1 Revision<br>Landing + wallet</p></div><div class="tier pop" onclick="selectTier(350,'Standard','5 days')"><p>Standard</p><b>350 USDC</b><p>Delivery: 5 days<br>3 Revisions<br>Full Solana site</p></div><div class="tier" onclick="selectTier(800,'Premium','7 days')"><p>Premium</p><b>800 USDC</b><p>Delivery: 7 days<br>5 Revisions<br>Full dApp + Smart Contract</p></div></div>
+<p style="font-size:13px;text-align:center;color:#aaa">Selected: <b style="color:#22d3ee" id="selTier">Standard - 350 USDC - 5 days</b></p>
+<button class="btn" style="padding:14px;font-size:16px" onclick="lockDeal()">Order Now → Escrow Me Lock Karo</button>
+<p style="font-size:11px;color:#aaa;text-align:center;margin-top:6px">8h pehle notify • Extension buyer se • 72h Fix • No Loop</p>
+</div>
+</div>
+
+<!-- PROFILE / JOIN -->
+<div id="page-profile" class="wrap hidden">
+<h2>Join ODSMALL</h2><p style="color:#aaa;font-size:13px">Create your account • Secure & Private</p>
+<div class="card"><input class="input" placeholder="📧 Email - you@example.com"><input class="input" placeholder="👤 Username - choose a username"><input class="input" type="password" placeholder="🔒 Password"><div class="row"><input class="input" placeholder="🎂 Age - 25"><input class="input" placeholder="📍 City, Country"></div><textarea class="input" rows="3" placeholder="About - skills (up to 500 words)"></textarea><p style="font-size:11px;color:#4ade80">ⓘ Filter Active • No phone links allowed</p><button class="btn" style="padding:13px" onclick="alert('Account ban gaya! Ab tu Buyer + Seller + Freelancer teeno hai. Ek hi Trust Score.')">Create Account</button><button class="btn2" style="width:100%;margin-top:8px" onclick="alert('Login...')">Login</button><button class="btn2" style="width:100%;margin-top:8px" onclick="showPage('home')">Guest Browse →</button></div>
+<div class="card"><h3>🛡️ Support & About Us</h3><p style="font-size:13px;color:#aaa;line-height:1.6">ODSMALL is the secure marketplace for small businesses & creators. We protect every trade with escrow, verified users, and instant support.</p><div style="display:flex;gap:8px;margin:10px 0;text-align:center;font-size:11px"><div style="flex:1;background:#0a1a1a;padding:8px;border-radius:10px">Buyer pays →<br><small>Funds held securely</small></div><div style="flex:1;background:#0a1a1a;padding:8px;border-radius:10px">Seller delivers →<br><small>You confirm</small></div><div style="flex:1;background:#0a1a1a;padding:8px;border-radius:10px">Funds released →<br><small>Deal complete</small></div></div><button class="btn" style="background:#06b6d4;color:#000" onclick="openSupport()">💬 Support Chat - odsmall.support@gmail.com</button><p style="font-size:12px;margin-top:12px">FAQ: What is Trust Score? • How long funds held? • Can I cancel?</p><button class="btn2" style="width:100%;background:#ff444422;border-color:#ff4444;color:#ff8888" onclick="openSupport()">🛡️ Report Issue - 6h Hold</button></div>
+</div>
+
+<!-- WALLET MODAL -->
+<div class="modal" id="walletModal"><div class="modalbox"><h2 style="text-align:center;color:#22d3ee">Connect Wallet</h2><p style="text-align:center;font-size:12px;color:#aaa;margin:6px 0 14px">Choose a wallet to connect to ODSMALL</p><button class="btn2" style="width:100%;text-align:left;padding:14px;margin-bottom:8px" onclick="connectWallet('Phantom')">👻 Phantom →</button><button class="btn2" style="width:100%;text-align:left;padding:14px;margin-bottom:8px" onclick="connectWallet('Solflare')">☀️ Solflare →</button><button class="btn2" style="width:100%;text-align:left;padding:14px;margin-bottom:8px" onclick="connectWallet('Backpack')">🎒 Backpack →</button><button class="btn2" style="width:100%;text-align:left;padding:14px;margin-bottom:8px" onclick="connectWallet('MetaMask')">🦊 MetaMask (Polygon) →</button><p style="text-align:center;font-size:12px;color:#666;margin:10px">or</p><input class="input" id="manualAddr" placeholder="Enter wallet address..."><div class="row"><button class="btn2" onclick="closeWallet()">Cancel</button><button class="btn" onclick="connectWallet(document.getElementById('manualAddr').value||'Manual')">Connect</button></div></div></div>
+
+<!-- SUPPORT MODAL -->
+<div class="modal" id="supportModal"><div class="modalbox"><h3>💬 Support Chat</h3><p style="font-size:13px;color:#aaa;margin:8px 0">Ticket No: <b style="color:#fff" id="ticketNo">OD-12345</b> • Support: odsmall.support@gmail.com</p><input class="input" placeholder="Order ID / Ticket"><textarea class="input" rows="3" placeholder="Issue likho + Screenshot attach karo..."></textarea><button class="btn" onclick="alert('Issue bhej diya! 6 Ghante Hold lag gaya. Support verify karegi. Fake hua to Buyer -1, Real hua to Seller -1.');closeSupport()">Send Issue - 6h Hold Lagao</button><button class="btn2" style="width:100%;margin-top:8px" onclick="closeSupport()">Close</button></div></div>
+
+<div class="nav">
+<button class="on" onclick="showPage('home',this)"> <span>🏠</span> Home</button>
+<button onclick="showPage('market',this)"> <span>🛍️</span> Market</button>
+<button onclick="showPage('creator',this)"> <span>🎨</span> Creator</button>
+<button onclick="showPage('profile',this)"> <span>👤</span> Profile</button>
+</div>
+
+<script>
+let selPrice=350, selName='Standard', selDays='5 days';
+let earn=0, score=98, wallet='Not Connected';
+const gigs=[
+ {type:'gig',cat:'gig',title:'I will build your Solana website',by:'AlexDev',price:350,rating:'4.9 (132)',trust:97,tag:'Development',delivery:'5 days',onClick:"showPage('gig')"},
+ {type:'product',cat:'template',title:'SaaS Dashboard Template',by:'ODSMALL Labs',price:45,rating:'4.8 (124)',trust:98,tag:'Template',delivery:'Instant',onClick:"showPage('detail')"},
+ {type:'gig',cat:'gig',title:'I will design NFT marketplace UI UX',by:'mira.codes',price:280,rating:'4.8 (89)',trust:92,tag:'Design',delivery:'7 days',onClick:"showPage('gig')"},
+ {type:'product',cat:'code',title:'Solidity Smart Contracts Kit',by:'CodeLab',price:30,rating:'4.7 (356)',trust:94,tag:'Code',delivery:'Instant',onClick:"showPage('detail')"},
+ {type:'gig',cat:'gig',title:'I will write Solana whitepaper & docs',by:'DocPro',price:220,rating:'4.9 (210)',trust:95,tag:'Writing',delivery:'6 days',onClick:"showPage('gig')"},
+ {type:'product',cat:'template',title:'Web3 Marketing Guide Ebook',by:'GrowthX',price:12.5,rating:'4.6 (98)',trust:95,tag:'Ebook',delivery:'Instant',onClick:"showPage('detail')"},
+];
+function cardHTML(g){
+ return `<div class="card"><div class="flex"><div style="display:flex;gap:10px"><div class="ava">${g.by[0].toUpperCase()}</div><div><b>${g.title}</b><p style="font-size:12px;color:#aaa">by ${g.by} • ${g.tag} • ${g.type==='gig'?'🎨 GIG - Banwao':'🛍️ PRODUCT - Bana Hua Lo'}</p><p class="stars">★★★★★ ${g.rating}</p></div></div><span class="trust">🛡️ Trust <b>${g.trust}</b></span></div><div class="flex" style="margin-top:10px;align-items:center"><div class="price">${g.price} USDC <small>• ${g.delivery}</small></div><button class="btn" style="width:auto;padding:9px 18px" onclick="${g.onClick}">${g.type==='gig'?'View Gig →':'Buy Now'}</button></div><p style="font-size:11px;color:#aaa;margin-top:6px">${g.type==='gig'?'Escrow Lock: Deal Days • 8h Notify • 72h Fix':'Escrow Lock: 48h • Try Before Buy • Live Demo Available'}</p></div>`;
+}
+function renderFeed(list,el){ document.getElementById(el).innerHTML=list.map(cardHTML).join('')||'<p style="color:#aaa">Kuch nahi mila. Filter change karo.</p>'; }
+renderFeed(gigs,'feed'); renderFeed(gigs.filter(g=>g.type==='product'),'marketFeed'); renderFeed(gigs.filter(g=>g.type==='gig'),'creatorFeed');
+function showPage(p,btn){
+ ['home','market','creator','detail','gig','profile'].forEach(id=>{let e=document.getElementById('page-'+id); if(e) e.classList.add('hidden')});
+ document.getElementById('page-'+p).classList.remove('hidden');
+ if(btn){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('on')); btn.classList.add('on');}
+ window.scrollTo(0,0);
+}
+function filterCat(c,el){
+ document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('on')); el.classList.add('on');
+ if(c==='all') renderFeed(gigs,'feed');
+ else if(c==='gig') renderFeed(gigs.filter(g=>g.type==='gig'),'feed');
+ else if(c==='product') renderFeed(gigs.filter(g=>g.type==='product'),'feed');
+ else renderFeed(gigs.filter(g=>g.cat===c),'feed');
+}
+function doSearch(q){
+ q=q.toLowerCase(); if(!q){renderFeed(gigs,'feed');return;}
+ renderFeed(gigs.filter(g=>g.title.toLowerCase().includes(q)||g.by.toLowerCase().includes(q)||g.tag.toLowerCase().includes(q)),'feed');
+}
+function filterPrice(v){
+ if(v==='all') renderFeed(gigs.filter(g=>g.type==='product'),'marketFeed');
+ else if(v==='low') renderFeed(gigs.filter(g=>g.type==='product'&&g.price<50),'marketFeed');
+ else if(v==='mid') renderFeed(gigs.filter(g=>g.type==='product'&&g.price>=50&&g.price<=150),'marketFeed');
+ else renderFeed(gigs.filter(g=>g.type==='product'&&g.price>150),'marketFeed');
+}
+function selectTier(p,n,d){ selPrice=p; selName=n; selDays=d; document.getElementById('selTier').innerText=n+' - '+p+' USDC - '+d; }
+function lockDeal(){
+ let fee=(selPrice*0.001).toFixed(2);
+ if(!confirm(`Deal Lock karun?\n\n${selName} - ${selPrice} USDC\nODSMALL Fee 0.1% = ${fee} USDC\nTotal: ${(selPrice+parseFloat(fee)).toFixed(2)} USDC\n\nEscrow me Lock hoga. 8h pehle notify milega.`)) return;
+ alert(`Deal Locked! Ticket: OD-${Date.now()}\n${selPrice} USDC Escrow me Lock. Freelancer ko notify gaya.`);
+}
+function buyProduct(name,price){
+ let fee=(price*0.001).toFixed(2);
+ if(!confirm(`Buy karun?\n\n${name} - ${price} USDC\nFee 0.1% = ${fee} USDC\nTotal: ${(price+parseFloat(fee)).toFixed(2)} USDC\n\n48h Escrow Lock. Issue hua to 6h Hold.`)) return;
+ earn+=price*0.75; document.getElementById('earnBal').innerText=earn.toFixed(2);
+ alert(`Bought! Ticket: OD-${Date.now()}\n${price} USDC Escrow me Lock. Download / Delivery ka wait karo.`);
+ showPage('home');
+}
+function makeDeal(){
+ let need=document.getElementById('aiNeed').value||'Solana website';
+ document.getElementById('aiOut').innerHTML=`<div class="aiBox">🤖 <b>AI Deal Suggestion for:</b> "${need}"<br><br>✅ <b>Price:</b> 350 USDC (Market Average)<br>✅ <b>Time:</b> 5 Days<br>✅ <b>Revisions:</b> 3 Included<br>✅ <b>Fix Time:</b> 72h agar issue aaya to, No Loop<br>✅ <b>Escrow:</b> Paisa mere paas lock, kaam ke baad release<br><br><button class="btn" style="width:auto" onclick="lockDeal()">Ye Deal Lock Karo →</button></div>`;
+}
+function withdraw(){ if(earn<=0) return alert('Abhi Earnings 0 hain. Pehle kuch becho ya deal complete karo.'); alert(earn.toFixed(2)+' USDC apne wallet me bhej diye! 1 click Withdraw ho gaya.'); earn=0; document.getElementById('earnBal').innerText='0.00'; }
+function openWallet(){ document.getElementById('walletModal').classList.add('open'); }
+function closeWallet(){ document.getElementById('walletModal').classList.remove('open'); }
+function connectWallet(w){ wallet=w; closeWallet(); alert(w+' Connected! Ab tu Buy / Sell / Freelance kar sakta hai.'); }
+function openSupport(){ document.getElementById('ticketNo').innerText='OD-'+Math.floor(10000+Math.random()*89999); document.getElementById('supportModal').classList.add('open'); }
+function closeSupport(){ document.getElementById('supportModal').classList.remove('open'); }
+setInterval(()=>{ document.getElementById('liveCount').innerText=10+Math.floor(Math.random()*15); document.getElementById('liveView').innerText=280+Math.floor(Math.random()*80); },3000);
+</script>
+</body></html>
