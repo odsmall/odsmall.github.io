@@ -2,276 +2,284 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ODSMALL - Digital Marketplace</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body{font-family:'Segoe UI',sans-serif;background:#fff;color:#0f172a;padding-bottom:100px;overflow-x:hidden}
-  .card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px}
+  *{box-sizing:border-box}
+  body{font-family:'Segoe UI',sans-serif;background:#fff;color:#0f172a;padding-bottom:110px!important;overflow-x:hidden;font-size:14px}
+  .page-wrap{padding-bottom:80px}
+  .spacer{height:70px;width:100%;display:block}
+  .card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px}
   .btn-black{background:#0f172a;color:white}
-  input,select,textarea{background:white!important;border:1px solid #cbd5e1!important;color:#0f172a!important;border-radius:12px;padding:11px;width:100%;outline:none}
+  input,select,textarea{background:white!important;border:1px solid #cbd5e1!important;color:#0f172a!important;border-radius:10px;padding:9px;width:100%;outline:none;font-size:13px}
   .hidden-page{display:none!important}
   .tab-active{background:#0f172a!important;color:white!important}
-  .icon-btn{width:40px;height:40px;border:1px solid #e2e8f0;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:#f8fafc;position:relative;font-size:18px}
-  .badge{position:absolute;top:-4px;right:-4px;background:#0f172a;color:white;font-size:10px;min-width:18px;height:18px;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:bold}
-  .cat-chip{white-space:nowrap;padding:6px 14px;border-radius:9999px;border:1px solid #e2e8f0;font-size:12px;font-weight:bold;background:#f8fafc;flex-shrink:0}
+  .icon-btn{width:34px;height:34px;border:1px solid #e2e8f0;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:#f8fafc;position:relative;font-size:15px}
+  .badge{position:absolute;top:-4px;right:-4px;background:#0f172a;color:white;font-size:9px;min-width:16px;height:16px;border-radius:9999px;display:flex;align-items:center;justify-content:center;padding:0 3px;font-weight:bold}
+  .cat-chip{white-space:nowrap;padding:5px 11px;border-radius:9999px;border:1px solid #e2e8f0;font-size:11px;font-weight:bold;background:#f8fafc;flex-shrink:0}
   .cat-chip.active{background:#0f172a;color:white}
-  .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#0f172a;color:white;padding:10px 18px;border-radius:9999px;font-size:13px;font-weight:bold;z-index:200;display:none;max-width:90%;text-align:center}
+  .toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#0f172a;color:white;padding:8px 14px;border-radius:9999px;font-size:12px;font-weight:bold;z-index:200;display:none;max-width:90%;text-align:center}
   .pinned{background:#fef3c7!important;border-color:#f59e0b!important}
-  .bottom-nav{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:480px;background:white;border-radius:9999px;box-shadow:0 10px 25px rgba(0,0,0,0.18);display:flex;justify-content:space-around;align-items:center;padding:6px 8px;z-index:50;border:1px solid #e2e8f0;transition:all .3s ease}
-  .bottom-nav.shrunk{width:56px;height:56px;padding:0;left:auto;right:14px;transform:none;justify-content:center;overflow:hidden}
+  .bottom-nav{position:fixed;bottom:12px;bottom:calc(12px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:420px;background:white;border-radius:9999px;box-shadow:0 8px 20px rgba(0,0,0,0.16);display:flex;justify-content:space-around;align-items:center;padding:5px 6px;z-index:50;border:1px solid #e2e8f0;transition:all .3s ease}
+  .bottom-nav.shrunk{width:52px;height:52px;padding:0;left:auto;right:12px;transform:none;justify-content:center;overflow:hidden}
   .bottom-nav.shrunk .nav-item{display:none}
-  .nav-btn{display:flex;flex-direction:column;align-items:center;font-size:10px;font-weight:bold;gap:0;line-height:1}
-  .nav-center{width:44px;height:44px;background:#0f172a;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:20px;color:white;box-shadow:0 6px 14px rgba(0,0,0,0.3);border:3px solid white;cursor:pointer}
+  .nav-btn{display:flex;flex-direction:column;align-items:center;font-size:9px;font-weight:bold;gap:1px;line-height:1}
+  .nav-center{width:38px;height:38px;background:#0f172a;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:17px;color:white;box-shadow:0 5px 12px rgba(0,0,0,0.3);border:2px solid white;cursor:pointer;flex-shrink:0}
   .modal{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:90;display:flex;align-items:flex-end;justify-content:center}
   .modal.hidden-page{display:none!important}
-  .modal-box{background:white;width:100%;max-width:480px;border-radius:24px 24px 0 0;padding:20px;max-height:88vh;overflow:auto}
-  .heart-btn{width:36px;height:36px;border-radius:9999px;border:1px solid #e2e8f0;background:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .modal-box{background:white;width:100%;max-width:480px;border-radius:20px 20px 0 0;padding:16px;max-height:88vh;overflow:auto;padding-bottom:28px}
+  .heart-btn{width:28px;height:28px;border-radius:9999px;border:1px solid #e2e8f0;background:white;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
   .heart-btn.active{background:#fee2e2;border-color:#fca5a5}
-  .buy-btn{background:#0f172a;color:white;font-size:13px;font-weight:bold;padding:8px 16px;border-radius:9999px}
-  .cart-btn{width:36px;height:36px;border-radius:9999px;border:1px solid #e2e8f0;background:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .buy-btn{background:#0f172a;color:white;font-size:11px;font-weight:bold;padding:5px 11px;border-radius:9999px;white-space:nowrap}
+  .cart-btn{width:28px;height:28px;border-radius:9999px;border:1px solid #e2e8f0;background:white;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
   .pin-box{display:flex;gap:8px;justify-content:center}
-  .pin-box input{width:48px;height:52px;text-align:center;font-size:22px;font-weight:900;padding:0}
-  .gallery-thumb{width:64px;height:64px;object-fit:cover;border-radius:12px;border:2px solid transparent;cursor:pointer}
+  .pin-box input{width:44px;height:48px;text-align:center;font-size:20px;font-weight:900;padding:0}
+  .gallery-thumb{width:52px;height:52px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer}
   .gallery-thumb.active{border-color:#0f172a}
-  .swipe-hint{font-size:11px;color:#94a3b8;text-align:center}
+  .swipe-hint{font-size:10px;color:#94a3b8;text-align:center}
+  /* PLAY STORE STYLE - 2 COLUMN GRID, CHHOTI LISTINGS */
+  .play-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .play-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .play-img{width:100%;height:92px;object-fit:cover;display:block}
+  .play-title{font-size:12px;font-weight:700;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:30px}
+  .play-meta{font-size:10px;color:#64748b;line-height:1.2;margin-top:2px}
+  .play-price{font-size:12px;font-weight:900}
+  .play-actions{display:flex;gap:5px;align-items:center;margin-top:6px}
+  .free-row{display:flex;gap:6px;align-items:center;margin-top:4px}
 </style>
 </head>
 <body>
 <div id="toast" class="toast"></div>
 
-<div class="sticky top-0 z-50 bg-white px-4 py-3 border-b border-slate-100">
-  <div class="flex justify-between items-start">
-    <div><h1 class="text-[26px] font-black leading-none">ODSMALL</h1><p class="text-[10px] text-slate-500 mt-0.5">100% Digital Marketplace</p></div>
-    <div class="flex flex-col items-end gap-1">
-      <div class="flex gap-2">
-        <button onclick="navTo('wishlist')" class="icon-btn">❤️<span class="badge" id="wishCount">0</span></button>
-        <button onclick="navTo('cart')" class="icon-btn">🛒<span class="badge" id="cartCount">0</span></button>
-      </div>
-      <p class="text-[11px] font-bold">Balance: <span id="topBal">1,250.00</span> ODSC</p>
+<!-- COMPACT HEADER -->
+<div class="sticky top-0 z-50 bg-white px-3 py-2 border-b border-slate-100">
+  <div class="flex justify-between items-center max-w-md mx-auto">
+    <div><h1 class="text-[20px] font-black leading-none">ODSMALL</h1><p class="text-[9px] text-slate-500">100% Digital Marketplace</p></div>
+    <div class="flex items-center gap-2">
+      <p class="text-[11px] font-bold">Balance: <span id="topBal">1,250.00</span></p>
+      <button onclick="navTo('wishlist')" class="icon-btn">❤️<span class="badge" id="wishCount">0</span></button>
+      <button onclick="navTo('cart')" class="icon-btn">🛒<span class="badge" id="cartCount">0</span></button>
     </div>
   </div>
 </div>
 
-<div id="page-signup" class="p-4 max-w-md mx-auto">
-  <h1 class="text-3xl font-black mt-2" id="authTitle">Create Account</h1>
-  <p class="text-slate-500 text-sm mt-1">Create account with your real email. Login will be remembered.</p>
-  <div class="card p-4 mt-4 space-y-3">
-    <div><label class="text-xs text-slate-500">Email *</label><input id="suEmail" placeholder="ali@gmail.com"></div>
-    <div><label class="text-xs text-slate-500">Password *</label><input type="password" id="suPass" placeholder="********"></div>
-    <button onclick="doSignup()" class="w-full btn-black font-bold py-3 rounded-xl" id="authBtn">Create Account →</button>
-    <button onclick="toggleAuth()" class="w-full text-center text-xs underline" id="authToggle">Already have an account? Login →</button>
+<div id="page-signup" class="p-3 max-w-md mx-auto page-wrap">
+  <h1 class="text-[26px] font-black mt-1 leading-tight" id="authTitle">Create Account</h1>
+  <p class="text-slate-500 text-[13px] mt-1">Create account with your real email. Login will be remembered.</p>
+  <div class="card p-3 mt-3 space-y-3">
+    <div><label class="text-[11px] text-slate-500">Email *</label><input id="suEmail" placeholder="ali@gmail.com"></div>
+    <div><label class="text-[11px] text-slate-500">Password *</label><input type="password" id="suPass" placeholder="********"></div>
+    <button onclick="doSignup()" class="w-full btn-black font-bold py-2.5 rounded-xl text-[13px]" id="authBtn">Create Account →</button>
+    <button onclick="toggleAuth()" class="w-full text-center text-[11px] underline" id="authToggle">Already have an account? Login →</button>
   </div>
-  <button onclick="navTo('home')" class="w-full text-center text-xs text-slate-500 mt-3">Skip Demo → View Home</button>
-  <div class="card p-3 mt-4 text-center text-xs text-slate-600"><b>Demo:</b> Skip → Home → Buy → PIN 1234 → Ticket → My Orders → Report<br>Send = Wallet Address + PIN • Recharge / Withdraw = Button Only</div>
+  <button onclick="navTo('home')" class="w-full text-center text-[11px] text-slate-500 mt-2">Skip Demo → View Home</button>
+  <div class="card p-2.5 mt-3 text-center text-[11px] text-slate-600"><b>Demo:</b> Skip → Home → Buy → PIN 1234 → Ticket → My Orders → Report</div>
 </div>
 
-<div id="page-home" class="px-4 max-w-md mx-auto hidden-page">
-  <h1 class="text-[32px] font-black leading-[1.1] mt-4">Safe Buy, Safe Sell,<br>Safe Work.</h1>
-  <p class="text-slate-500 text-[15px] mt-2">100% Digital Marketplace. Templates, Courses, Designs, Code, API, SaaS, Tools - All Digital. Instant Delivery, Escrow Protected.</p>
-  <div class="flex gap-3 mt-5">
-    <button id="tabM" onclick="showMarket()" class="tab-active flex-1 border border-slate-900 font-black py-3 rounded-xl">MARKETPLACE</button>
-    <button id="tabF" onclick="showFreelancers()" class="flex-1 border border-slate-300 font-black py-3 rounded-xl">FREELANCERS</button>
+<div id="page-home" class="px-3 max-w-md mx-auto hidden-page page-wrap">
+  <h1 class="text-[22px] font-black leading-[1.15] mt-2">Safe Buy, Safe Sell,<br>Safe Work.</h1>
+  <p class="text-slate-500 text-[12px] mt-1">100% Digital Marketplace. Templates, Courses, Designs, Code, API, SaaS, Tools - Instant Delivery, Escrow Protected.</p>
+  <div class="flex gap-2 mt-3">
+    <button id="tabM" onclick="showMarket()" class="tab-active flex-1 border border-slate-900 font-black py-2 rounded-lg text-[12px]">MARKETPLACE</button>
+    <button id="tabF" onclick="showFreelancers()" class="flex-1 border border-slate-300 font-black py-2 rounded-lg text-[12px]">FREELANCERS</button>
   </div>
-  <div class="flex gap-2 mt-4 items-center">
-    <div class="flex-1 flex items-center gap-2 border border-slate-300 rounded-full px-4 py-2 bg-white"><span>🔍</span><input id="searchInput" placeholder="Search Digital Products..." class="!border-0 !p-0 !rounded-none w-full" style="border:none!important" oninput="applyFilters()"></div>
-    <button onclick="doSearchClick()" class="w-11 h-11 shrink-0 bg-slate-900 text-white rounded-full font-bold flex items-center justify-center text-xl">🔍</button>
+  <div class="flex gap-2 mt-3 items-center">
+    <div class="flex-1 flex items-center gap-2 border border-slate-300 rounded-full px-3 py-1.5 bg-white"><span class="text-[13px]">🔍</span><input id="searchInput" placeholder="Search Digital Products..." class="!border-0 !p-0 !rounded-none w-full text-[12px]" style="border:none!important" oninput="applyFilters()"></div>
+    <button onclick="doSearchClick()" class="w-9 h-9 shrink-0 bg-slate-900 text-white rounded-full font-bold flex items-center justify-center text-[14px]">🔍</button>
   </div>
-  <div id="swipeArea" class="mt-3">
-    <div class="flex gap-2 overflow-x-auto pb-1" id="catChips"></div>
-    <p class="swipe-hint">← Swipe Left / Right to Change Category →</p>
+  <div id="swipeArea" class="mt-2">
+    <div class="flex gap-1.5 overflow-x-auto pb-1" id="catChips"></div>
+    <p class="swipe-hint">← Swipe to Change Category →</p>
   </div>
-  <div class="flex gap-2 mt-2">
-    <select id="catFilter" onchange="setCat(this.value)" class="!rounded-full !w-auto"><option value="All">Category: All</option></select>
-    <select id="priceFilter" onchange="applyFilters()" class="!rounded-full !w-auto"><option value="all">Price: Any</option><option value="0-20">0 - 20 ODSC</option><option value="20-50">20 - 50 ODSC</option><option value="50-100">50 - 100 ODSC</option><option value="100+">100+ ODSC</option></select>
-    <select id="sortFilter" onchange="applyFilters()" class="!rounded-full !w-auto"><option value="pop">Sort: Popular</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select>
+  <div class="flex gap-1.5 mt-1.5">
+    <select id="catFilter" onchange="setCat(this.value)" class="!rounded-full !w-auto !text-[11px] !py-1.5"><option value="All">Category: All</option></select>
+    <select id="priceFilter" onchange="applyFilters()" class="!rounded-full !w-auto !text-[11px] !py-1.5"><option value="all">Price: Any</option><option value="0-20">0 - 20</option><option value="20-50">20 - 50</option><option value="50-100">50 - 100</option><option value="100+">100+</option></select>
+    <select id="sortFilter" onchange="applyFilters()" class="!rounded-full !w-auto !text-[11px] !py-1.5"><option value="pop">Popular</option><option value="low">Low to High</option><option value="high">High to Low</option></select>
   </div>
-  <p class="text-xs text-slate-500 mt-3"><span id="resultCount">0</span> digital products • <span id="activeCatLabel">All Categories</span> • Instant Delivery ⚡</p>
-  <div id="sec-market" class="mt-3 space-y-4"></div>
-  <div id="sec-free" class="mt-3 space-y-3 hidden-page"></div>
+  <p class="text-[11px] text-slate-500 mt-2"><span id="resultCount">0</span> products • <span id="activeCatLabel">All Categories</span> • ⚡ Instant</p>
+  <!-- PLAY STORE GRID -->
+  <div id="sec-market" class="mt-2 play-grid"></div>
+  <div id="sec-free" class="mt-2 space-y-2 hidden-page"></div>
+  <div class="spacer"></div>
 </div>
 
-<div id="page-wishlist" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">❤️ Wishlist</h2><div id="wishList" class="space-y-3 mt-4"></div></div>
-<div id="page-cart" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">🛒 Cart</h2><div id="cartList" class="space-y-3 mt-4"></div><div id="cartTotalBox" class="card p-4 mt-3 hidden-page"><p class="flex justify-between font-bold"><span>Total</span><span id="cartTotal">0 ODSC</span></p><p class="text-xs text-slate-500">Fee 0.1% • Escrow • Instant Digital Delivery</p><button onclick="openCheckoutFromCart()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Checkout with PIN</button></div></div>
+<div id="page-wishlist" class="p-3 max-w-md mx-auto hidden-page page-wrap"><h2 class="font-black text-[20px]">❤️ Wishlist</h2><div id="wishList" class="space-y-2 mt-3"></div><div class="spacer"></div></div>
+<div id="page-cart" class="p-3 max-w-md mx-auto hidden-page page-wrap"><h2 class="font-black text-[20px]">🛒 Cart</h2><div id="cartList" class="space-y-2 mt-3"></div><div id="cartTotalBox" class="card p-3 mt-2 hidden-page"><p class="flex justify-between font-bold text-[13px]"><span>Total</span><span id="cartTotal">0 ODSC</span></p><p class="text-[11px] text-slate-500">Fee 0.1% • Escrow • Instant</p><button onclick="openCheckoutFromCart()" class="w-full btn-black font-bold py-2.5 rounded-xl mt-2 text-[13px]">Checkout with PIN</button></div><div class="spacer"></div></div>
 
-<div id="page-detail" class="max-w-md mx-auto hidden-page">
-  <div class="p-4"><button onclick="goBack()">← Back</button></div>
-  <img id="dImg" class="w-full h-64 object-cover">
-  <div class="flex gap-2 px-4 mt-2" id="dGallery"></div>
-  <div class="p-4">
-    <h2 id="dName" class="font-black text-2xl"></h2><p id="dCat" class="text-xs text-slate-500"></p><p id="dPrice" class="font-black text-xl mt-2"></p>
-    <div class="card p-3 mt-3"><p class="font-bold text-sm">📄 Intro</p><p id="dIntro" class="text-sm text-slate-600 mt-1"></p></div>
-    <div class="card p-3 mt-2"><p class="font-bold text-sm">📦 What's Inside - Delivered Pack</p><div id="dInside" class="text-sm text-slate-600 mt-1 space-y-1"></div></div>
-    <div class="card p-3 mt-2"><p class="font-bold text-sm">⚙️ How to Use</p><p id="dHow" class="text-sm text-slate-600 mt-1"></p></div>
-    <div class="flex gap-2 mt-3"><span class="text-[11px] bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">⚡ Instant Delivery</span><span class="text-[11px] bg-slate-100 px-2 py-1 rounded-full font-bold">🛡️ Escrow 48h</span><span class="text-[11px] bg-amber-100 px-2 py-1 rounded-full font-bold">💾 Digital Download</span></div>
-    <div class="flex gap-2 mt-4 items-center"><button id="dBuy" class="buy-btn !py-3 !px-6 !text-sm">Buy</button><button id="dWish" class="heart-btn !w-11 !h-11">🤍</button><button id="dCartBtn" class="cart-btn !w-11 !h-11">🛒</button></div>
-    <p class="text-[11px] text-slate-400 mt-2">Chat is only with Freelancers for work discussion. Product is ready-made, no need to chat with seller.</p>
-    <div class="mt-4"><p class="font-bold">⭐ Reviews & Feedbacks</p><p id="dRatingSum" class="text-xs text-slate-500"></p><div id="dReviews" class="space-y-2 mt-2"></div><div class="flex gap-2 mt-2"><input id="reviewInput" placeholder="Write your review..."><button onclick="addReview()" class="bg-slate-900 text-white px-4 rounded-xl shrink-0">Post</button></div></div>
+<div id="page-detail" class="max-w-md mx-auto hidden-page page-wrap">
+  <div class="p-3"><button onclick="goBack()">← Back</button></div>
+  <img id="dImg" class="w-full h-44 object-cover">
+  <div class="flex gap-2 px-3 mt-2" id="dGallery"></div>
+  <div class="p-3">
+    <h2 id="dName" class="font-black text-[18px] leading-tight"></h2><p id="dCat" class="text-[11px] text-slate-500"></p><p id="dPrice" class="font-black text-[16px] mt-1"></p>
+    <div class="card p-2.5 mt-2"><p class="font-bold text-[12px]">📄 Intro</p><p id="dIntro" class="text-[12px] text-slate-600 mt-1"></p></div>
+    <div class="card p-2.5 mt-2"><p class="font-bold text-[12px]">📦 What's Inside</p><div id="dInside" class="text-[12px] text-slate-600 mt-1 space-y-1"></div></div>
+    <div class="card p-2.5 mt-2"><p class="font-bold text-[12px]">⚙️ How to Use</p><p id="dHow" class="text-[12px] text-slate-600 mt-1"></p></div>
+    <div class="flex gap-1.5 mt-2"><span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">⚡ Instant</span><span class="text-[10px] bg-slate-100 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow 48h</span><span class="text-[10px] bg-amber-100 px-2 py-0.5 rounded-full font-bold">💾 Digital</span></div>
+    <div class="flex gap-2 mt-3 items-center"><button id="dBuy" class="buy-btn !py-2.5 !px-5 !text-[12px]">Buy</button><button id="dWish" class="heart-btn !w-9 !h-9">🤍</button><button id="dCartBtn" class="cart-btn !w-9 !h-9">🛒</button></div>
+    <p class="text-[10px] text-slate-400 mt-1.5">Chat is only with Freelancers. Product is ready-made.</p>
+    <div class="mt-3"><p class="font-bold text-[13px]">⭐ Reviews</p><p id="dRatingSum" class="text-[11px] text-slate-500"></p><div id="dReviews" class="space-y-2 mt-2"></div><div class="flex gap-2 mt-2"><input id="reviewInput" placeholder="Write your review..."><button onclick="addReview()" class="bg-slate-900 text-white px-3 rounded-xl shrink-0 text-[12px]">Post</button></div></div>
   </div>
+  <div class="spacer"></div>
 </div>
 
-<div id="page-freelancer" class="max-w-md mx-auto hidden-page">
-  <div class="p-4"><button onclick="goBack()">← Back</button></div>
-  <div class="px-4 flex gap-4 items-center"><img id="fImg" class="w-20 h-20 rounded-full border-2 border-slate-900 object-cover"><div class="flex-1"><h2 id="fName2" class="font-black text-xl"></h2><p id="fUser2" class="font-bold text-sm"></p><p id="fMeta" class="text-xs text-slate-500"></p></div><button id="fWishBtn" class="heart-btn">🤍</button></div>
-  <div class="px-4 mt-3"><p class="text-xs font-bold text-slate-500">ABOUT</p><p id="fAbout2" class="text-sm text-slate-600 mt-1"></p></div>
-  <div class="px-4 mt-4"><p class="font-bold">Services / Gigs</p><div id="fGigs" class="space-y-2 mt-2"></div></div>
-  <div class="px-4 mt-4"><p class="font-bold">Listed Digital Products</p><div id="fProds" class="space-y-2 mt-2"></div></div>
-  <div class="px-4 mt-4"><p class="font-bold">⭐ Reviews</p><div id="fReviews" class="space-y-2 mt-2"></div></div>
-  <div class="px-4 mt-4 pb-4"><button id="fChatBtn" class="w-full btn-black font-bold py-3 rounded-xl">💬 Chat with Freelancer - Discuss Work</button></div>
+<div id="page-freelancer" class="max-w-md mx-auto hidden-page page-wrap">
+  <div class="p-3"><button onclick="goBack()">← Back</button></div>
+  <div class="px-3 flex gap-3 items-center"><img id="fImg" class="w-16 h-16 rounded-full border-2 border-slate-900 object-cover"><div class="flex-1"><h2 id="fName2" class="font-black text-[16px]"></h2><p id="fUser2" class="font-bold text-[12px]"></p><p id="fMeta" class="text-[11px] text-slate-500"></p></div><button id="fWishBtn" class="heart-btn">🤍</button></div>
+  <div class="px-3 mt-2"><p class="text-[11px] font-bold text-slate-500">ABOUT</p><p id="fAbout2" class="text-[12px] text-slate-600 mt-0.5"></p></div>
+  <div class="px-3 mt-3"><p class="font-bold text-[13px]">Services / Gigs</p><div id="fGigs" class="space-y-2 mt-1.5"></div></div>
+  <div class="px-3 mt-3"><p class="font-bold text-[13px]">Listed Digital Products</p><div id="fProds" class="space-y-2 mt-1.5"></div></div>
+  <div class="px-3 mt-3"><p class="font-bold text-[13px]">⭐ Reviews</p><div id="fReviews" class="space-y-2 mt-1.5"></div></div>
+  <div class="px-3 mt-3 pb-2"><button id="fChatBtn" class="w-full btn-black font-bold py-2.5 rounded-xl text-[13px]">💬 Chat with Freelancer</button></div>
+  <div class="spacer"></div>
 </div>
 
-<div id="page-orders" class="p-4 max-w-md mx-auto hidden-page">
-  <h2 class="font-black text-2xl">🧾 My Orders</h2><p class="text-xs text-slate-500">All purchases + Escrow + Report / Refund here</p>
-  <div id="ordersList" class="space-y-3 mt-4"></div>
+<div id="page-orders" class="p-3 max-w-md mx-auto hidden-page page-wrap">
+  <h2 class="font-black text-[20px]">🧾 My Orders</h2><p class="text-[11px] text-slate-500">All purchases + Escrow + Report / Refund here</p>
+  <div id="ordersList" class="space-y-2 mt-3"></div><div class="spacer"></div>
 </div>
 
-<div id="page-chats" class="max-w-md mx-auto hidden-page">
-  <div class="p-4"><h2 class="font-black text-2xl">Chat</h2><input id="chatSearch" placeholder="🔍 Search username..." class="mt-3 !rounded-full" oninput="filterChats()"></div>
-  <div onclick="openSupportChat()" class="pinned flex gap-3 px-4 py-3 border-b-2 border-amber-400 cursor-pointer">
-    <div class="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-xl text-white relative">🎧<span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white"></span></div>
-    <div class="flex-1"><p class="font-bold text-sm">📌 ODSMALL Support <span class="text-[10px] bg-amber-400 px-2 py-0.5 rounded-full">PINNED</span></p><p class="text-xs text-slate-600">Bot Online • Refund only on 3 issues</p></div><span class="text-[10px] font-bold text-green-600">Online</span>
-  </div><div id="chatList"></div>
+<div id="page-chats" class="max-w-md mx-auto hidden-page page-wrap">
+  <div class="p-3"><h2 class="font-black text-[20px]">Chat</h2><input id="chatSearch" placeholder="🔍 Search username..." class="mt-2 !rounded-full" oninput="filterChats()"></div>
+  <div onclick="openSupportChat()" class="pinned flex gap-2 px-3 py-2.5 border-b-2 border-amber-400 cursor-pointer">
+    <div class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-[16px] text-white relative">🎧<span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span></div>
+    <div class="flex-1"><p class="font-bold text-[12px]">📌 ODSMALL Support <span class="text-[9px] bg-amber-400 px-1.5 py-0.5 rounded-full">PINNED</span></p><p class="text-[11px] text-slate-600">Bot Online • Refund only on 3 issues</p></div><span class="text-[10px] font-bold text-green-600">Online</span>
+  </div><div id="chatList"></div><div class="spacer"></div>
 </div>
 
-<div id="page-support" class="max-w-md mx-auto hidden-page">
-  <div class="flex items-center gap-3 p-3 border-b bg-amber-50"><button onclick="goBack()">←</button><div class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white">🎧</div><div class="flex-1"><p class="font-bold text-sm">ODSMALL Support 📌</p><p class="text-[11px] text-green-600">● Bot Online • Verify in 6h</p></div><button onclick="connectHuman()" class="bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-full">👤 Human</button></div>
-  <div id="supportMsgs" class="p-4 space-y-3 min-h-[380px]"></div>
-  <div class="flex gap-2 px-3 pb-1 overflow-x-auto"><button onclick="supportQuick('Fraud / Scam - Product is not as described')" class="whitespace-nowrap border text-xs px-3 py-1.5 rounded-full">🚨 Fraud</button><button onclick="supportQuick('Broken / Not Working - File is not opening')" class="whitespace-nowrap border text-xs px-3 py-1.5 rounded-full">🔧 Broken</button><button onclick="supportQuick('Missing / Incomplete - File missing in pack')" class="whitespace-nowrap border text-xs px-3 py-1.5 rounded-full">📦 Missing</button></div>
-  <div class="p-3 flex gap-2"><input id="supportInput" placeholder="Write to Support..."><button onclick="sendSupportMsg()" class="bg-slate-900 text-white px-4 rounded-xl">➤</button></div>
+<div id="page-support" class="max-w-md mx-auto hidden-page page-wrap">
+  <div class="flex items-center gap-2 p-2.5 border-b bg-amber-50"><button onclick="goBack()">←</button><div class="w-9 h-9 bg-slate-900 rounded-full flex items-center justify-center text-white">🎧</div><div class="flex-1"><p class="font-bold text-[12px]">ODSMALL Support 📌</p><p class="text-[10px] text-green-600">● Bot Online • Verify in 6h</p></div><button onclick="connectHuman()" class="bg-slate-900 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-full">👤 Human</button></div>
+  <div id="supportMsgs" class="p-3 space-y-2 min-h-[320px]"></div>
+  <div class="flex gap-1.5 px-2.5 pb-1 overflow-x-auto"><button onclick="supportQuick('Fraud / Scam - Product is not as described')" class="whitespace-nowrap border text-[11px] px-2.5 py-1 rounded-full">🚨 Fraud</button><button onclick="supportQuick('Broken / Not Working - File is not opening')" class="whitespace-nowrap border text-[11px] px-2.5 py-1 rounded-full">🔧 Broken</button><button onclick="supportQuick('Missing / Incomplete - File missing in pack')" class="whitespace-nowrap border text-[11px] px-2.5 py-1 rounded-full">📦 Missing</button></div>
+  <div class="p-2.5 flex gap-2"><input id="supportInput" placeholder="Write to Support..."><button onclick="sendSupportMsg()" class="bg-slate-900 text-white px-3 rounded-xl">➤</button></div>
+  <div class="spacer"></div>
 </div>
 
-<div id="page-chatopen" class="max-w-md mx-auto hidden-page">
-  <div class="flex items-center gap-3 p-3 border-b"><button onclick="goBack()">←</button><img id="chatImg" src="https://i.pravatar.cc/100?img=32" class="w-10 h-10 rounded-full"><div class="flex-1"><p id="chatName" class="font-bold text-sm">Sara Design</p><p class="text-[11px] text-green-600">Online - Freelancer Chat</p></div><button onclick="sendODSCFromChat()" class="bg-amber-400 font-bold text-xs px-3 py-2 rounded-full">Send ODSC</button></div>
-  <div id="chatMsgs" class="p-4 space-y-3 min-h-[380px]"></div>
-  <div class="p-3 flex gap-2"><input id="chatInput" placeholder="Message freelancer about work..."><button onclick="sendMsg()" class="bg-slate-900 text-white px-4 rounded-xl">➤</button></div>
+<div id="page-chatopen" class="max-w-md mx-auto hidden-page page-wrap">
+  <div class="flex items-center gap-2 p-2.5 border-b"><button onclick="goBack()">←</button><img id="chatImg" src="https://i.pravatar.cc/100?img=32" class="w-9 h-9 rounded-full"><div class="flex-1"><p id="chatName" class="font-bold text-[12px]">Sara Design</p><p class="text-[10px] text-green-600">Online - Freelancer Chat</p></div><button onclick="sendODSCFromChat()" class="bg-amber-400 font-bold text-[11px] px-2.5 py-1.5 rounded-full">Send ODSC</button></div>
+  <div id="chatMsgs" class="p-3 space-y-2 min-h-[320px]"></div>
+  <div class="p-2.5 flex gap-2"><input id="chatInput" placeholder="Message freelancer about work..."><button onclick="sendMsg()" class="bg-slate-900 text-white px-3 rounded-xl">➤</button></div>
+  <div class="spacer"></div>
 </div>
 
-<!-- WALLET - NEW: Address Copy + Send (Address+PIN) + Recharge/Withdraw Button Only -->
-<div id="page-wallet" class="p-4 max-w-md mx-auto hidden-page">
-  <div class="card !bg-slate-900 !text-white p-5 text-center">
-    <p class="text-xs font-bold opacity-70">TOTAL BALANCE</p><h1 class="text-4xl font-black"><span id="walletBal">1,250.00</span> ODSC</h1><p class="text-sm font-bold">≈ $1,250.00 USD • 1 ODSC = $1</p>
-    <div class="mt-3 bg-white/10 rounded-xl p-3 text-left text-[12px]">
-      <p class="text-[11px] opacity-70">Your Wallet Address - Share this to receive ODSC:</p>
-      <p class="mt-1 flex items-center justify-between gap-2"><b id="myWalletAddr">ODS-a8x9k2p7m4</b> <button onclick="copyWalletAddr()" class="bg-white text-black text-[11px] font-bold px-3 py-1 rounded-full shrink-0">📋 Copy</button></p>
-      <p class="text-[10px] opacity-60 mt-1">Username changes, Address never changes. Send only with Address.</p>
+<div id="page-wallet" class="p-3 max-w-md mx-auto hidden-page page-wrap">
+  <div class="card !bg-slate-900 !text-white p-4 text-center">
+    <p class="text-[11px] font-bold opacity-70">TOTAL BALANCE</p><h1 class="text-[32px] font-black leading-none mt-1"><span id="walletBal">1,250.00</span> ODSC</h1><p class="text-[12px] font-bold mt-1">≈ $1,250.00 USD • 1 ODSC = $1</p>
+    <div class="mt-2.5 bg-white/10 rounded-xl p-2.5 text-left text-[12px]">
+      <p class="text-[10px] opacity-70">Your Wallet Address - Share to receive ODSC:</p>
+      <p class="mt-1 flex items-center justify-between gap-2"><b id="myWalletAddr">ODS-a8x9k2p7m4</b> <button onclick="copyWalletAddr()" class="bg-white text-black text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0">📋 Copy</button></p>
     </div>
   </div>
-
-  <div class="grid grid-cols-3 gap-2 mt-3">
-    <button onclick="openSend()" class="card py-3 text-center"><p class="text-xl">↗️</p><p class="text-xs font-bold">Send</p><p class="text-[10px] text-slate-500">Fee 0.1% • Instant</p></button>
-    <button onclick="showToast('Recharge - Coming Soon. Baad me ayega.')" class="card py-3 text-center opacity-90"><p class="text-xl">⬇️</p><p class="text-xs font-bold">Recharge</p><p class="text-[10px] text-amber-600 font-bold">Coming Soon</p></button>
-    <button onclick="showToast('Withdraw / Sell - Coming Soon. Baad me ayega.')" class="card py-3 text-center opacity-90"><p class="text-xl">⬆️</p><p class="text-xs font-bold">Withdraw / Sell</p><p class="text-[10px] text-amber-600 font-bold">Coming Soon</p></button>
+  <div class="grid grid-cols-3 gap-2 mt-2.5">
+    <button onclick="openSend()" class="card py-2.5 text-center"><p class="text-[18px]">↗️</p><p class="text-[11px] font-bold">Send</p><p class="text-[9px] text-slate-500">Fee 0.1%</p></button>
+    <button onclick="showToast('Recharge - Coming Soon.')" class="card py-2.5 text-center opacity-90"><p class="text-[18px]">⬇️</p><p class="text-[11px] font-bold">Recharge</p><p class="text-[9px] text-amber-600 font-bold">Coming Soon</p></button>
+    <button onclick="showToast('Withdraw / Sell - Coming Soon.')" class="card py-2.5 text-center opacity-90"><p class="text-[18px]">⬆️</p><p class="text-[11px] font-bold">Withdraw</p><p class="text-[9px] text-amber-600 font-bold">Coming Soon</p></button>
   </div>
-
-  <!-- SEND BOX - WALLET ADDRESS + PIN - WORKING -->
-  <div id="box-send" class="card p-4 mt-4 hidden-page">
-    <h3 class="font-bold">Send ODSC - By Wallet Address</h3>
-    <p class="text-xs text-slate-500 mt-1">Dost ka Wallet Address paste karo, Username nahi. Address kabhi change nahi hota.</p>
-    <label class="text-xs text-slate-500 mt-3 block">Receiver Wallet Address *</label>
-    <input id="sendAddr" placeholder="ODS-xxxxxxx - Paste receiver address">
-    <label class="text-xs text-slate-500 mt-3 block">Amount (ODSC) *</label>
+  <div id="box-send" class="card p-3 mt-3 hidden-page">
+    <h3 class="font-bold text-[13px]">Send ODSC - By Wallet Address</h3>
+    <label class="text-[11px] text-slate-500 mt-2 block">Receiver Wallet Address *</label>
+    <input id="sendAddr" placeholder="ODS-xxxxxxx">
+    <label class="text-[11px] text-slate-500 mt-2 block">Amount (ODSC) *</label>
     <input id="sendAmt" type="number" placeholder="50" oninput="calcSend()">
-    <p id="sendCalc" class="text-xs text-amber-600 mt-2 font-bold">They will receive 49.95 ODSC • Fee 0.1% • Instant</p>
-    <label class="text-xs text-slate-500 mt-3 block">Your Transaction PIN *</label>
-    <input id="sendPin" type="password" placeholder="1234 - Default PIN is 1234" maxlength="4">
-    <button onclick="doSend()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Send ODSC Now</button>
-    <p class="text-[11px] text-slate-400 text-center mt-2">Apna Address upar se Copy karke dost ko bhejo, wo yahan paste karke bhej dega.</p>
+    <p id="sendCalc" class="text-[11px] text-amber-600 mt-1.5 font-bold">They will receive 49.95 ODSC • Fee 0.1%</p>
+    <label class="text-[11px] text-slate-500 mt-2 block">Your Transaction PIN *</label>
+    <input id="sendPin" type="password" placeholder="1234" maxlength="4">
+    <button onclick="doSend()" class="w-full btn-black font-bold py-2.5 rounded-xl mt-2 text-[13px]">Send ODSC Now</button>
   </div>
-
-  <!-- RECHARGE / WITHDRAW - BUTTON ONLY, NO ACTION -->
-  <div class="card p-4 mt-4">
-    <h3 class="font-bold text-sm">Recharge / Withdraw</h3>
-    <p class="text-xs text-slate-500 mt-1">Abhi sirf button hai. Action baad me banayenge - JazzCash / Easypaisa / Bank / Crypto + Fee system soch ke.</p>
-    <div class="flex gap-2 mt-3">
-      <button onclick="showToast('Recharge - Coming Soon')" class="flex-1 border font-bold py-2.5 rounded-xl text-xs">⬇️ Recharge - Coming Soon</button>
-      <button onclick="showToast('Withdraw / Sell - Coming Soon')" class="flex-1 border font-bold py-2.5 rounded-xl text-xs">⬆️ Withdraw - Coming Soon</button>
+  <div class="card p-3 mt-3">
+    <h3 class="font-bold text-[12px]">Recharge / Withdraw</h3>
+    <p class="text-[11px] text-slate-500 mt-0.5">Abhi sirf button hai. Baad me - JazzCash / Easypaisa / Bank / Crypto</p>
+    <div class="flex gap-2 mt-2">
+      <button onclick="showToast('Recharge - Coming Soon')" class="flex-1 border font-bold py-2 rounded-xl text-[11px]">⬇️ Recharge - Soon</button>
+      <button onclick="showToast('Withdraw - Coming Soon')" class="flex-1 border font-bold py-2 rounded-xl text-[11px]">⬆️ Withdraw - Soon</button>
     </div>
   </div>
-
-  <h3 class="font-bold mt-5">Recent Transactions</h3><div id="txList" class="space-y-2 mt-2"></div>
+  <h3 class="font-bold text-[13px] mt-4">Recent Transactions</h3><div id="txList" class="space-y-2 mt-2"></div>
+  <div class="spacer"></div>
 </div>
 
-<div id="page-profile" class="p-4 max-w-md mx-auto hidden-page">
+<div id="page-profile" class="p-3 max-w-md mx-auto hidden-page page-wrap">
   <div class="flex justify-between items-start">
-    <div class="flex items-center gap-4"><img id="profilePic" src="https://i.pravatar.cc/100?img=12" class="w-20 h-20 rounded-full border-2 border-slate-900 object-cover"><div><h2 class="font-black text-xl" id="dispName">Ali Khan</h2><p class="font-bold text-sm" id="dispUser">@ali123</p><p class="text-[11px] text-slate-500">ID: USER-829401</p><p class="text-[11px] text-slate-500" id="dispEmail">ali@gmail.com</p></div></div>
-    <div class="flex gap-2"><button onclick="navTo('orders')" class="w-9 h-9 rounded-full border bg-white shadow flex items-center justify-center text-lg" title="My Orders">🧾</button><button onclick="openSettings()" class="w-9 h-9 rounded-full border bg-white shadow flex items-center justify-center text-lg">⚙️</button></div>
+    <div class="flex items-center gap-3"><img id="profilePic" src="https://i.pravatar.cc/100?img=12" class="w-16 h-16 rounded-full border-2 border-slate-900 object-cover"><div><h2 class="font-black text-[16px]" id="dispName">Ali Khan</h2><p class="font-bold text-[12px]" id="dispUser">@ali123</p><p class="text-[10px] text-slate-500">ID: USER-829401</p><p class="text-[10px] text-slate-500" id="dispEmail">ali@gmail.com</p></div></div>
+    <div class="flex gap-1.5"><button onclick="navTo('orders')" class="w-8 h-8 rounded-full border bg-white shadow flex items-center justify-center text-[14px]">🧾</button><button onclick="openSettings()" class="w-8 h-8 rounded-full border bg-white shadow flex items-center justify-center text-[14px]">⚙️</button></div>
   </div>
-  <p class="text-[11px] text-slate-400 mt-1 text-right">🧾 My Orders &nbsp; ⚙️ Settings</p>
-  <div class="card p-4 mt-3 space-y-2"><p class="text-xs font-bold text-slate-500">ABOUT</p><p id="dispAbout" class="text-sm text-slate-600">Hi! I have been doing logo design and video editing for 3 years.</p><div class="grid grid-cols-2 gap-2 pt-2"><div class="bg-white border rounded-xl p-2 text-center"><p class="text-xs text-slate-500">City</p><p class="font-bold text-sm" id="dispCity">Lahore</p></div><div class="bg-white border rounded-xl p-2 text-center"><p class="text-xs text-slate-500">Country</p><p class="font-bold text-sm" id="dispCountry">Pakistan</p></div></div><div class="grid grid-cols-3 gap-2 pt-1 text-center"><div class="bg-white border rounded-xl p-2"><p class="font-black">24</p><p class="text-[10px] text-slate-500">Age</p></div><div class="bg-white border rounded-xl p-2"><p class="font-black">4.9 ⭐</p><p class="text-[10px] text-slate-500">Rating</p></div><div class="bg-white border rounded-xl p-2"><p class="font-black">128</p><p class="text-[10px] text-slate-500">Orders</p></div></div><button onclick="navTo('orders')" class="w-full btn-black font-bold py-3 rounded-xl mt-2">🧾 View My Orders & History</button><p class="text-[11px] text-slate-400 text-center">To edit, tap ⚙️ Settings on top right.</p></div>
-  <button onclick="doLogout()" class="w-full border border-red-300 text-red-600 font-bold py-3 rounded-xl mt-3">Logout</button>
+  <div class="card p-3 mt-2.5 space-y-2"><p class="text-[11px] font-bold text-slate-500">ABOUT</p><p id="dispAbout" class="text-[12px] text-slate-600">Hi! I have been doing logo design and video editing for 3 years.</p><div class="grid grid-cols-2 gap-2 pt-1"><div class="bg-white border rounded-xl p-2 text-center"><p class="text-[10px] text-slate-500">City</p><p class="font-bold text-[12px]" id="dispCity">Lahore</p></div><div class="bg-white border rounded-xl p-2 text-center"><p class="text-[10px] text-slate-500">Country</p><p class="font-bold text-[12px]" id="dispCountry">Pakistan</p></div></div><div class="grid grid-cols-3 gap-2 pt-1 text-center"><div class="bg-white border rounded-xl p-2"><p class="font-black text-[13px]">24</p><p class="text-[9px] text-slate-500">Age</p></div><div class="bg-white border rounded-xl p-2"><p class="font-black text-[13px]">4.9 ⭐</p><p class="text-[9px] text-slate-500">Rating</p></div><div class="bg-white border rounded-xl p-2"><p class="font-black text-[13px]">128</p><p class="text-[9px] text-slate-500">Orders</p></div></div><button onclick="navTo('orders')" class="w-full btn-black font-bold py-2.5 rounded-xl mt-1 text-[13px]">🧾 View My Orders</button></div>
+  <button onclick="doLogout()" class="w-full border border-red-300 text-red-600 font-bold py-2.5 rounded-xl mt-2 text-[13px]">Logout</button>
+  <div class="spacer"></div>
 </div>
 
 <div id="settingsModal" class="modal hidden-page" onclick="if(event.target===this) closeAllModals()">
-  <div class="modal-box"><div class="flex justify-between items-center"><h3 class="font-black text-lg">⚙️ Settings</h3><button onclick="closeAllModals()" class="text-xl px-2">✕</button></div>
-  <button onclick="openEditProfile()" class="w-full card p-4 mt-4 text-left flex justify-between items-center"><span><span class="font-bold">✏️ Edit Profile</span><br><span class="text-xs text-slate-500">Name, Username, About, Photo, City - Really Changes</span></span><span>→</span></button>
-  <button onclick="openLanguage()" class="w-full card p-4 mt-2 text-left flex justify-between items-center"><span><span class="font-bold">🌐 Language</span><br><span class="text-xs text-slate-500">Current: <span id="curLang">English</span></span></span><span>→</span></button>
-  <button onclick="openWalletSettings()" class="w-full card p-4 mt-2 text-left flex justify-between items-center"><span><span class="font-bold">🔐 Wallet Settings</span><br><span class="text-xs text-slate-500">Change PIN • Current: <span id="curPinLabel">1234</span></span></span><span>→</span></button>
-  <button onclick="openAboutUs()" class="w-full card p-4 mt-2 text-left flex justify-between items-center"><span><span class="font-bold">ℹ️ About Us</span><br><span class="text-xs text-slate-500">Fees, Escrow, 25% Commission</span></span><span>→</span></button>
-  <button onclick="openSupportFromSettings()" class="w-full card p-4 mt-2 text-left flex justify-between items-center"><span><span class="font-bold">🎧 Support</span><br><span class="text-xs text-slate-500">Bot + Human - Opens Support Chat</span></span><span>→</span></button>
+  <div class="modal-box"><div class="flex justify-between items-center"><h3 class="font-black text-[16px]">⚙️ Settings</h3><button onclick="closeAllModals()" class="text-[18px] px-2">✕</button></div>
+  <button onclick="openEditProfile()" class="w-full card p-3 mt-3 text-left flex justify-between items-center"><span><span class="font-bold text-[13px]">✏️ Edit Profile</span><br><span class="text-[11px] text-slate-500">Name, Username, About, Photo, City</span></span><span>→</span></button>
+  <button onclick="openLanguage()" class="w-full card p-3 mt-2 text-left flex justify-between items-center"><span><span class="font-bold text-[13px]">🌐 Language</span><br><span class="text-[11px] text-slate-500">Current: <span id="curLang">English</span></span></span><span>→</span></button>
+  <button onclick="openWalletSettings()" class="w-full card p-3 mt-2 text-left flex justify-between items-center"><span><span class="font-bold text-[13px]">🔐 Wallet Settings</span><br><span class="text-[11px] text-slate-500">Change PIN • Current: <span id="curPinLabel">1234</span></span></span><span>→</span></button>
+  <button onclick="openAboutUs()" class="w-full card p-3 mt-2 text-left flex justify-between items-center"><span><span class="font-bold text-[13px]">ℹ️ About Us</span><br><span class="text-[11px] text-slate-500">Fees, Escrow, 25% Commission</span></span><span>→</span></button>
+  <button onclick="openSupportFromSettings()" class="w-full card p-3 mt-2 text-left flex justify-between items-center"><span><span class="font-bold text-[13px]">🎧 Support</span><br><span class="text-[11px] text-slate-500">Bot + Human</span></span><span>→</span></button>
   </div>
 </div>
 
 <div id="editModal" class="modal hidden-page" onclick="if(event.target===this) closeAllModals()">
-  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-lg">Edit Profile</h3><button onclick="closeAllModals()" class="text-xl px-2">✕</button></div>
-  <div class="flex flex-col items-center mt-3"><img id="editPicPreview" src="https://i.pravatar.cc/100?img=12" class="w-20 h-20 rounded-full border-2 border-slate-900 object-cover"><label class="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-full mt-2 cursor-pointer">Change Photo<input type="file" accept="image/*" class="hidden" onchange="changePhoto(event)"></label><p id="photoMsg" class="text-[11px] text-green-600 mt-1"></p></div>
-  <div class="space-y-3 mt-3"><div><label class="text-xs text-slate-500">Display Name</label><input id="fName" value="Ali Khan"></div><div><label class="text-xs text-slate-500">Username *</label><input id="fUser" value="ali123" oninput="checkUser()"><p id="userMsg" class="text-[11px] text-green-600 mt-1">✅ Available</p></div><div class="grid grid-cols-2 gap-2"><div><label class="text-xs text-slate-500">Age</label><input id="fAge" value="24"></div><div><label class="text-xs text-slate-500">City</label><input id="fCity" value="Lahore"></div></div><div><label class="text-xs text-slate-500">Country</label><select id="fCountry"><option>Pakistan</option><option>India</option><option>UAE</option><option>USA</option><option>UK</option></select></div><div><label class="text-xs text-slate-500">About</label><textarea id="fAbout" rows="3" maxlength="500" oninput="countAbout()">Hi! I have been doing logo design and video editing for 3 years.</textarea><p class="text-right text-[11px] text-slate-500"><span id="aboutCount">60</span> / 500</p></div></div>
-  <button onclick="saveProfile()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Save Profile</button><p id="saveMsg" class="text-center text-xs text-green-600 mt-2"></p></div>
+  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-[16px]">Edit Profile</h3><button onclick="closeAllModals()" class="text-[18px] px-2">✕</button></div>
+  <div class="flex flex-col items-center mt-2"><img id="editPicPreview" src="https://i.pravatar.cc/100?img=12" class="w-16 h-16 rounded-full border-2 border-slate-900 object-cover"><label class="bg-slate-900 text-white text-[11px] font-bold px-2.5 py-1 rounded-full mt-1.5 cursor-pointer">Change Photo<input type="file" accept="image/*" class="hidden" onchange="changePhoto(event)"></label><p id="photoMsg" class="text-[10px] text-green-600 mt-1"></p></div>
+  <div class="space-y-2 mt-2"><div><label class="text-[11px] text-slate-500">Display Name</label><input id="fName" value="Ali Khan"></div><div><label class="text-[11px] text-slate-500">Username *</label><input id="fUser" value="ali123" oninput="checkUser()"><p id="userMsg" class="text-[10px] text-green-600 mt-0.5">✅ Available</p></div><div class="grid grid-cols-2 gap-2"><div><label class="text-[11px] text-slate-500">Age</label><input id="fAge" value="24"></div><div><label class="text-[11px] text-slate-500">City</label><input id="fCity" value="Lahore"></div></div><div><label class="text-[11px] text-slate-500">Country</label><select id="fCountry"><option>Pakistan</option><option>India</option><option>UAE</option><option>USA</option><option>UK</option></select></div><div><label class="text-[11px] text-slate-500">About</label><textarea id="fAbout" rows="3" maxlength="500" oninput="countAbout()">Hi! I have been doing logo design and video editing for 3 years.</textarea><p class="text-right text-[10px] text-slate-500"><span id="aboutCount">60</span> / 500</p></div></div>
+  <button onclick="saveProfile()" class="w-full btn-black font-bold py-2.5 rounded-xl mt-2 text-[13px]">Save Profile</button><p id="saveMsg" class="text-center text-[11px] text-green-600 mt-1"></p></div>
 </div>
 
 <div id="langModal" class="modal hidden-page" onclick="if(event.target===this) closeAllModals()">
-  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-lg">Choose Language</h3><button onclick="closeAllModals()" class="text-xl px-2">✕</button></div><div id="langList" class="space-y-2 mt-3"></div></div>
+  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-[16px]">Choose Language</h3><button onclick="closeAllModals()" class="text-[18px] px-2">✕</button></div><div id="langList" class="space-y-2 mt-2"></div></div>
 </div>
 
 <div id="walletSetModal" class="modal hidden-page" onclick="if(event.target===this) closeAllModals()">
-  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-lg">Wallet Settings</h3><button onclick="closeAllModals()" class="text-xl px-2">✕</button></div><div class="space-y-3 mt-3"><p class="text-sm font-bold">Change Wallet PIN - Current: <span id="curPin2">1234</span></p><input id="oldPin" type="password" placeholder="Old PIN - 4 digits" maxlength="4"><input id="newPin" type="password" placeholder="New PIN - 4 digits" maxlength="4"><input id="confirmPin" type="password" placeholder="Confirm New PIN" maxlength="4"><button onclick="changePin()" class="w-full btn-black font-bold py-3 rounded-xl">Change PIN</button><p id="pinMsg" class="text-center text-xs"></p></div></div>
+  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-[16px]">Wallet Settings</h3><button onclick="closeAllModals()" class="text-[18px] px-2">✕</button></div><div class="space-y-2 mt-2"><p class="text-[13px] font-bold">Change Wallet PIN - Current: <span id="curPin2">1234</span></p><input id="oldPin" type="password" placeholder="Old PIN" maxlength="4"><input id="newPin" type="password" placeholder="New PIN" maxlength="4"><input id="confirmPin" type="password" placeholder="Confirm New PIN" maxlength="4"><button onclick="changePin()" class="w-full btn-black font-bold py-2.5 rounded-xl text-[13px]">Change PIN</button><p id="pinMsg" class="text-center text-[11px]"></p></div></div>
 </div>
 
 <div id="aboutModal" class="modal hidden-page" onclick="if(event.target===this) closeAllModals()">
-  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-lg">ℹ️ About ODSMALL</h3><button onclick="closeAllModals()" class="text-xl px-2">✕</button></div><div class="text-sm text-slate-600 space-y-2 mt-3"><p><b>ODSMALL</b> is 100% Digital Marketplace. Buy/sell Templates, Courses, API, SaaS, Tools, Designs, Code - No physical delivery.</p><p><b>Currency:</b> 1 ODSC = $1</p><p><b>Fees:</b> Buy/Send 0.1% • Seller Commission 25% on Escrow Release</p><p><b>Escrow:</b> 48h Buyer Check. Report → 6h Support Verify + 72h Seller Fix + 22h Final = Within 100 Hours.</p><p><b>Refund:</b> Only on Fraud / Broken / Missing - With Proof.</p><p><b>Recharge / Withdraw:</b> Coming Soon - JazzCash / Easypaisa / Bank / Crypto</p></div></div>
+  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-[16px]">ℹ️ About ODSMALL</h3><button onclick="closeAllModals()" class="text-[18px] px-2">✕</button></div><div class="text-[12px] text-slate-600 space-y-2 mt-2"><p><b>ODSMALL</b> is 100% Digital Marketplace.</p><p><b>Currency:</b> 1 ODSC = $1</p><p><b>Fees:</b> Buy/Send 0.1% • Seller Commission 25%</p><p><b>Escrow:</b> 48h Check. Report → 6h + 72h + 22h = Within 100 Hours.</p><p><b>Recharge / Withdraw:</b> Coming Soon</p></div></div>
 </div>
 
 <div id="checkoutModal" class="modal hidden-page" onclick="if(event.target===this) closeAllModals()">
-  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-lg">Checkout</h3><button onclick="closeAllModals()" class="text-xl px-2">✕</button></div><div id="checkoutItems" class="space-y-2 mt-3"></div><div class="card p-3 mt-3 text-sm space-y-1"><p class="flex justify-between"><span>Product Price</span><span id="ckPrice">0 ODSC</span></p><p class="flex justify-between"><span>Platform Fee (0.1%)</span><span id="ckFee">0 ODSC</span></p><p class="flex justify-between"><span>Transaction Fee</span><span>0.00 ODSC</span></p><p class="flex justify-between font-black border-t pt-2"><span>Total to Pay</span><span id="ckTotal">0 ODSC</span></p><p class="text-[11px] text-slate-500">Balance after: <span id="ckAfter">0 ODSC</span> • Seller gets 75% after 48h Escrow (25% Commission)</p></div><p class="font-bold text-sm mt-3 text-center">Enter 4-Digit Transaction PIN</p><p class="text-[11px] text-center text-slate-500">Default PIN is <b>1234</b></p><div class="pin-box mt-2"><input id="pin1" maxlength="1" inputmode="numeric" oninput="movePin(this,'pin2')"><input id="pin2" maxlength="1" inputmode="numeric" oninput="movePin(this,'pin3')"><input id="pin3" maxlength="1" inputmode="numeric" oninput="movePin(this,'pin4')"><input id="pin4" maxlength="1" inputmode="numeric"></div><p id="pinErr" class="text-center text-xs text-red-500 mt-2"></p><button onclick="confirmCheckout()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Pay & Lock in Escrow</button></div>
+  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-[16px]">Checkout</h3><button onclick="closeAllModals()" class="text-[18px] px-2">✕</button></div><div id="checkoutItems" class="space-y-2 mt-2"></div><div class="card p-2.5 mt-2 text-[12px] space-y-1"><p class="flex justify-between"><span>Product Price</span><span id="ckPrice">0 ODSC</span></p><p class="flex justify-between"><span>Platform Fee (0.1%)</span><span id="ckFee">0 ODSC</span></p><p class="flex justify-between font-black border-t pt-1.5"><span>Total to Pay</span><span id="ckTotal">0 ODSC</span></p><p class="text-[10px] text-slate-500">Balance after: <span id="ckAfter">0 ODSC</span> • Seller gets 75% after 48h Escrow</p></div><p class="font-bold text-[12px] mt-2 text-center">Enter 4-Digit PIN</p><p class="text-[10px] text-center text-slate-500">Default PIN is <b>1234</b></p><div class="pin-box mt-1.5"><input id="pin1" maxlength="1" inputmode="numeric" oninput="movePin(this,'pin2')"><input id="pin2" maxlength="1" inputmode="numeric" oninput="movePin(this,'pin3')"><input id="pin3" maxlength="1" inputmode="numeric" oninput="movePin(this,'pin4')"><input id="pin4" maxlength="1" inputmode="numeric"></div><p id="pinErr" class="text-center text-[11px] text-red-500 mt-1"></p><button onclick="confirmCheckout()" class="w-full btn-black font-bold py-2.5 rounded-xl mt-2 text-[13px]">Pay & Lock in Escrow</button></div>
 </div>
 
 <div id="ticketModal" class="modal hidden-page">
-  <div class="modal-box text-center"><p class="text-4xl">✅</p><h3 class="font-black text-xl mt-2">Payment Locked in Escrow</h3><p class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-2 rounded-full mt-2">🔒 Payment is locked in Escrow. You have 48 hours to check / test product and submit any issue or refund.</p><div class="card p-4 mt-3 text-left text-sm space-y-1"><p><b>Order ID:</b> <span id="tkId"></span></p><p><b>Product:</b> <span id="tkProd"></span></p><p><b>Amount Paid:</b> <span id="tkAmt"></span></p><p><b>Date & Time:</b> <span id="tkTime"></span></p><p><b>Status:</b> <span class="text-amber-600 font-bold">Locked in Escrow - 48h</span></p><p class="text-[11px] text-slate-500">If no report in 48h, seller gets 75% (25% ODSMALL Commission). If you report, total refund time Within 100 Hours.</p></div><button id="tkDownload" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl mt-3">⬇️ Download - One Time Link</button><p id="dlMsg" class="text-xs text-green-600 mt-2"></p><div class="flex gap-2 mt-3"><button onclick="closeAllModals(); navTo('orders')" class="flex-1 border font-bold py-3 rounded-xl">My Orders</button><button onclick="closeAllModals(); navTo('home')" class="flex-1 btn-black font-bold py-3 rounded-xl">Done</button></div></div>
+  <div class="modal-box text-center"><p class="text-[32px]">✅</p><h3 class="font-black text-[17px] mt-1">Payment Locked in Escrow</h3><p class="text-[11px] bg-amber-100 text-amber-800 font-bold px-2.5 py-1.5 rounded-full mt-2">🔒 Payment is locked in Escrow. You have 48 hours to check.</p><div class="card p-3 mt-2 text-left text-[12px] space-y-1"><p><b>Order ID:</b> <span id="tkId"></span></p><p><b>Product:</b> <span id="tkProd"></span></p><p><b>Amount Paid:</b> <span id="tkAmt"></span></p><p><b>Date & Time:</b> <span id="tkTime"></span></p><p><b>Status:</b> <span class="text-amber-600 font-bold">Locked in Escrow - 48h</span></p></div><button id="tkDownload" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-xl mt-2 text-[13px]">⬇️ Download - One Time Link</button><p id="dlMsg" class="text-[11px] text-green-600 mt-1"></p><div class="flex gap-2 mt-2"><button onclick="closeAllModals(); navTo('orders')" class="flex-1 border font-bold py-2.5 rounded-xl text-[12px]">My Orders</button><button onclick="closeAllModals(); navTo('home')" class="flex-1 btn-black font-bold py-2.5 rounded-xl text-[12px]">Done</button></div></div>
 </div>
 
 <div id="reportModal" class="modal hidden-page">
-  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-lg">⚠️ Report / Refund Claim</h3><button onclick="closeAllModals()" class="text-xl px-2">✕</button></div>
-  <p class="text-xs text-slate-500 mt-1">Order: <span id="repOrderId"></span> • Refund ONLY on 3 issues. Proof is mandatory.</p>
-  <div class="space-y-2 mt-3">
-    <button onclick="selectIssue('Fraud / Scam')" id="iss1" class="w-full card p-3 text-left"><b>🚨 Fraud / Scam</b><br><span class="text-xs text-slate-500">Listing me kuch aur bataya, mila kuch aur</span></button>
-    <button onclick="selectIssue('Broken / Not Working')" id="iss2" class="w-full card p-3 text-left"><b>🔧 Broken / Not Working</b><br><span class="text-xs text-slate-500">File open nahi ho rahi ya product kaam nahi kar raha</span></button>
-    <button onclick="selectIssue('Missing / Incomplete')" id="iss3" class="w-full card p-3 text-left"><b>📦 Missing / Incomplete</b><br><span class="text-xs text-slate-500">Pack me file missing hai ya product incomplete hai</span></button>
+  <div class="modal-box"><div class="flex justify-between"><h3 class="font-black text-[15px]">⚠️ Report / Refund Claim</h3><button onclick="closeAllModals()" class="text-[18px] px-2">✕</button></div>
+  <p class="text-[11px] text-slate-500 mt-1">Order: <span id="repOrderId"></span> • Refund ONLY on 3 issues. Proof mandatory.</p>
+  <div class="space-y-2 mt-2">
+    <button onclick="selectIssue('Fraud / Scam')" id="iss1" class="w-full card p-2.5 text-left"><b class="text-[12px]">🚨 Fraud / Scam</b><br><span class="text-[11px] text-slate-500">Listing me kuch aur bataya, mila kuch aur</span></button>
+    <button onclick="selectIssue('Broken / Not Working')" id="iss2" class="w-full card p-2.5 text-left"><b class="text-[12px]">🔧 Broken / Not Working</b><br><span class="text-[11px] text-slate-500">File open nahi ho rahi</span></button>
+    <button onclick="selectIssue('Missing / Incomplete')" id="iss3" class="w-full card p-2.5 text-left"><b class="text-[12px]">📦 Missing / Incomplete</b><br><span class="text-[11px] text-slate-500">Pack me file missing hai</span></button>
   </div>
-  <p class="font-bold text-sm mt-3">Upload Proof - Pic OR 10-15s Video *Required*</p>
-  <label class="w-full card p-3 text-center block cursor-pointer">📎 Tap to Upload Pic / Video<input type="file" accept="image/*,video/*" class="hidden" onchange="uploadProof(event)"></label>
-  <p id="proofMsg" class="text-xs text-green-600"></p>
-  <p class="font-bold text-sm mt-3">Explain Your Problem *Required*</p>
-  <textarea id="reportText" rows="3" placeholder="Write your problem in detail... e.g. File is not opening, error is showing..."></textarea>
-  <p id="repErr" class="text-xs text-red-500 mt-1"></p>
-  <button onclick="submitReport()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Submit Report - Send to Support</button>
-  <p class="text-[11px] text-slate-500 mt-2 text-center">Support will verify in 6h → Seller gets 72h → Final in 22h = Within 100 Hours. "I don't like it / I don't need it" will be CANCELLED.</p>
+  <p class="font-bold text-[12px] mt-2">Upload Proof - Pic OR 10-15s Video *Required*</p>
+  <label class="w-full card p-2.5 text-center block cursor-pointer text-[12px]">📎 Tap to Upload Pic / Video<input type="file" accept="image/*,video/*" class="hidden" onchange="uploadProof(event)"></label>
+  <p id="proofMsg" class="text-[11px] text-green-600"></p>
+  <p class="font-bold text-[12px] mt-2">Explain Your Problem *Required*</p>
+  <textarea id="reportText" rows="3" placeholder="Write your problem..."></textarea>
+  <p id="repErr" class="text-[11px] text-red-500 mt-1"></p>
+  <button onclick="submitReport()" class="w-full btn-black font-bold py-2.5 rounded-xl mt-2 text-[13px]">Submit Report - Send to Support</button>
+  <p class="text-[10px] text-slate-500 mt-1.5 text-center">Support 6h → Seller 72h → Final 22h = Within 100 Hours.</p>
   </div>
 </div>
 
 <div id="bottomNav" class="bottom-nav">
-  <button onclick="navTo('home')" class="nav-btn nav-item"><span class="text-[18px]">🏠</span>Home</button>
-  <button onclick="navTo('chats')" class="nav-btn nav-item"><span class="text-[18px]">💬</span>Chat</button>
+  <button onclick="navTo('home')" class="nav-btn nav-item"><span class="text-[16px]">🏠</span>Home</button>
+  <button onclick="navTo('chats')" class="nav-btn nav-item"><span class="text-[16px]">💬</span>Chat</button>
   <button onclick="focusSearch()" class="nav-item"><span class="nav-center">🔍</span></button>
-  <button onclick="navTo('wallet')" class="nav-btn nav-item"><span class="text-[18px]">💰</span>Wallet</button>
-  <button onclick="navTo('profile')" class="nav-btn nav-item"><span class="text-[18px]">👤</span>Profile</button>
+  <button onclick="navTo('wallet')" class="nav-btn nav-item"><span class="text-[16px]">💰</span>Wallet</button>
+  <button onclick="navTo('profile')" class="nav-btn nav-item"><span class="text-[16px]">👤</span>Profile</button>
   <button onclick="expandNav()" class="nav-center hidden-page" id="bubbleBtn">🔍</button>
 </div>
 
 <script>
 const CATS=['All','Design','Templates','UI Kits','Graphics','Icons','Fonts','Mockups','3D Assets','Photography','Courses','Ebooks','Code & Scripts','Plugins','Themes','API','SaaS','Tools','Software','AI Tools','Automation','Presets','Video Assets','Audio & Music','SFX','Business','Marketing','SEO Tools','Game Assets'];
-const IMG={logo:"https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600", brand:"https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600", web:"https://images.unsplash.com/photo-1547658719-da2b51169166?w=600", ui:"https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=600", thumb:"https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600", icon:"https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600", photo:"https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600", code:"https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600", course:"https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600", ebook:"https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600", music:"https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600", biz:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600", game:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600", api:"https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=600", ai:"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600", video:"https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600", seo:"https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=600", mock:"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600"};
+const IMG={logo:"https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400", brand:"https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400", web:"https://images.unsplash.com/photo-1547658719-da2b51169166?w=400", ui:"https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=400", thumb:"https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400", icon:"https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=400", photo:"https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400", code:"https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400", course:"https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400", ebook:"https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400", music:"https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400", biz:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400", game:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400", api:"https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=400", ai:"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", video:"https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400", seo:"https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=400", mock:"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400"};
 let pid=1; function mk(name,cat,price,seller,img,desc,inside){ let imgs=[img, IMG.brand, IMG.ui, IMG.mock]; return {id:pid++,name,cat,price,seller,img,imgs, city:"Lahore",rating:4.8,desc:desc||"Instant download. Digital product.", inside:inside||["Main File - Main Product File (ZIP)","Intro File - How to Use Guide","Preview PDF - Sample Preview (in delivered pack)"]}}
 const PRODUCTS=[
-mk("Premium Logo Pack - 50 Logos","Design",25,"Sara Design",IMG.logo,"50 professional logos for branding.",["Main File - 50 PSD + AI Logo Files (ZIP)","Intro File - How to Edit Logos","Preview PDF - 10 Sample Logos (in delivered pack)"]),
+mk("Premium Logo Pack - 50 Logos","Design",25,"Sara Design",IMG.logo,"50 professional logos for branding.",["Main File - 50 PSD + AI Logo Files (ZIP)","Intro File - How to Edit Logos","Preview PDF - 10 Sample Logos"]),
 mk("Minimal Logo Bundle","Design",18,"Fatima Art",IMG.brand,"30 clean minimal logos.",["Main File - 30 SVG + PNG Files","Intro File - Usage Guide","Preview PDF - Sample Pack"]),
 mk("Brand Identity Kit","Design",32,"Sara Design",IMG.brand,"Complete brand kit.",["Main File - Logo + Colors + Fonts","Intro File - Brand Guide","Preview PDF - Full Preview"]),
 mk("E-Commerce Website Template","Templates",45,"Bilal Dev",IMG.web,"Full online shop template.",["Main File - React + Next.js Source Code","Intro File - Setup Guide","Preview PDF - Demo Screenshots"]),
@@ -349,9 +357,9 @@ let txs=JSON.parse(localStorage.getItem('odsmall_txs')||'[{"t":"Recharge via USD
 const LANGS=['English','Urdu','Roman Urdu','Hindi','Arabic','Spanish','French','German','Turkish','Bengali'];
 let currentLang='English'; let navStack=['signup']; let lastScroll=0; let startX=0;
 const REVIEWS=[
-{name:"Ali from Lahore",stars:5,text:"Bohot acha product, instant download hua. Quality bilkul jaisi batayi thi.",date:"2 days ago"},
-{name:"Fatima from Karachi",stars:4,text:"Good value for money. Thoda aur detail hota to aur acha hota.",date:"5 days ago"},
-{name:"Usman from Islamabad",stars:5,text:"Seller ne jaldi reply kiya, product kaam kar raha hai. Recommended.",date:"1 week ago"}
+{name:"Ali from Lahore",stars:5,text:"Bohot acha product, instant download hua.",date:"2 days ago"},
+{name:"Fatima from Karachi",stars:4,text:"Good value for money.",date:"5 days ago"},
+{name:"Usman from Islamabad",stars:5,text:"Seller ne jaldi reply kiya. Recommended.",date:"1 week ago"}
 ];
 window.addEventListener('scroll',()=>{ let y=window.scrollY; let nav=document.getElementById('bottomNav'); if(y>180 && y>lastScroll){ nav.classList.add('shrunk'); document.getElementById('bubbleBtn').classList.remove('hidden-page'); } else if(y<80){ nav.classList.remove('shrunk'); document.getElementById('bubbleBtn').classList.add('hidden-page'); } lastScroll=y; });
 function expandNav(){ document.getElementById('bottomNav').classList.remove('shrunk'); document.getElementById('bubbleBtn').classList.add('hidden-page'); }
@@ -376,17 +384,18 @@ function applyFilters(){
   let filtered=PRODUCTS.filter(p=>{ if(activeCat!=='All' && p.cat!==activeCat) return false; if(q && !p.name.toLowerCase().includes(q) && !p.cat.toLowerCase().includes(q)) return false; if(pf==='0-20' && !(p.price>=0&&p.price<=20)) return false; if(pf==='20-50' && !(p.price>20&&p.price<=50)) return false; if(pf==='50-100' && !(p.price>50&&p.price<=100)) return false; if(pf==='100+' && !(p.price>100)) return false; return true; });
   if(sort==='low') filtered.sort((a,b)=>a.price-b.price); if(sort==='high') filtered.sort((a,b)=>b.price-a.price);
   document.getElementById('resultCount').innerText=filtered.length;
-  document.getElementById('sec-market').innerHTML=filtered.map(p=>`<div class="card overflow-hidden"><img src="${p.img}" class="h-44 w-full object-cover cursor-pointer" onclick="openDetail(${p.id})"><div class="p-3"><div class="flex justify-between"><p class="font-bold cursor-pointer" onclick="openDetail(${p.id})">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><p class="text-xs text-slate-500">${p.cat} • ⭐ ${p.rating} • by ${p.seller} • ${p.imgs.length} Photos</p><div class="flex gap-2 mt-3 items-center"><button onclick="openCheckout([${p.id}])" class="buy-btn">Buy</button><button onclick="toggleWish(${p.id},event)" class="heart-btn ${wishlist.includes(p.id)?'active':''}">${wishlist.includes(p.id)?'❤️':'🤍'}</button><button onclick="addCart(${p.id})" class="cart-btn">🛒</button></div></div></div>`).join('') || '<div class="card p-4 text-center text-sm">No product found.</div>';
+  // PLAY STORE STYLE CARD - CHHOTA
+  document.getElementById('sec-market').innerHTML=filtered.map(p=>`<div class="play-card"><img src="${p.img}" class="play-img cursor-pointer" onclick="openDetail(${p.id})"><div class="p-2"><p class="play-title cursor-pointer" onclick="openDetail(${p.id})">${p.name}</p><p class="play-meta">${p.cat} • ⭐ ${p.rating} • ${p.seller}</p><div class="flex justify-between items-center mt-1"><span class="play-price">${p.price} ODSC</span><span class="text-[9px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-bold">⚡ Instant</span></div><div class="play-actions"><button onclick="openCheckout([${p.id}])" class="buy-btn">Buy</button><button onclick="toggleWish(${p.id},event)" class="heart-btn">${wishlist.includes(p.id)?'❤️':'🤍'}</button><button onclick="addCart(${p.id})" class="cart-btn">🛒</button></div></div></div>`).join('') || '<div class="card p-3 text-center text-[12px] col-span-2">No product found.</div>';
   let ff=FREELANCERS.filter(f=>{if(q && !f.name.toLowerCase().includes(q) && !f.skill.toLowerCase().includes(q)) return false; return true;});
-  document.getElementById('sec-free').innerHTML=ff.map(f=>`<div class="card p-3 flex gap-3"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-14 h-14 rounded-full cursor-pointer" onclick="openFreelancer(${f.id})"><div class="flex-1"><p class="font-bold text-sm cursor-pointer underline" onclick="openFreelancer(${f.id})">${f.name} • ${f.user}</p><p class="text-xs text-slate-500">${f.skill} • ${f.city}</p><p class="text-xs mt-1 text-slate-600">${f.about}</p><p class="text-xs font-bold mt-1">${f.price} ODSC onwards • ⭐ ${f.rating}</p></div><div class="flex flex-col gap-2"><button onclick="toggleWishFreelancer(${f.id},event)" class="heart-btn ${wishFreelancers.includes(f.id)?'active':''}">${wishFreelancers.includes(f.id)?'❤️':'🤍'}</button><button onclick="openChatForFreelancer(${f.id})" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-full">Chat</button></div></div>`).join('');
+  document.getElementById('sec-free').innerHTML=ff.map(f=>`<div class="card p-2.5 flex gap-2.5"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-11 h-11 rounded-full cursor-pointer shrink-0" onclick="openFreelancer(${f.id})"><div class="flex-1"><p class="font-bold text-[12px] cursor-pointer underline" onclick="openFreelancer(${f.id})">${f.name} • ${f.user}</p><p class="text-[11px] text-slate-500">${f.skill} • ${f.city}</p><p class="text-[11px] mt-0.5 text-slate-600">${f.about}</p><p class="text-[11px] font-bold mt-0.5">${f.price} ODSC onwards • ⭐ ${f.rating}</p></div><div class="flex flex-col gap-1.5"><button onclick="toggleWishFreelancer(${f.id},event)" class="heart-btn">${wishFreelancers.includes(f.id)?'❤️':'🤍'}</button><button onclick="openChatForFreelancer(${f.id})" class="bg-slate-900 text-white text-[10px] px-2.5 py-1.5 rounded-full">Chat</button></div></div>`).join('');
 }
 function doSearchClick(){let q=document.getElementById('searchInput').value;if(!q){showToast('Type something to search');return;}applyFilters();showToast(`Found ${document.getElementById('resultCount').innerText} results`);}
 function openDetail(id){let p=PRODUCTS.find(x=>x.id===id); currentProduct=p; document.getElementById('dImg').src=p.img; document.getElementById('dGallery').innerHTML=p.imgs.map((im,i)=>`<img src="${im}" class="gallery-thumb ${i===0?'active':''}" onclick="document.getElementById('dImg').src=this.src; document.querySelectorAll('.gallery-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active')">`).join(''); document.getElementById('dName').innerText=p.name; document.getElementById('dCat').innerText=p.cat+' • ⭐ '+p.rating+' • Seller: '+p.seller; document.getElementById('dPrice').innerText=p.price+' ODSC (≈ $'+p.price+')'; document.getElementById('dIntro').innerText=p.desc; document.getElementById('dInside').innerHTML=p.inside.map(x=>`<p>✅ ${x}</p>`).join(''); document.getElementById('dHow').innerText='After payment, you will get a One-Time Download Link. Download the ZIP, open Intro File first, then use Main File.'; document.getElementById('dBuy').onclick=()=>openCheckout([id]); document.getElementById('dWish').onclick=(e)=>toggleWish(id,e); document.getElementById('dWish').innerText=wishlist.includes(id)?'❤️':'🤍'; document.getElementById('dCartBtn').onclick=()=>addCart(id); document.getElementById('dRatingSum').innerText=`${p.rating} average • ${REVIEWS.length + (userReviews[id]?userReviews[id].length:0)} reviews`; renderReviews(id); showPage('detail');}
-function renderReviews(pid){ let extra=userReviews[pid]||[]; let all=[...extra, ...REVIEWS]; document.getElementById('dReviews').innerHTML=all.map(r=>`<div class="card p-3"><p class="font-bold text-sm">${r.name} • ${'⭐'.repeat(r.stars)}</p><p class="text-xs text-slate-500">${r.date}</p><p class="text-sm text-slate-600 mt-1">${r.text}</p></div>`).join(''); }
-function addReview(){ let v=document.getElementById('reviewInput').value.trim(); if(!v){alert('Write your review first');return;} if(!currentProduct) return; if(!userReviews[currentProduct.id]) userReviews[currentProduct.id]=[]; userReviews[currentProduct.id].unshift({name:"You",stars:5,text:v,date:"Just now"}); document.getElementById('reviewInput').value=''; renderReviews(currentProduct.id); showToast('Review posted! Thank you.'); }
-function openFreelancer(id){ let f=FREELANCERS.find(x=>x.id===id); currentFreelancer=f; document.getElementById('fImg').src=`https://i.pravatar.cc/200?img=${f.img}`; document.getElementById('fName2').innerText=f.name; document.getElementById('fUser2').innerText=f.user; document.getElementById('fMeta').innerText=`${f.skill} • ${f.city} • ⭐ ${f.rating} • ${f.price} ODSC onwards`; document.getElementById('fAbout2').innerText=f.about; document.getElementById('fWishBtn').innerText=wishFreelancers.includes(f.id)?'❤️':'🤍'; document.getElementById('fWishBtn').onclick=(e)=>toggleWishFreelancer(f.id,e); document.getElementById('fGigs').innerHTML=`<div class="card p-3 flex justify-between items-center"><div><p class="font-bold text-sm">${f.skill} - Basic</p><p class="text-xs text-slate-500">Delivery in 2 days</p></div><div class="flex gap-2 items-center"><p class="font-black">${f.price} ODSC</p><button onclick="openCheckoutGig(${f.id},${f.price},'Basic')" class="buy-btn">Buy</button></div></div><div class="card p-3 flex justify-between items-center"><div><p class="font-bold text-sm">${f.skill} - Premium</p><p class="text-xs text-slate-500">Delivery in 1 day • Priority</p></div><div class="flex gap-2 items-center"><p class="font-black">${f.price*2} ODSC</p><button onclick="openCheckoutGig(${f.id},${f.price*2},'Premium')" class="buy-btn">Buy</button></div></div>`; let prods=PRODUCTS.filter(p=>p.seller===f.name); document.getElementById('fProds').innerHTML=prods.length? prods.map(p=>`<div class="card p-3 flex gap-3 cursor-pointer" onclick="openDetail(${p.id})"><img src="${p.img}" class="w-16 h-16 rounded-xl object-cover"><div class="flex-1"><p class="font-bold text-sm">${p.name}</p><p class="text-xs text-slate-500">${p.cat} • ⭐ ${p.rating}</p><p class="font-black">${p.price} ODSC</p></div><span>→</span></div>`).join('') : '<p class="text-sm text-slate-500">No products listed yet.</p>'; document.getElementById('fReviews').innerHTML=REVIEWS.map(r=>`<div class="card p-3"><p class="font-bold text-sm">${r.name} • ${'⭐'.repeat(r.stars)}</p><p class="text-sm text-slate-600 mt-1">${r.text}</p></div>`).join(''); document.getElementById('fChatBtn').onclick=()=>openChatForFreelancer(f.id); showPage('freelancer'); }
-function openCheckout(ids){ checkoutItems=ids.map(id=>PRODUCTS.find(x=>x.id===id)).filter(Boolean); if(!checkoutItems.length) return; let sub=checkoutItems.reduce((s,p)=>s+p.price,0); let fee=+(sub*0.001).toFixed(2); let total=+(sub+fee).toFixed(2); document.getElementById('checkoutItems').innerHTML=checkoutItems.map(p=>`<div class="flex gap-3 items-center"><img src="${p.img}" class="w-12 h-12 rounded-xl object-cover"><div class="flex-1"><p class="font-bold text-sm">${p.name}</p><p class="text-xs text-slate-500">${p.cat}</p></div><p class="font-black">${p.price} ODSC</p></div>`).join(''); document.getElementById('ckPrice').innerText=sub.toFixed(2)+' ODSC'; document.getElementById('ckFee').innerText=fee.toFixed(2)+' ODSC (0.1%)'; document.getElementById('ckTotal').innerText=total.toFixed(2)+' ODSC'; document.getElementById('ckAfter').innerText=(balance-total).toFixed(2)+' ODSC'; ['pin1','pin2','pin3','pin4'].forEach(id=>document.getElementById(id).value=''); document.getElementById('pinErr').innerText=''; closeAllModals(); document.getElementById('checkoutModal').classList.remove('hidden-page'); }
-function openCheckoutGig(fid,price,label){ let f=FREELANCERS.find(x=>x.id===fid); checkoutItems=[{id:'gig-'+fid,name:f.name+' - '+f.skill+' ('+label+')',cat:'Service / Gig',price:price,img:`https://i.pravatar.cc/100?img=${f.img}`,seller:f.name}]; let fee=+(price*0.001).toFixed(2); let total=+(price+fee).toFixed(2); document.getElementById('checkoutItems').innerHTML=`<div class="flex gap-3 items-center"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-12 h-12 rounded-full"><div class="flex-1"><p class="font-bold text-sm">${f.name} - ${label} Gig</p><p class="text-xs text-slate-500">${f.skill}</p></div><p class="font-black">${price} ODSC</p></div>`; document.getElementById('ckPrice').innerText=price.toFixed(2)+' ODSC'; document.getElementById('ckFee').innerText=fee.toFixed(2)+' ODSC (0.1%)'; document.getElementById('ckTotal').innerText=total.toFixed(2)+' ODSC'; document.getElementById('ckAfter').innerText=(balance-total).toFixed(2)+' ODSC'; closeAllModals(); document.getElementById('checkoutModal').classList.remove('hidden-page'); }
+function renderReviews(pid){ let extra=userReviews[pid]||[]; let all=[...extra, ...REVIEWS]; document.getElementById('dReviews').innerHTML=all.map(r=>`<div class="card p-2.5"><p class="font-bold text-[12px]">${r.name} • ${'⭐'.repeat(r.stars)}</p><p class="text-[10px] text-slate-500">${r.date}</p><p class="text-[12px] text-slate-600 mt-0.5">${r.text}</p></div>`).join(''); }
+function addReview(){ let v=document.getElementById('reviewInput').value.trim(); if(!v){alert('Write your review first');return;} if(!currentProduct) return; if(!userReviews[currentProduct.id]) userReviews[currentProduct.id]=[]; userReviews[currentProduct.id].unshift({name:"You",stars:5,text:v,date:"Just now"}); document.getElementById('reviewInput').value=''; renderReviews(currentProduct.id); showToast('Review posted!'); }
+function openFreelancer(id){ let f=FREELANCERS.find(x=>x.id===id); currentFreelancer=f; document.getElementById('fImg').src=`https://i.pravatar.cc/200?img=${f.img}`; document.getElementById('fName2').innerText=f.name; document.getElementById('fUser2').innerText=f.user; document.getElementById('fMeta').innerText=`${f.skill} • ${f.city} • ⭐ ${f.rating} • ${f.price} ODSC onwards`; document.getElementById('fAbout2').innerText=f.about; document.getElementById('fWishBtn').innerText=wishFreelancers.includes(f.id)?'❤️':'🤍'; document.getElementById('fWishBtn').onclick=(e)=>toggleWishFreelancer(f.id,e); document.getElementById('fGigs').innerHTML=`<div class="card p-2.5 flex justify-between items-center"><div><p class="font-bold text-[12px]">${f.skill} - Basic</p><p class="text-[11px] text-slate-500">Delivery in 2 days</p></div><div class="flex gap-2 items-center"><p class="font-black text-[12px]">${f.price} ODSC</p><button onclick="openCheckoutGig(${f.id},${f.price},'Basic')" class="buy-btn">Buy</button></div></div><div class="card p-2.5 flex justify-between items-center"><div><p class="font-bold text-[12px]">${f.skill} - Premium</p><p class="text-[11px] text-slate-500">Delivery in 1 day</p></div><div class="flex gap-2 items-center"><p class="font-black text-[12px]">${f.price*2} ODSC</p><button onclick="openCheckoutGig(${f.id},${f.price*2},'Premium')" class="buy-btn">Buy</button></div></div>`; let prods=PRODUCTS.filter(p=>p.seller===f.name); document.getElementById('fProds').innerHTML=prods.length? prods.map(p=>`<div class="card p-2.5 flex gap-2.5 cursor-pointer" onclick="openDetail(${p.id})"><img src="${p.img}" class="w-12 h-12 rounded-lg object-cover"><div class="flex-1"><p class="font-bold text-[12px]">${p.name}</p><p class="text-[11px] text-slate-500">${p.cat} • ⭐ ${p.rating}</p><p class="font-black text-[12px]">${p.price} ODSC</p></div><span>→</span></div>`).join('') : '<p class="text-[12px] text-slate-500">No products listed yet.</p>'; document.getElementById('fReviews').innerHTML=REVIEWS.map(r=>`<div class="card p-2.5"><p class="font-bold text-[12px]">${r.name} • ${'⭐'.repeat(r.stars)}</p><p class="text-[12px] text-slate-600 mt-0.5">${r.text}</p></div>`).join(''); document.getElementById('fChatBtn').onclick=()=>openChatForFreelancer(f.id); showPage('freelancer'); }
+function openCheckout(ids){ checkoutItems=ids.map(id=>PRODUCTS.find(x=>x.id===id)).filter(Boolean); if(!checkoutItems.length) return; let sub=checkoutItems.reduce((s,p)=>s+p.price,0); let fee=+(sub*0.001).toFixed(2); let total=+(sub+fee).toFixed(2); document.getElementById('checkoutItems').innerHTML=checkoutItems.map(p=>`<div class="flex gap-2.5 items-center"><img src="${p.img}" class="w-10 h-10 rounded-lg object-cover"><div class="flex-1"><p class="font-bold text-[12px]">${p.name}</p><p class="text-[11px] text-slate-500">${p.cat}</p></div><p class="font-black text-[12px]">${p.price} ODSC</p></div>`).join(''); document.getElementById('ckPrice').innerText=sub.toFixed(2)+' ODSC'; document.getElementById('ckFee').innerText=fee.toFixed(2)+' ODSC (0.1%)'; document.getElementById('ckTotal').innerText=total.toFixed(2)+' ODSC'; document.getElementById('ckAfter').innerText=(balance-total).toFixed(2)+' ODSC'; ['pin1','pin2','pin3','pin4'].forEach(id=>document.getElementById(id).value=''); document.getElementById('pinErr').innerText=''; closeAllModals(); document.getElementById('checkoutModal').classList.remove('hidden-page'); }
+function openCheckoutGig(fid,price,label){ let f=FREELANCERS.find(x=>x.id===fid); checkoutItems=[{id:'gig-'+fid,name:f.name+' - '+f.skill+' ('+label+')',cat:'Service / Gig',price:price,img:`https://i.pravatar.cc/100?img=${f.img}`,seller:f.name}]; let fee=+(price*0.001).toFixed(2); let total=+(price+fee).toFixed(2); document.getElementById('checkoutItems').innerHTML=`<div class="flex gap-2.5 items-center"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-10 h-10 rounded-full"><div class="flex-1"><p class="font-bold text-[12px]">${f.name} - ${label} Gig</p><p class="text-[11px] text-slate-500">${f.skill}</p></div><p class="font-black text-[12px]">${price} ODSC</p></div>`; document.getElementById('ckPrice').innerText=price.toFixed(2)+' ODSC'; document.getElementById('ckFee').innerText=fee.toFixed(2)+' ODSC (0.1%)'; document.getElementById('ckTotal').innerText=total.toFixed(2)+' ODSC'; document.getElementById('ckAfter').innerText=(balance-total).toFixed(2)+' ODSC'; closeAllModals(); document.getElementById('checkoutModal').classList.remove('hidden-page'); }
 function openCheckoutFromCart(){ if(!cart.length){showToast('Cart is empty');return;} openCheckout(cart); }
 function movePin(el,next){ if(el.value && next) document.getElementById(next).focus(); }
 function confirmCheckout(){
@@ -394,54 +403,52 @@ function confirmCheckout(){
   if(pin.length!==4){ document.getElementById('pinErr').innerText='Please enter 4-digit PIN'; return; }
   if(pin!==walletPin){ document.getElementById('pinErr').innerText='Wrong PIN! Default is 1234.'; return; }
   let sub=checkoutItems.reduce((s,p)=>s+p.price,0); let fee=+(sub*0.001).toFixed(2); let total=+(sub+fee).toFixed(2);
-  if(balance<total){ document.getElementById('pinErr').innerText='Balance is low. Please Recharge.'; return; }
+  if(balance<total){ document.getElementById('pinErr').innerText='Balance is low.'; return; }
   balance-=total; saveBal(); let orderId='ODS-'+Math.floor(100000+Math.random()*900000); let now=new Date(); let timeStr=now.toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); let names=checkoutItems.map(p=>p.name).join(', '); let sellerName=checkoutItems[0].seller||'Seller';
   let order={id:orderId, names:names, total:total, sub:sub, fee:fee, seller:sellerName, time:timeStr, status:'Locked in Escrow - 48h', downloadUsed:false, report:null};
   orders.unshift(order); addTx('Order '+orderId+' - '+names,'Locked in Escrow • Fee 0.1% • Seller gets 75% after 48h','-'+total.toFixed(2));
   checkoutItems.forEach(p=>{ cart=cart.filter(id=>id!==p.id); }); updateBadges(); renderCart(); applyFilters();
   document.getElementById('checkoutModal').classList.add('hidden-page');
-  document.getElementById('tkId').innerText=orderId; document.getElementById('tkProd').innerText=names; document.getElementById('tkAmt').innerText=total.toFixed(2)+' ODSC (Price '+sub.toFixed(2)+' + Fee '+fee.toFixed(2)+')'; document.getElementById('tkTime').innerText=timeStr; document.getElementById('dlMsg').innerText=''; document.getElementById('tkDownload').innerText='⬇️ Download - One Time Link'; document.getElementById('tkDownload').disabled=false; document.getElementById('tkDownload').onclick=()=>{ order.downloadUsed=true; document.getElementById('dlMsg').innerText='✅ Downloaded! This link is now used. If you need it again, contact Support.'; document.getElementById('tkDownload').innerText='✅ Link Used - One Time Only'; document.getElementById('tkDownload').disabled=true; showToast('Download started!'); };
+  document.getElementById('tkId').innerText=orderId; document.getElementById('tkProd').innerText=names; document.getElementById('tkAmt').innerText=total.toFixed(2)+' ODSC (Price '+sub.toFixed(2)+' + Fee '+fee.toFixed(2)+')'; document.getElementById('tkTime').innerText=timeStr; document.getElementById('dlMsg').innerText=''; document.getElementById('tkDownload').innerText='⬇️ Download - One Time Link'; document.getElementById('tkDownload').disabled=false; document.getElementById('tkDownload').onclick=()=>{ order.downloadUsed=true; document.getElementById('dlMsg').innerText='✅ Downloaded! Link now used.'; document.getElementById('tkDownload').innerText='✅ Link Used'; document.getElementById('tkDownload').disabled=true; showToast('Download started!'); };
   document.getElementById('ticketModal').classList.remove('hidden-page');
   CHATS.unshift({name:sellerName+' - Order '+orderId,last:'🧾 Order '+orderId+' • '+total.toFixed(2)+' ODSC • Locked in Escrow • 48h to check',time:'Now',type:'user'});
   showToast('Payment locked in Escrow!');
 }
 function renderOrders(){
-  if(!orders.length){ document.getElementById('ordersList').innerHTML='<div class="card p-4 text-center text-sm">No orders yet. Buy a product to see it here.<br><br><button onclick="navTo(\'home\')" class="btn-black px-4 py-2 rounded-full text-xs font-bold">Browse Products</button></div>'; return; }
-  document.getElementById('ordersList').innerHTML=orders.map((o,i)=>`<div class="card p-4"><div class="flex justify-between"><p class="font-bold text-sm">${o.id}</p><span class="text-[11px] font-bold px-2 py-1 rounded-full ${o.status.includes('Escrow')?'bg-amber-100 text-amber-800':o.status.includes('Reported')?'bg-red-100 text-red-700':'bg-green-100 text-green-700'}">${o.status}</span></div><p class="text-sm mt-1">${o.names}</p><p class="text-xs text-slate-500">Seller: ${o.seller} • ${o.time} • Paid: ${o.total.toFixed(2)} ODSC</p>${o.report?`<div class="bg-red-50 border border-red-200 p-2 rounded-xl mt-2 text-xs"><b>Report:</b> ${o.report.issue}<br><b>Proof:</b> ✅ Uploaded • <b>Text:</b> ${o.report.text}<br><b>Timeline:</b> Support Verify 6h → Seller 72h → Final 22h = Within 100 Hours</div>`:''}<div class="flex gap-2 mt-3"><button onclick="downloadFromOrder(${i})" class="flex-1 ${o.downloadUsed?'bg-slate-200':'bg-green-600 text-white'} font-bold py-2 rounded-xl text-xs">${o.downloadUsed?'✅ Link Used':'⬇️ Download - One Time'}</button>${!o.report?`<button onclick="openReport(${i})" class="flex-1 border border-red-300 text-red-600 font-bold py-2 rounded-xl text-xs">⚠️ Report / Refund</button>`:`<button onclick="showToast('Report already submitted. Support will verify in 6h.')" class="flex-1 border font-bold py-2 rounded-xl text-xs">Report Sent ✓</button>`}</div></div>`).join('');
+  if(!orders.length){ document.getElementById('ordersList').innerHTML='<div class="card p-3 text-center text-[12px]">No orders yet.<br><br><button onclick="navTo(\'home\')" class="btn-black px-3 py-1.5 rounded-full text-[11px] font-bold">Browse Products</button></div>'; return; }
+  document.getElementById('ordersList').innerHTML=orders.map((o,i)=>`<div class="card p-3"><div class="flex justify-between gap-2"><p class="font-bold text-[12px]">${o.id}</p><span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap ${o.status.includes('Escrow')?'bg-amber-100 text-amber-800':o.status.includes('Reported')?'bg-red-100 text-red-700':'bg-green-100 text-green-700'}">${o.status}</span></div><p class="text-[12px] mt-1">${o.names}</p><p class="text-[11px] text-slate-500">Seller: ${o.seller} • ${o.time} • Paid: ${o.total.toFixed(2)} ODSC</p>${o.report?`<div class="bg-red-50 border border-red-200 p-2 rounded-lg mt-2 text-[11px]"><b>Report:</b> ${o.report.issue}<br><b>Proof:</b> ✅ Uploaded • <b>Text:</b> ${o.report.text}<br><b>Timeline:</b> 6h → 72h → 22h = Within 100 Hours</div>`:''}<div class="flex gap-2 mt-2"><button onclick="downloadFromOrder(${i})" class="flex-1 ${o.downloadUsed?'bg-slate-200':'bg-green-600 text-white'} font-bold py-2 rounded-xl text-[11px]">${o.downloadUsed?'✅ Link Used':'⬇️ Download'}</button>${!o.report?`<button onclick="openReport(${i})" class="flex-1 border border-red-300 text-red-600 font-bold py-2 rounded-xl text-[11px]">⚠️ Report / Refund</button>`:`<button onclick="showToast('Report already submitted.')" class="flex-1 border font-bold py-2 rounded-xl text-[11px]">Report Sent ✓</button>`}</div></div>`).join('');
 }
-function downloadFromOrder(i){ let o=orders[i]; if(o.downloadUsed){showToast('Link already used - One Time Only');return;} o.downloadUsed=true; renderOrders(); showToast('Download started! Link now used.'); }
+function downloadFromOrder(i){ let o=orders[i]; if(o.downloadUsed){showToast('Link already used');return;} o.downloadUsed=true; renderOrders(); showToast('Download started!'); }
 function openReport(i){ reportOrderId=orders[i].id; selectedIssue=''; proofUploaded=false; document.getElementById('repOrderId').innerText=reportOrderId; document.getElementById('proofMsg').innerText=''; document.getElementById('reportText').value=''; document.getElementById('repErr').innerText=''; ['iss1','iss2','iss3'].forEach(id=>document.getElementById(id).style.borderColor='#e2e8f0'); closeAllModals(); document.getElementById('reportModal').classList.remove('hidden-page'); }
 function selectIssue(iss){ selectedIssue=iss; ['iss1','iss2','iss3'].forEach(id=>document.getElementById(id).style.borderColor='#e2e8f0'); if(iss.includes('Fraud')) document.getElementById('iss1').style.borderColor='#0f172a'; if(iss.includes('Broken')) document.getElementById('iss2').style.borderColor='#0f172a'; if(iss.includes('Missing')) document.getElementById('iss3').style.borderColor='#0f172a'; }
-function uploadProof(e){ if(e.target.files.length){ proofUploaded=true; document.getElementById('proofMsg').innerText='✅ Proof uploaded: '+e.target.files[0].name+' (Pic / 10-15s Video)'; } }
+function uploadProof(e){ if(e.target.files.length){ proofUploaded=true; document.getElementById('proofMsg').innerText='✅ Proof uploaded: '+e.target.files[0].name; } }
 function submitReport(){
   let txt=document.getElementById('reportText').value.trim();
-  if(!selectedIssue){ document.getElementById('repErr').innerText='Please select 1 issue: Fraud / Broken / Missing'; return; }
-  if(!proofUploaded){ document.getElementById('repErr').innerText='Proof is REQUIRED! Upload Pic OR 10-15s Video.'; return; }
-  if(!txt){ document.getElementById('repErr').innerText='Please write your problem in text box.'; return; }
-  let o=orders.find(x=>x.id===reportOrderId); if(o){ o.report={issue:selectedIssue,text:txt}; o.status='Reported - Support Verifying (6h)'; }
+  if(!selectedIssue){ document.getElementById('repErr').innerText='Please select 1 issue'; return; }
+  if(!proofUploaded){ document.getElementById('repErr').innerText='Proof is REQUIRED! Upload Pic OR Video.'; return; }
+  if(!txt){ document.getElementById('repErr').innerText='Please write your problem.'; return; }
+  let o=orders.find(x=>x.id===reportOrderId); if(o){ o.report={issue:selectedIssue,text:txt}; o.status='Reported - Verifying (6h)'; }
   closeAllModals(); renderOrders();
-  CHATS.unshift({name:'Support - Report '+reportOrderId,last:'Report: '+selectedIssue+' • Support verifying in 6h → Seller gets 72h → Final in 22h = Within 100 Hours',time:'Now',type:'user'});
-  showToast('Report submitted! Support will verify in 6h. Seller notified - Listing locked 24h.');
+  CHATS.unshift({name:'Support - Report '+reportOrderId,last:'Report: '+selectedIssue+' • 6h → 72h → 22h = Within 100 Hours',time:'Now',type:'user'});
+  showToast('Report submitted! Support will verify in 6h.');
   navTo('orders');
 }
-function addCart(id){ if(cart.includes(id)){ showToast('Already in Cart'); navTo('cart'); return; } cart.push(id); updateBadges(); applyFilters(); showToast('Added to Cart! Count: '+cart.length); }
+function addCart(id){ if(cart.includes(id)){ showToast('Already in Cart'); navTo('cart'); return; } cart.push(id); updateBadges(); applyFilters(); showToast('Added to Cart!'); }
 function toggleWish(id,e){ if(e) e.stopPropagation(); if(wishlist.includes(id)){ wishlist=wishlist.filter(x=>x!==id); showToast('Removed from Wishlist'); } else { wishlist.push(id); showToast('Added to Wishlist ❤️'); } updateBadges(); applyFilters(); if(currentProduct && currentProduct.id===id){ document.getElementById('dWish').innerText=wishlist.includes(id)?'❤️':'🤍'; } }
-function toggleWishFreelancer(id,e){ if(e) e.stopPropagation(); if(wishFreelancers.includes(id)){ wishFreelancers=wishFreelancers.filter(x=>x!==id); showToast('Removed Freelancer from Wishlist'); } else { wishFreelancers.push(id); showToast('Freelancer Added to Wishlist ❤️'); } updateBadges(); applyFilters(); if(currentFreelancer && currentFreelancer.id===id){ document.getElementById('fWishBtn').innerText=wishFreelancers.includes(id)?'❤️':'🤍'; } }
-function renderWish(){ let html=''; if(wishlist.length) html+=wishlist.map(id=>{let p=PRODUCTS.find(x=>x.id===id); if(!p) return ''; return `<div class="card p-3 flex gap-3"><img src="${p.img}" class="w-16 h-16 rounded-xl object-cover cursor-pointer" onclick="openDetail(${p.id})"><div class="flex-1"><p class="font-bold text-sm">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><button onclick="openCheckout([${p.id}])" class="buy-btn">Buy</button><button onclick="toggleWish(${p.id});renderWish()" class="text-xs px-2">✕</button></div>`}).join(''); if(wishFreelancers.length) html+=`<h3 class="font-bold mt-2">Freelancers</h3>`+wishFreelancers.map(id=>{let f=FREELANCERS.find(x=>x.id===id); return `<div class="card p-3 flex gap-3"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-12 h-12 rounded-full cursor-pointer" onclick="openFreelancer(${f.id})"><div class="flex-1"><p class="font-bold text-sm">${f.name}</p><p class="text-xs text-slate-500">${f.skill} • ${f.price} ODSC</p></div><button onclick="toggleWishFreelancer(${f.id});renderWish()" class="text-xs px-2">✕</button></div>`}).join(''); document.getElementById('wishList').innerHTML=html || '<div class="card p-4 text-center text-sm">Wishlist is empty. Tap 🤍 on any product or freelancer.</div>'; }
-function renderCart(){let total=cart.reduce((s,id)=>{let p=PRODUCTS.find(x=>x.id===id); return s+(p?p.price:0);},0);document.getElementById('cartList').innerHTML=cart.length? cart.map(id=>{let p=PRODUCTS.find(x=>x.id===id); if(!p) return ''; return `<div class="card p-3 flex gap-3"><img src="${p.img}" class="w-16 h-16 rounded-xl object-cover cursor-pointer" onclick="openDetail(${p.id})"><div class="flex-1"><p class="font-bold text-sm">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><button onclick="removeCart(${id})" class="text-xs px-2">✕</button></div>`}).join('') : '<div class="card p-4 text-center text-sm">Cart is empty.</div>';document.getElementById('cartTotalBox').classList.toggle('hidden-page',!cart.length);document.getElementById('cartTotal').innerText=total.toFixed(2)+' ODSC';}
+function toggleWishFreelancer(id,e){ if(e) e.stopPropagation(); if(wishFreelancers.includes(id)){ wishFreelancers=wishFreelancers.filter(x=>x!==id); showToast('Removed Freelancer'); } else { wishFreelancers.push(id); showToast('Freelancer Added ❤️'); } updateBadges(); applyFilters(); if(currentFreelancer && currentFreelancer.id===id){ document.getElementById('fWishBtn').innerText=wishFreelancers.includes(id)?'❤️':'🤍'; } }
+function renderWish(){ let html=''; if(wishlist.length) html+=wishlist.map(id=>{let p=PRODUCTS.find(x=>x.id===id); if(!p) return ''; return `<div class="card p-2.5 flex gap-2.5"><img src="${p.img}" class="w-12 h-12 rounded-lg object-cover cursor-pointer" onclick="openDetail(${p.id})"><div class="flex-1"><p class="font-bold text-[12px]">${p.name}</p><p class="font-black text-[12px]">${p.price} ODSC</p></div><button onclick="openCheckout([${p.id}])" class="buy-btn">Buy</button><button onclick="toggleWish(${p.id});renderWish()" class="text-[11px] px-1.5">✕</button></div>`}).join(''); if(wishFreelancers.length) html+=`<h3 class="font-bold text-[13px] mt-2">Freelancers</h3>`+wishFreelancers.map(id=>{let f=FREELANCERS.find(x=>x.id===id); return `<div class="card p-2.5 flex gap-2.5"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-10 h-10 rounded-full cursor-pointer" onclick="openFreelancer(${f.id})"><div class="flex-1"><p class="font-bold text-[12px]">${f.name}</p><p class="text-[11px] text-slate-500">${f.skill} • ${f.price} ODSC</p></div><button onclick="toggleWishFreelancer(${f.id});renderWish()" class="text-[11px] px-1.5">✕</button></div>`}).join(''); document.getElementById('wishList').innerHTML=html || '<div class="card p-3 text-center text-[12px]">Wishlist is empty.</div>'; }
+function renderCart(){let total=cart.reduce((s,id)=>{let p=PRODUCTS.find(x=>x.id===id); return s+(p?p.price:0);},0);document.getElementById('cartList').innerHTML=cart.length? cart.map(id=>{let p=PRODUCTS.find(x=>x.id===id); if(!p) return ''; return `<div class="card p-2.5 flex gap-2.5"><img src="${p.img}" class="w-12 h-12 rounded-lg object-cover cursor-pointer" onclick="openDetail(${p.id})"><div class="flex-1"><p class="font-bold text-[12px]">${p.name}</p><p class="font-black text-[12px]">${p.price} ODSC</p></div><button onclick="removeCart(${id})" class="text-[11px] px-1.5">✕</button></div>`}).join('') : '<div class="card p-3 text-center text-[12px]">Cart is empty.</div>';document.getElementById('cartTotalBox').classList.toggle('hidden-page',!cart.length);document.getElementById('cartTotal').innerText=total.toFixed(2)+' ODSC';}
 function removeCart(id){cart=cart.filter(x=>x!==id);updateBadges();renderCart();applyFilters();}
-function renderChats(){document.getElementById('chatList').innerHTML=CHATS.map(c=>`<div onclick="openChat('${c.name}')" class="flex gap-3 px-4 py-3 border-b border-slate-100 cursor-pointer"><div class="w-12 h-12 ${c.type==='group'?'bg-green-600':'bg-slate-900'} rounded-full flex items-center justify-center text-xl text-white">${c.type==='group'?'👥':'🧾'}</div><div class="flex-1"><p class="font-bold text-sm">${c.name}</p><p class="text-xs text-slate-500">${c.last}</p></div><span class="text-[10px] text-slate-400">${c.time}</span></div>`).join('');}
-function filterChats(){let q=(document.getElementById('chatSearch').value||'').toLowerCase();let f=CHATS.filter(c=>c.name.toLowerCase().includes(q));document.getElementById('chatList').innerHTML=f.map(c=>`<div onclick="openChat('${c.name}')" class="flex gap-3 px-4 py-3 border-b"><div class="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-white">👤</div><div class="flex-1"><p class="font-bold text-sm">${c.name}</p><p class="text-xs text-slate-500">${c.last}</p></div></div>`).join('')||'<p class="p-4 text-sm text-center">No chat found</p>';}
-function openChatForFreelancer(id){ let f=FREELANCERS.find(x=>x.id===id); if(!f) return; currentFreelancer=f; document.getElementById('chatName').innerText=f.name+' '+f.user; document.getElementById('chatImg').src=`https://i.pravatar.cc/100?img=${f.img}`; document.getElementById('chatMsgs').innerHTML=`<div class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[80%] text-sm">Hello! I am ${f.name}. ${f.skill} - Tell me about your work, I will discuss deal here.</div>`; showPage('chatopen'); }
-function openChat(n){ let f=FREELANCERS.find(x=> (n||'').includes(x.name)); if(f){ openChatForFreelancer(f.id); return; } document.getElementById('chatName').innerText=n; document.getElementById('chatMsgs').innerHTML=`<div class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[80%] text-sm">Hello! This is ${n}.<br><br>🧾 Transaction Record: Your payment is locked in Escrow. You have 48 hours to check and report any issue. Refund only on Fraud / Broken / Missing.</div>`; showPage('chatopen'); }
-function sendMsg(){let v=document.getElementById('chatInput').value.trim();if(!v) return;document.getElementById('chatMsgs').innerHTML+=`<div class="bg-slate-900 text-white p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-sm">${v}</div>`;document.getElementById('chatInput').value='';}
-function openSupportChat(){supportHuman=false;document.getElementById('supportMsgs').innerHTML=`<div class="bg-amber-50 border border-amber-200 p-3 rounded-2xl text-sm">👋 <b>Hello! I am ODSMALL Support Bot.</b><br>Refund ONLY on 3 issues: Fraud / Broken / Missing. With Proof. "I don't like it" will be cancelled.<br><br>Tap a quick option below.</div>`;showPage('support');}
+function renderChats(){document.getElementById('chatList').innerHTML=CHATS.map(c=>`<div onclick="openChat('${c.name}')" class="flex gap-2.5 px-3 py-2.5 border-b border-slate-100 cursor-pointer"><div class="w-10 h-10 ${c.type==='group'?'bg-green-600':'bg-slate-900'} rounded-full flex items-center justify-center text-[16px] text-white">${c.type==='group'?'👥':'🧾'}</div><div class="flex-1"><p class="font-bold text-[12px]">${c.name}</p><p class="text-[11px] text-slate-500">${c.last}</p></div><span class="text-[10px] text-slate-400">${c.time}</span></div>`).join('');}
+function filterChats(){let q=(document.getElementById('chatSearch').value||'').toLowerCase();let f=CHATS.filter(c=>c.name.toLowerCase().includes(q));document.getElementById('chatList').innerHTML=f.map(c=>`<div onclick="openChat('${c.name}')" class="flex gap-2.5 px-3 py-2.5 border-b"><div class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white">👤</div><div class="flex-1"><p class="font-bold text-[12px]">${c.name}</p><p class="text-[11px] text-slate-500">${c.last}</p></div></div>`).join('')||'<p class="p-3 text-[12px] text-center">No chat found</p>';}
+function openChatForFreelancer(id){ let f=FREELANCERS.find(x=>x.id===id); if(!f) return; currentFreelancer=f; document.getElementById('chatName').innerText=f.name+' '+f.user; document.getElementById('chatImg').src=`https://i.pravatar.cc/100?img=${f.img}`; document.getElementById('chatMsgs').innerHTML=`<div class="bg-slate-100 p-2.5 rounded-2xl rounded-bl-none max-w-[80%] text-[12px]">Hello! I am ${f.name}. ${f.skill} - Tell me about your work.</div>`; showPage('chatopen'); }
+function openChat(n){ let f=FREELANCERS.find(x=> (n||'').includes(x.name)); if(f){ openChatForFreelancer(f.id); return; } document.getElementById('chatName').innerText=n; document.getElementById('chatMsgs').innerHTML=`<div class="bg-slate-100 p-2.5 rounded-2xl rounded-bl-none max-w-[80%] text-[12px]">Hello! This is ${n}.<br><br>🧾 Payment locked in Escrow. 48 hours to check.</div>`; showPage('chatopen'); }
+function sendMsg(){let v=document.getElementById('chatInput').value.trim();if(!v) return;document.getElementById('chatMsgs').innerHTML+=`<div class="bg-slate-900 text-white p-2.5 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-[12px]">${v}</div>`;document.getElementById('chatInput').value='';}
+function openSupportChat(){supportHuman=false;document.getElementById('supportMsgs').innerHTML=`<div class="bg-amber-50 border border-amber-200 p-2.5 rounded-2xl text-[12px]">👋 <b>Hello! I am ODSMALL Support Bot.</b><br>Refund ONLY on 3 issues: Fraud / Broken / Missing.</div>`;showPage('support');}
 function supportQuick(q){document.getElementById('supportInput').value=q;sendSupportMsg();}
-function sendSupportMsg(){ let v=document.getElementById('supportInput').value.trim();if(!v) return; document.getElementById('supportMsgs').innerHTML+=`<div class="bg-slate-900 text-white p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-sm">${v}</div>`; document.getElementById('supportInput').value=''; setTimeout(()=>{ document.getElementById('supportMsgs').innerHTML+=`<div class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[85%] text-sm">🤖 <b>Support Bot:</b><br>${botReply(v)}<br><br><button onclick="connectHuman()" class="bg-slate-900 text-white text-xs px-3 py-1.5 rounded-full">👤 Talk to Human</button></div>`; },600); }
-function botReply(msg){ let m=msg.toLowerCase(); if(m.includes('fraud')||m.includes('scam')) return `Fraud / Scam Report Received.<br>✅ Proof + Text mil gaya.<br>⏰ I will verify in <b>6 Hours</b>.<br>Then Seller gets <b>72 Hours</b> to fix.<br>Total Refund Time: <b>Within 100 Hours</b>.`; if(m.includes('broken')||m.includes('not working')) return `Broken / Not Working Report Received.<br>✅ Proof checked.<br>⏰ Verify in 6h → Seller 72h → Final 22h = Within 100 Hours.`; if(m.includes('missing')) return `Missing / Incomplete Report Received.<br>✅ Proof checked.<br>⏰ Same timeline: 6h + 72h + 22h = Within 100 Hours.`; if(m.includes("don't like")||m.includes('not need')||m.includes('dont like')||m.includes('mistake')) return `❌ Sorry, this reason is CANCELLED.<br>Refund ONLY on: Fraud / Broken / Missing.`; if(m.includes('withdraw')) return `Withdraw / Sell: Coming Soon. Abhi sirf button hai.`; if(m.includes('recharge')) return `Recharge: Coming Soon. Abhi sirf button hai.`; if(m.includes('payment')) return `Payment: Check Wallet > Transactions.`; return `Understood. Refund ONLY on Fraud / Broken / Missing with Proof. Tap Human if needed.`; }
-function connectHuman(){ if(supportHuman) return; supportHuman=true; document.getElementById('supportMsgs').innerHTML+=`<div class="bg-green-50 border border-green-200 p-3 rounded-2xl text-sm">🔄 Connecting to Human... Ticket created.</div>`; setTimeout(()=>{ document.getElementById('supportMsgs').innerHTML+=`<div class="bg-green-100 p-3 rounded-2xl text-sm">👤 <b>Ahmed - Human:</b><br>Hello! I am handling your issue personally. I will verify in 6h.</div>`; },1500); }
-
-// --- WALLET NEW LOGIC ---
+function sendSupportMsg(){ let v=document.getElementById('supportInput').value.trim();if(!v) return; document.getElementById('supportMsgs').innerHTML+=`<div class="bg-slate-900 text-white p-2.5 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-[12px]">${v}</div>`; document.getElementById('supportInput').value=''; setTimeout(()=>{ document.getElementById('supportMsgs').innerHTML+=`<div class="bg-slate-100 p-2.5 rounded-2xl rounded-bl-none max-w-[85%] text-[12px]">🤖 <b>Support Bot:</b><br>${botReply(v)}<br><br><button onclick="connectHuman()" class="bg-slate-900 text-white text-[11px] px-2.5 py-1 rounded-full">👤 Talk to Human</button></div>`; },600); }
+function botReply(msg){ let m=msg.toLowerCase(); if(m.includes('fraud')||m.includes('scam')) return `Fraud Report Received.<br>✅ Proof mil gaya.<br>⏰ Verify in <b>6 Hours</b> → Seller 72h → Final 22h = <b>Within 100 Hours</b>.`; if(m.includes('broken')||m.includes('not working')) return `Broken Report Received.<br>⏰ 6h → 72h → 22h = Within 100 Hours.`; if(m.includes('missing')) return `Missing Report Received.<br>⏰ 6h → 72h → 22h = Within 100 Hours.`; if(m.includes("don't like")||m.includes('not need')||m.includes('dont like')) return `❌ Cancelled. Refund ONLY on Fraud / Broken / Missing.`; if(m.includes('withdraw')) return `Withdraw / Sell: Coming Soon.`; if(m.includes('recharge')) return `Recharge: Coming Soon.`; return `Understood. Refund ONLY on Fraud / Broken / Missing with Proof.`; }
+function connectHuman(){ if(supportHuman) return; supportHuman=true; document.getElementById('supportMsgs').innerHTML+=`<div class="bg-green-50 border border-green-200 p-2.5 rounded-2xl text-[12px]">🔄 Connecting to Human...</div>`; setTimeout(()=>{ document.getElementById('supportMsgs').innerHTML+=`<div class="bg-green-100 p-2.5 rounded-2xl text-[12px]">👤 <b>Ahmed - Human:</b><br>Hello! I will verify in 6h.</div>`; },1500); }
 function copyWalletAddr(){ let a=document.getElementById('myWalletAddr').innerText; if(navigator.clipboard) navigator.clipboard.writeText(a); showToast('Wallet Address Copied: '+a); }
 function openSend(){ document.getElementById('box-send').classList.remove('hidden-page'); document.getElementById('box-send').scrollIntoView({behavior:'smooth',block:'center'}); }
 function calcSend(){let v=parseFloat(document.getElementById('sendAmt').value)||0;document.getElementById('sendCalc').innerText=`They will receive ${(v*0.999).toFixed(2)} ODSC • Fee 0.1% • Instant`;}
@@ -449,35 +456,34 @@ function doSend(){
   let addr=document.getElementById('sendAddr').value.trim();
   let v=parseFloat(document.getElementById('sendAmt').value)||0;
   let pin=document.getElementById('sendPin').value.trim();
-  if(!addr){ alert('Please enter Receiver Wallet Address - e.g. ODS-xxxxxxx'); return; }
-  if(!addr.startsWith('ODS-')){ alert('Address ODS- se start hona chahiye. e.g. ODS-a8x9k2p7m4'); return; }
-  if(addr===document.getElementById('myWalletAddr').innerText){ alert('Ye tumhara apna address hai! Dost ka address dalo.'); return; }
+  if(!addr){ alert('Please enter Receiver Wallet Address'); return; }
+  if(!addr.startsWith('ODS-')){ alert('Address ODS- se start hona chahiye.'); return; }
+  if(addr===document.getElementById('myWalletAddr').innerText){ alert('Ye tumhara apna address hai!'); return; }
   if(!v||v<=0){ alert('Enter amount'); return; }
-  if(!pin||pin.length!==4){ alert('Enter 4-digit Transaction PIN'); return; }
-  if(pin!==walletPin){ alert('Wrong PIN! Default is 1234. Change in Settings > Wallet Settings'); return; }
+  if(!pin||pin.length!==4){ alert('Enter 4-digit PIN'); return; }
+  if(pin!==walletPin){ alert('Wrong PIN! Default is 1234.'); return; }
   if(v>balance){ alert('Balance low'); return; }
   balance-=v; saveBal(); addTx('Sent to '+addr,'By Wallet Address • Fee 0.1% • Instant','-'+v.toFixed(2));
   document.getElementById('sendAddr').value=''; document.getElementById('sendAmt').value=''; document.getElementById('sendPin').value='';
-  showToast(v.toFixed(2)+' ODSC sent to '+addr+'! Instant!');
+  showToast(v.toFixed(2)+' ODSC sent to '+addr+'!');
 }
 function sendODSCFromChat(){navTo('wallet');setTimeout(()=>openSend(),300);}
-
 function addTx(t,s,a){txs.unshift({t,s,a});localStorage.setItem('odsmall_txs',JSON.stringify(txs.slice(0,10)));renderTx();}
-function renderTx(){document.getElementById('txList').innerHTML=txs.map(x=>`<div class="card p-3 flex justify-between"><div><p class="text-sm font-bold">${x.t}</p><p class="text-[11px] text-slate-400">${x.s}</p></div><p class="${x.a.startsWith('+')?'text-green-600':'text-red-500'} font-bold">${x.a}</p></div>`).join('');}
+function renderTx(){document.getElementById('txList').innerHTML=txs.map(x=>`<div class="card p-2.5 flex justify-between"><div><p class="text-[12px] font-bold">${x.t}</p><p class="text-[10px] text-slate-400">${x.s}</p></div><p class="${x.a.startsWith('+')?'text-green-600':'text-red-500'} font-bold text-[12px]">${x.a}</p></div>`).join('');}
 function checkUser(){let v=document.getElementById('fUser').value;document.getElementById('userMsg').innerText=v==='sara'?'❌ Taken':'✅ Available';}
 function countAbout(){document.getElementById('aboutCount').innerText=document.getElementById('fAbout').value.length;}
-function saveProfile(){document.getElementById('dispName').innerText=document.getElementById('fName').value;document.getElementById('dispUser').innerText='@'+document.getElementById('fUser').value;document.getElementById('dispAbout').innerText=document.getElementById('fAbout').value;document.getElementById('dispCity').innerText=document.getElementById('fCity').value;document.getElementById('dispCountry').innerText=document.getElementById('fCountry').value;document.getElementById('saveMsg').innerText='✅ Profile saved and updated!';setTimeout(()=>{closeAllModals();showToast('Profile Saved!');},700);}
-function changePhoto(e){let f=e.target.files[0]; if(!f) return; let url=URL.createObjectURL(f); document.getElementById('editPicPreview').src=url; document.getElementById('profilePic').src=url; document.getElementById('photoMsg').innerText='✅ Photo changed! Tap Save to keep it.';}
+function saveProfile(){document.getElementById('dispName').innerText=document.getElementById('fName').value;document.getElementById('dispUser').innerText='@'+document.getElementById('fUser').value;document.getElementById('dispAbout').innerText=document.getElementById('fAbout').value;document.getElementById('dispCity').innerText=document.getElementById('fCity').value;document.getElementById('dispCountry').innerText=document.getElementById('fCountry').value;document.getElementById('saveMsg').innerText='✅ Profile saved!';setTimeout(()=>{closeAllModals();showToast('Profile Saved!');},700);}
+function changePhoto(e){let f=e.target.files[0]; if(!f) return; let url=URL.createObjectURL(f); document.getElementById('editPicPreview').src=url; document.getElementById('profilePic').src=url; document.getElementById('photoMsg').innerText='✅ Photo changed!';}
 function updateBadges(){document.getElementById('wishCount').innerText=wishlist.length+wishFreelancers.length;document.getElementById('cartCount').innerText=cart.length;}
 function saveBal(){localStorage.setItem('odsmall_balance',balance);updateBal();}
 function updateBal(){document.getElementById('walletBal').innerText=balance.toFixed(2);document.getElementById('topBal').innerText=balance.toFixed(2);}
 function closeAllModals(){ ['settingsModal','editModal','langModal','walletSetModal','aboutModal','checkoutModal','ticketModal','reportModal'].forEach(id=>{ let el=document.getElementById(id); if(el) el.classList.add('hidden-page'); }); }
 function openSettings(){closeAllModals();document.getElementById('curPinLabel').innerText=walletPin;document.getElementById('settingsModal').classList.remove('hidden-page');}
 function openEditProfile(){closeAllModals();document.getElementById('editModal').classList.remove('hidden-page');}
-function openLanguage(){closeAllModals();document.getElementById('langList').innerHTML=LANGS.map(l=>`<button onclick="selectLang('${l}')" class="w-full card p-3 text-left flex justify-between"><span>${l}</span><span>${l===currentLang?'✅':''}</span></button>`).join('');document.getElementById('langModal').classList.remove('hidden-page');}
-function selectLang(l){currentLang=l;document.getElementById('curLang').innerText=l;closeAllModals();showToast('Language changed to '+l+' - App updated!');}
+function openLanguage(){closeAllModals();document.getElementById('langList').innerHTML=LANGS.map(l=>`<button onclick="selectLang('${l}')" class="w-full card p-2.5 text-left flex justify-between text-[12px]"><span>${l}</span><span>${l===currentLang?'✅':''}</span></button>`).join('');document.getElementById('langModal').classList.remove('hidden-page');}
+function selectLang(l){currentLang=l;document.getElementById('curLang').innerText=l;closeAllModals();showToast('Language changed to '+l);}
 function openWalletSettings(){closeAllModals();document.getElementById('curPin2').innerText=walletPin;document.getElementById('walletSetModal').classList.remove('hidden-page');}
-function changePin(){let o=document.getElementById('oldPin').value;let n=document.getElementById('newPin').value;let c=document.getElementById('confirmPin').value;if(!o||!n||!c){document.getElementById('pinMsg').innerText='❌ Fill all PIN fields';document.getElementById('pinMsg').style.color='red';return;}if(o!==walletPin){document.getElementById('pinMsg').innerText='❌ Old PIN wrong! Current is '+walletPin;document.getElementById('pinMsg').style.color='red';return;}if(n!==c){document.getElementById('pinMsg').innerText='❌ PINs do not match';document.getElementById('pinMsg').style.color='red';return;}walletPin=n;localStorage.setItem('odsmall_pin',n);document.getElementById('pinMsg').innerText='✅ PIN changed to '+n+'! Now use this for Checkout.';document.getElementById('pinMsg').style.color='green';document.getElementById('curPinLabel').innerText=n;setTimeout(()=>{closeAllModals();showToast('Wallet PIN changed to '+n);},800);}
+function changePin(){let o=document.getElementById('oldPin').value;let n=document.getElementById('newPin').value;let c=document.getElementById('confirmPin').value;if(!o||!n||!c){document.getElementById('pinMsg').innerText='❌ Fill all PIN fields';document.getElementById('pinMsg').style.color='red';return;}if(o!==walletPin){document.getElementById('pinMsg').innerText='❌ Old PIN wrong!';document.getElementById('pinMsg').style.color='red';return;}if(n!==c){document.getElementById('pinMsg').innerText='❌ PINs do not match';document.getElementById('pinMsg').style.color='red';return;}walletPin=n;localStorage.setItem('odsmall_pin',n);document.getElementById('pinMsg').innerText='✅ PIN changed to '+n;document.getElementById('pinMsg').style.color='green';document.getElementById('curPinLabel').innerText=n;setTimeout(()=>{closeAllModals();showToast('PIN changed to '+n);},800);}
 function openAboutUs(){closeAllModals();document.getElementById('aboutModal').classList.remove('hidden-page');}
 function openSupportFromSettings(){closeAllModals();openSupportChat();}
 renderCats();applyFilters();renderChats();renderTx();updateBadges();updateBal();closeAllModals();
