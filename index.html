@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ODSMALL - MVP</title>
+<title>ODSMALL - Digital Marketplace MVP</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body{font-family:'Segoe UI',sans-serif;background:#fff;color:#0f172a;padding-bottom:95px}
@@ -17,6 +17,7 @@
   .cat-chip{white-space:nowrap;padding:6px 14px;border-radius:9999px;border:1px solid #e2e8f0;font-size:12px;font-weight:bold;background:#f8fafc}
   .cat-chip.active{background:#0f172a;color:white}
   .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#0f172a;color:white;padding:10px 18px;border-radius:9999px;font-size:13px;font-weight:bold;z-index:100;display:none}
+  .pinned{background:#fef3c7!important;border-color:#f59e0b!important}
 </style>
 </head>
 <body>
@@ -25,7 +26,7 @@
 <!-- HEADER -->
 <div class="sticky top-0 z-50 bg-white px-4 py-3 border-b border-slate-100">
   <div class="flex justify-between items-start">
-    <div><h1 class="text-[26px] font-black leading-none">ODSMALL</h1></div>
+    <div><h1 class="text-[26px] font-black leading-none">ODSMALL</h1><p class="text-[10px] text-slate-500 mt-0.5">100% Digital Marketplace</p></div>
     <div class="flex flex-col items-end gap-1">
       <div class="flex gap-2">
         <button onclick="showPage('wishlist')" class="icon-btn">❤️<span class="badge" id="wishCount">0</span></button>
@@ -52,29 +53,28 @@
 <!-- HOME -->
 <div id="page-home" class="px-4 max-w-md mx-auto hidden-page">
   <h1 class="text-[32px] font-black leading-[1.1] mt-4">Safe Buy, Safe Sell,<br>Safe Work.</h1>
-  <p class="text-slate-500 text-[15px] mt-2">Escrow-protected marketplace and freelancers. Pay in USDT on Polygon.</p>
+  <p class="text-slate-500 text-[15px] mt-2">100% Digital Marketplace. Templates, Courses, Designs, Code - Sab Digital. Instant Delivery, Escrow Protected. Pay in ODSC.</p>
 
   <div class="flex gap-3 mt-5">
     <button id="tabM" onclick="showMarket()" class="tab-active flex-1 border border-slate-900 font-black py-3 rounded-xl">MARKETPLACE</button>
     <button id="tabF" onclick="showFreelancers()" class="flex-1 border border-slate-300 font-black py-3 rounded-xl">FREELANCERS</button>
   </div>
 
-  <!-- SEARCH - GEAR KHATAM, AB MAGNIFYING GLASS BUTTON -->
+  <!-- SEARCH - Magnifying Glass Button -->
   <div class="flex gap-2 mt-4 items-center">
     <div class="flex-1 flex items-center gap-2 border border-slate-300 rounded-full px-4 py-2 bg-white">
       <span>🔍</span>
-      <input id="searchInput" placeholder="Search Marketplace..." class="!border-0 !p-0 !rounded-none w-full" style="border:none!important" oninput="applyFilters()">
+      <input id="searchInput" placeholder="Search Digital Products..." class="!border-0 !p-0 !rounded-none w-full" style="border:none!important" oninput="applyFilters()">
     </div>
-    <!-- YE WALA BUTTON - Click se Search Apply hogi -->
     <button onclick="doSearchClick()" class="w-11 h-11 shrink-0 bg-slate-900 text-white rounded-full font-bold flex items-center justify-center text-xl" title="Search">🔍</button>
   </div>
 
   <div class="flex gap-2 mt-3 overflow-x-auto pb-1" id="catChips"></div>
   <div class="flex gap-2 mt-2">
-    <select id="priceFilter" onchange="applyFilters()" class="!rounded-full !w-auto"><option value="all">Price: Any</option><option value="0-30">0 - 30 ODSC</option><option value="30-80">30 - 80 ODSC</option><option value="80-200">80 - 200 ODSC</option><option value="200+">200+ ODSC</option></select>
+    <select id="priceFilter" onchange="applyFilters()" class="!rounded-full !w-auto"><option value="all">Price: Any</option><option value="0-20">0 - 20 ODSC</option><option value="20-50">20 - 50 ODSC</option><option value="50-100">50 - 100 ODSC</option><option value="100+">100+ ODSC</option></select>
     <select id="sortFilter" onchange="applyFilters()" class="!rounded-full !w-auto"><option value="pop">Sort: Popular</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select>
   </div>
-  <p class="text-xs text-slate-500 mt-3"><span id="resultCount">40</span> results found • <span id="activeCatLabel">All Categories</span></p>
+  <p class="text-xs text-slate-500 mt-3"><span id="resultCount">40</span> digital products • <span id="activeCatLabel">All Categories</span> • Instant Delivery ⚡</p>
 
   <div id="sec-market" class="mt-3 space-y-4"></div>
   <div id="sec-free" class="mt-3 space-y-3 hidden-page"></div>
@@ -82,16 +82,31 @@
 
 <!-- WISHLIST / CART -->
 <div id="page-wishlist" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">❤️ Wishlist</h2><div id="wishList" class="space-y-3 mt-4"></div></div>
-<div id="page-cart" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">🛒 Cart</h2><div id="cartList" class="space-y-3 mt-4"></div><div id="cartTotalBox" class="card p-4 mt-3 hidden-page"><p class="flex justify-between font-bold"><span>Total</span><span id="cartTotal">0 ODSC</span></p><p class="text-xs text-slate-500">Fee 0.1% included • Escrow Protected</p><button onclick="checkout()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Checkout with ODSC</button></div></div>
+<div id="page-cart" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">🛒 Cart</h2><div id="cartList" class="space-y-3 mt-4"></div><div id="cartTotalBox" class="card p-4 mt-3 hidden-page"><p class="flex justify-between font-bold"><span>Total</span><span id="cartTotal">0 ODSC</span></p><p class="text-xs text-slate-500">Fee 0.1% • Escrow • Instant Digital Delivery</p><button onclick="checkout()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Checkout with ODSC</button></div></div>
 
 <!-- PRODUCT DETAIL -->
-<div id="page-detail" class="max-w-md mx-auto hidden-page"><div class="p-4"><button onclick="showPage('home')">← Back</button></div><img id="dImg" class="w-full h-64 object-cover"><div class="p-4"><h2 id="dName" class="font-black text-2xl"></h2><p id="dCat" class="text-xs text-slate-500"></p><p id="dPrice" class="font-black text-xl mt-2"></p><p id="dDesc" class="text-sm text-slate-600 mt-2"></p><div class="flex gap-2 mt-4"><button id="dBuy" class="flex-1 btn-black font-bold py-3 rounded-xl">Buy with ODSC</button><button id="dWish" class="w-12 border rounded-xl">❤️</button></div><button onclick="openChat('Seller')" class="w-full border font-bold py-3 rounded-xl mt-2">💬 Chat with Seller</button></div></div>
+<div id="page-detail" class="max-w-md mx-auto hidden-page"><div class="p-4"><button onclick="showPage('home')">← Back</button></div><img id="dImg" class="w-full h-64 object-cover"><div class="p-4"><h2 id="dName" class="font-black text-2xl"></h2><p id="dCat" class="text-xs text-slate-500"></p><p id="dPrice" class="font-black text-xl mt-2"></p><p id="dDesc" class="text-sm text-slate-600 mt-2"></p><div class="flex gap-2 mt-1"><span class="text-[11px] bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">⚡ Instant Delivery</span><span class="text-[11px] bg-slate-100 px-2 py-1 rounded-full font-bold">🛡️ Escrow Protected</span><span class="text-[11px] bg-amber-100 px-2 py-1 rounded-full font-bold">💾 Digital Download</span></div><div class="flex gap-2 mt-4"><button id="dBuy" class="flex-1 btn-black font-bold py-3 rounded-xl">Buy with ODSC</button><button id="dWish" class="w-12 border rounded-xl">❤️</button></div><button onclick="openChat('Seller')" class="w-full border font-bold py-3 rounded-xl mt-2">💬 Chat with Seller</button></div></div>
 
-<!-- CHATS -->
+<!-- CHATS - SUPPORT PINNED -->
 <div id="page-chats" class="max-w-md mx-auto hidden-page">
   <div class="p-4"><h2 class="font-black text-2xl">Chat</h2><input id="chatSearch" placeholder="🔍 Search username..." class="mt-3 !rounded-full" oninput="filterChats()"></div>
+  <!-- PINNED SUPPORT - HAMESHA SABSE UPAR -->
+  <div onclick="openSupportChat()" class="pinned flex gap-3 px-4 py-3 border-b-2 border-amber-400 cursor-pointer">
+    <div class="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-xl text-white relative">🎧<span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white"></span></div>
+    <div class="flex-1"><p class="font-bold text-sm">📌 ODSMALL Support <span class="text-[10px] bg-amber-400 px-2 py-0.5 rounded-full">PINNED</span></p><p class="text-xs text-slate-600">Bot Online • Koi bhi masla ho, yahan likho. Human se bhi connect ho sakta hai.</p></div>
+    <span class="text-[10px] font-bold text-green-600">Online</span>
+  </div>
   <div id="chatList"></div>
 </div>
+
+<!-- SUPPORT CHAT OPEN - BOT -->
+<div id="page-support" class="max-w-md mx-auto hidden-page">
+  <div class="flex items-center gap-3 p-3 border-b bg-amber-50"><button onclick="showPage('chats')">←</button><div class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white">🎧</div><div class="flex-1"><p class="font-bold text-sm">ODSMALL Support 📌</p><p class="text-[11px] text-green-600">● Bot Online • Avg reply 1 sec</p></div><button onclick="connectHuman()" class="bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-full">👤 Human</button></div>
+  <div id="supportMsgs" class="p-4 space-y-3 min-h-[380px]"></div>
+  <div class="flex gap-2 px-3 pb-1 overflow-x-auto"><button onclick="supportQuick('Mera payment atak gaya hai')" class="whitespace-nowrap border text-xs px-3 py-1.5 rounded-full">💰 Payment Issue</button><button onclick="supportQuick('Withdraw nahi ho raha')" class="whitespace-nowrap border text-xs px-3 py-1.5 rounded-full">⬆️ Withdraw Issue</button><button onclick="supportQuick('Order download nahi ho raha')" class="whitespace-nowrap border text-xs px-3 py-1.5 rounded-full">📥 Download Issue</button><button onclick="supportQuick('Seller reply nahi kar raha')" class="whitespace-nowrap border text-xs px-3 py-1.5 rounded-full">👤 Seller Issue</button></div>
+  <div class="p-3 flex gap-2"><input id="supportInput" placeholder="Support ko likho..."><button onclick="sendSupportMsg()" class="bg-slate-900 text-white px-4 rounded-xl">➤</button></div>
+</div>
+
 <div id="page-chatopen" class="max-w-md mx-auto hidden-page">
   <div class="flex items-center gap-3 p-3 border-b"><button onclick="showPage('chats')">←</button><img src="https://i.pravatar.cc/100?img=32" class="w-10 h-10 rounded-full"><div class="flex-1"><p id="chatName" class="font-bold text-sm">Sara Design</p><p class="text-[11px] text-green-600">Online</p></div><button onclick="sendODSCFromChat()" class="bg-amber-400 font-bold text-xs px-3 py-2 rounded-full">Send ODSC</button></div>
   <div id="chatMsgs" class="p-4 space-y-3 min-h-[380px]"></div>
@@ -104,7 +119,7 @@
     <p class="text-xs font-bold opacity-70">TOTAL BALANCE</p>
     <h1 class="text-4xl font-black"><span id="walletBal">1,250.00</span> ODSC</h1>
     <p class="text-sm font-bold">≈ $1,250.00 USD • 1 ODSC = $1</p>
-    <div class="mt-3 bg-white/10 rounded-xl p-3 text-left text-[12px] space-y-1"><p><span class="opacity-60">Wallet Number:</span> <b>ODS-a8x9k2p7m4</b> <button onclick="showToast('Wallet Number Copied')" class="bg-white text-black text-[10px] px-2 py-0.5 rounded-full ml-1">Copy</button></p><p><span class="opacity-60">User ID:</span> <b>USER-829401</b></p><p class="text-[10px] opacity-60">Ye sirf Wallet me dikhega. Header pe nahi.</p></div>
+    <div class="mt-3 bg-white/10 rounded-xl p-3 text-left text-[12px] space-y-1"><p><span class="opacity-60">Wallet Number:</span> <b>ODS-a8x9k2p7m4</b> <button onclick="showToast('Wallet Number Copied')" class="bg-white text-black text-[10px] px-2 py-0.5 rounded-full ml-1">Copy</button></p><p><span class="opacity-60">User ID:</span> <b>USER-829401</b></p><p class="text-[10px] opacity-60">Ye sirf Wallet me dikhega.</p></div>
   </div>
   <div class="grid grid-cols-3 gap-2 mt-3">
     <button onclick="openRecharge()" class="card py-3 text-center"><p class="text-xl">⬇️</p><p class="text-xs font-bold">Recharge</p><p class="text-[10px] text-slate-500">Fee 1%</p></button>
@@ -112,7 +127,7 @@
     <button onclick="openSend()" class="card py-3 text-center"><p class="text-xl">↗️</p><p class="text-xs font-bold">Send</p><p class="text-[10px] text-slate-500">Fee 0.1%</p></button>
   </div>
   <div id="box-recharge" class="card p-4 mt-4 hidden-page"><h3 class="font-bold">Recharge ODSC - Kisi bhi Crypto se</h3><input id="rechAmt" type="number" placeholder="100" oninput="calcRecharge()" class="mt-2"><p id="rechCalc" class="text-xs text-amber-600 mt-2 font-bold">Tu $101 dega → Tujhe 100 ODSC milenge (1% Fee)</p><select class="mt-2"><option>Pay with USDT (TRC20)</option><option>Pay with BTC</option><option>Pay with ETH</option><option>Pay with SOL</option></select><button onclick="doRecharge()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Pay & Get ODSC</button></div>
-  <div id="box-withdraw" class="card p-4 mt-4 hidden-page"><h3 class="font-bold">Withdraw - Instant, No Hold</h3><p class="text-xs text-green-600 font-bold">✅ No Hold - Recharge karke usi time withdraw</p><input id="wdAmt" type="number" placeholder="100" oninput="calcWithdraw()" class="mt-2"><p id="wdCalc" class="text-xs text-amber-600 mt-2 font-bold">Tu 100 ODSC nikalega → Tujhe 99 ODSC ke barabar Crypto milega</p><input placeholder="Tera Crypto Wallet Address" class="mt-2"><select class="mt-2"><option>Receive in USDT</option><option>Receive in BTC</option><option>Receive in SOL</option></select><button onclick="doWithdraw()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Withdraw Now - Instant</button></div>
+  <div id="box-withdraw" class="card p-4 mt-4 hidden-page"><h3 class="font-bold">Withdraw - Instant, No Hold</h3><p class="text-xs text-green-600 font-bold">✅ No Hold</p><input id="wdAmt" type="number" placeholder="100" oninput="calcWithdraw()" class="mt-2"><p id="wdCalc" class="text-xs text-amber-600 mt-2 font-bold">Tu 100 ODSC nikalega → Tujhe 99 ODSC ke barabar Crypto milega</p><input placeholder="Tera Crypto Wallet Address" class="mt-2"><select class="mt-2"><option>Receive in USDT</option><option>Receive in BTC</option><option>Receive in SOL</option></select><button onclick="doWithdraw()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Withdraw Now - Instant</button></div>
   <div id="box-send" class="card p-4 mt-4 hidden-page"><h3 class="font-bold">Send ODSC</h3><input id="sendUser" placeholder="@sara.design"><input id="sendAmt" type="number" placeholder="50" oninput="calcSend()" class="mt-2"><p id="sendCalc" class="text-xs text-amber-600 mt-2 font-bold">Us ko 49.95 ODSC milenge • 0.05 Fee (0.1%)</p><button onclick="doSend()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Send ODSC</button></div>
   <h3 class="font-bold mt-5">Recent Transactions</h3><div id="txList" class="space-y-2 mt-2"></div>
 </div>
@@ -133,59 +148,59 @@
 </div>
 
 <script>
-// ============ DATA - 40 PRODUCTS CATEGORY WISE ============
+// ============ DATA - 40 DIGITAL PRODUCTS ONLY ============
 const PRODUCTS=[
-{id:1,name:"Smart Watch Pro",cat:"Electronics",price:45,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",city:"Lahore",rating:4.8,desc:"AMOLED display, heart rate, 7 days battery. Escrow protected."},
-{id:2,name:"Headphones X",cat:"Electronics",price:89,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600",city:"Karachi",rating:4.9,desc:"Noise cancelling, 40h battery, premium sound."},
-{id:3,name:"Running Shoes",cat:"Fashion",price:65,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",city:"Islamabad",rating:4.7,desc:"Lightweight, comfortable for daily run."},
-{id:4,name:"Leather Wallet",cat:"Fashion",price:25,img:"https://images.unsplash.com/photo-1627123424574-724758594e93?w=600",city:"Lahore",rating:4.6,desc:"Original leather, 6 cards slot."},
-{id:5,name:"Sunglasses UV",cat:"Fashion",price:32,img:"https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",city:"Karachi",rating:4.5,desc:"UV protection, stylish frame."},
-{id:6,name:"Wireless Earbuds",cat:"Electronics",price:38,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600",city:"Lahore",rating:4.8,desc:"ANC, Type-C charging, 30h backup."},
-{id:7,name:"Mechanical Keyboard",cat:"Electronics",price:75,img:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600",city:"Rawalpindi",rating:4.7,desc:"RGB, Blue switches, for gaming + coding."},
-{id:8,name:"Gaming Mouse",cat:"Electronics",price:42,img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600",city:"Karachi",rating:4.6,desc:"16000 DPI, RGB, ergonomic."},
-{id:9,name:"Coffee Maker",cat:"Home",price:95,img:"https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=600",city:"Lahore",rating:4.8,desc:"Espresso + Cappuccino, 15 bar pressure."},
-{id:10,name:"Air Fryer 5L",cat:"Home",price:110,img:"https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600",city:"Islamabad",rating:4.9,desc:"Oil-less cooking, digital display."},
-{id:11,name:"Desk Lamp LED",cat:"Home",price:28,img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600",city:"Multan",rating:4.5,desc:"Adjustable brightness, USB charging."},
-{id:12,name:"Backpack Travel",cat:"Fashion",price:48,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",city:"Lahore",rating:4.7,desc:"Waterproof, laptop compartment, 35L."},
-{id:13,name:"Perfume Oud Royal",cat:"Beauty",price:58,img:"https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",city:"Karachi",rating:4.9,desc:"Long lasting 12h, Arabic oud."},
-{id:14,name:"Skincare Kit",cat:"Beauty",price:44,img:"https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600",city:"Lahore",rating:4.6,desc:"Face wash + serum + moisturizer."},
-{id:15,name:"Hair Dryer Pro",cat:"Beauty",price:36,img:"https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600",city:"Faisalabad",rating:4.5,desc:"2200W, ionic, fast dry."},
-{id:16,name:"Yoga Mat",cat:"Sports",price:22,img:"https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=600",city:"Islamabad",rating:4.7,desc:"Non-slip, 8mm thick."},
-{id:17,name:"Dumbbell Set 20kg",cat:"Sports",price:85,img:"https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=600",city:"Lahore",rating:4.8,desc:"Adjustable, rubber coated."},
-{id:18,name:"Cricket Bat",cat:"Sports",price:70,img:"https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600",city:"Karachi",rating:4.9,desc:"English willow, full size."},
-{id:19,name:"Football",cat:"Sports",price:30,img:"https://images.unsplash.com/photo-1614632537197-38a17061c2bd?w=600",city:"Lahore",rating:4.6,desc:"FIFA size 5, premium leather."},
-{id:20,name:"DSLR Camera",cat:"Electronics",price:450,img:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600",city:"Karachi",rating:4.9,desc:"24MP, 4K video, with 18-55 lens."},
-{id:21,name:"Tripod Stand",cat:"Electronics",price:35,img:"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600",city:"Lahore",rating:4.5,desc:"For mobile + camera, 5ft height."},
-{id:22,name:"Smart Speaker",cat:"Electronics",price:55,img:"https://images.unsplash.com/photo-1543512214-318c7553f230?w=600",city:"Islamabad",rating:4.7,desc:"Voice control, Alexa built-in."},
-{id:23,name:"Denim Jacket",cat:"Fashion",price:52,img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600",city:"Karachi",rating:4.6,desc:"Premium denim, all sizes."},
-{id:24,name:"Kurti Lawn",cat:"Fashion",price:29,img:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600",city:"Lahore",rating:4.8,desc:"Pure lawn, embroidered."},
-{id:25,name:"Sneakers White",cat:"Fashion",price:58,img:"https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600",city:"Karachi",rating:4.8,desc:"Comfortable, all day wear."},
-{id:26,name:"Bed Sheet Set",cat:"Home",price:33,img:"https://images.unsplash.com/photo-1522770179533-24471fcdba45?w=600",city:"Multan",rating:4.6,desc:"Cotton, king size, 3 pcs."},
-{id:27,name:"Wall Clock Modern",cat:"Home",price:24,img:"https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=600",city:"Lahore",rating:4.5,desc:"Silent movement, stylish."},
-{id:28,name:"Face Serum Vitamin C",cat:"Beauty",price:27,img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600",city:"Karachi",rating:4.7,desc:"Glow + brightening."},
-{id:29,name:"Makeup Brush Set",cat:"Beauty",price:21,img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600",city:"Lahore",rating:4.6,desc:"16 pcs professional set."},
-{id:30,name:"Protein Powder 1kg",cat:"Sports",price:68,img:"https://images.unsplash.com/photo-1593099509328-8a7e2d0c1d9f?w=600",city:"Islamabad",rating:4.8,desc:"Whey, chocolate flavour."},
-{id:31,name:"Cycling Helmet",cat:"Sports",price:38,img:"https://images.unsplash.com/photo-1557800636-894a64c1696f?w=600",city:"Lahore",rating:4.5,desc:"Lightweight, ventilated."},
-{id:32,name:"Bluetooth Speaker",cat:"Electronics",price:47,img:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600",city:"Karachi",rating:4.8,desc:"360 sound, waterproof."},
-{id:33,name:"Power Bank 20000mAh",cat:"Electronics",price:39,img:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600",city:"Lahore",rating:4.7,desc:"Fast charging, 2 ports."},
-{id:34,name:"Handbag Leather",cat:"Fashion",price:62,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600",city:"Karachi",rating:4.8,desc:"Premium leather handbag."},
-{id:35,name:"Watch Men Classic",cat:"Fashion",price:78,img:"https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600",city:"Lahore",rating:4.9,desc:"Steel chain, waterproof."},
-{id:36,name:"Air Purifier",cat:"Home",price:130,img:"https://images.unsplash.com/photo-1585771724684-2117d6e2b3c6?w=600",city:"Islamabad",rating:4.7,desc:"HEPA filter, room size."},
-{id:37,name:"LED Ring Light",cat:"Electronics",price:26,img:"https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=600",city:"Lahore",rating:4.6,desc:"For TikTok / YouTube, tripod included."},
-{id:38,name:"Lipstick Set",cat:"Beauty",price:19,img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600",city:"Karachi",rating:4.6,desc:"6 shades, matte."},
-{id:39,name:"Tennis Racket",cat:"Sports",price:54,img:"https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=600",city:"Lahore",rating:4.5,desc:"Lightweight, grip included."},
-{id:40,name:"Baby Stroller",cat:"Home",price:145,img:"https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600",city:"Karachi",rating:4.8,desc:"Foldable, safe for baby."}
+{id:1,name:"Premium Logo Pack - 50 Logos",cat:"Design",price:25,img:"https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600",city:"Lahore",rating:4.9,desc:"50 editable AI + PSD logos. Branding ke liye ready. Instant download."},
+{id:2,name:"E-Commerce Website Template",cat:"Templates",price:45,img:"https://images.unsplash.com/photo-1547658719-da2b51169166?w=600",city:"Karachi",rating:4.8,desc:"React + Next.js full shop template. Cart, checkout included."},
+{id:3,name:"Instagram Growth Ebook",cat:"Ebooks",price:15,img:"https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600",city:"Islamabad",rating:4.7,desc:"120 pages. 0 to 100k followers strategy."},
+{id:4,name:"Lightroom Presets - 120 Pack",cat:"Presets",price:19,img:"https://images.unsplash.com/photo-1493863641943-9b68992a8d07?w=600",city:"Lahore",rating:4.8,desc:"Mobile + Desktop presets. Moody, cinematic, clean."},
+{id:5,name:"UI Kit - 500+ Screens Figma",cat:"Design",price:39,img:"https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=600",city:"Karachi",rating:4.9,desc:"Figma UI kit. App + Web, auto-layout."},
+{id:6,name:"Python Full Course - Urdu",cat:"Courses",price:49,img:"https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600",city:"Rawalpindi",rating:4.9,desc:"40 hours video, projects + certificate."},
+{id:7,name:"Shopify Store Source Code",cat:"Code",price:65,img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600",city:"Lahore",rating:4.8,desc:"Complete Shopify theme + backend logic."},
+{id:8,name:"YouTube Thumbnail Pack",cat:"Design",price:12,img:"https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600",city:"Karachi",rating:4.6,desc:"200 PSD thumbnails. CTR badhane wale."},
+{id:9,name:"Freelancing Masterclass",cat:"Courses",price:35,img:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600",city:"Lahore",rating:4.9,desc:"Fiverr + Upwork se pehla order kaise lein."},
+{id:10,name:"Resume / CV Templates - 30 Pack",cat:"Templates",price:14,img:"https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600",city:"Multan",rating:4.7,desc:"ATS friendly, Word + Canva."},
+{id:11,name:"Video Editing LUTs + Transitions",cat:"Presets",price:22,img:"https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600",city:"Islamabad",rating:4.8,desc:"500 LUTs + 200 transitions for Premiere."},
+{id:12,name:"Flutter App Source Code - Food App",cat:"Code",price:85,img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600",city:"Lahore",rating:4.9,desc:"Full food delivery app. Admin + User."},
+{id:13,name:"Business Plan Ebook",cat:"Ebooks",price:18,img:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600",city:"Karachi",rating:4.6,desc:"Startup ke liye complete plan template."},
+{id:14,name:"Notion Templates Bundle",cat:"Templates",price:16,img:"https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600",city:"Lahore",rating:4.7,desc:"50 Notion templates. Productivity + business."},
+{id:15,name:"AI Prompt Pack - 1000 Prompts",cat:"Ebooks",price:11,img:"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600",city:"Faisalabad",rating:4.8,desc:"ChatGPT + Midjourney ke best prompts."},
+{id:16,name:"WordPress Theme - Agency",cat:"Templates",price:38,img:"https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600",city:"Karachi",rating:4.7,desc:"Elementor compatible, 12 demos."},
+{id:17,name:"Music Loops Pack - 300 Loops",cat:"Audio",price:28,img:"https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600",city:"Lahore",rating:4.8,desc:"Royalty free beats for YouTube / Reels."},
+{id:18,name:"SFX Pack - 1000 Sounds",cat:"Audio",price:20,img:"https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600",city:"Islamabad",rating:4.7,desc:"For videos, games, podcasts."},
+{id:19,name:"Crypto Trading Course",cat:"Courses",price:55,img:"https://images.unsplash.com/photo-1518546305927-5a4d2a0a6d2c?w=600",city:"Karachi",rating:4.8,desc:"Beginner to advanced. Risk management."},
+{id:20,name:"SEO Audit Checklist + Tools",cat:"Ebooks",price:13,img:"https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=600",city:"Lahore",rating:4.6,desc:"100 point checklist + templates."},
+{id:21,name:"Icon Pack - 5000 Icons",cat:"Design",price:17,img:"https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600",city:"Multan",rating:4.8,desc:"SVG + PNG, all styles."},
+{id:22,name:"Landing Page Templates - 20 Pack",cat:"Templates",price:29,img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600",city:"Lahore",rating:4.7,desc:"High converting landing pages HTML."},
+{id:23,name:"Video Editing Course - Premiere",cat:"Courses",price:42,img:"https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600",city:"Karachi",rating:4.9,desc:"30 hours. Reels to cinematic."},
+{id:24,name:"Canva Templates - 500 Pack",cat:"Design",price:15,img:"https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600",city:"Islamabad",rating:4.8,desc:"Instagram, YouTube, Business."},
+{id:25,name:"Ebook - Dropshipping Guide",cat:"Ebooks",price:21,img:"https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600",city:"Lahore",rating:4.7,desc:"Shopify dropshipping step by step."},
+{id:26,name:"PHP Laravel Admin Panel Code",cat:"Code",price:72,img:"https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600",city:"Karachi",rating:4.8,desc:"Complete admin panel + API."},
+{id:27,name:"Podcast Intro Music Pack",cat:"Audio",price:16,img:"https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600",city:"Lahore",rating:4.6,desc:"50 intros, royalty free."},
+{id:28,name:"CapCut Templates - 200 Pack",cat:"Presets",price:10,img:"https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600",city:"Karachi",rating:4.7,desc:"Viral Reels templates."},
+{id:29,name:"3D Mockup Bundle",cat:"Design",price:24,img:"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600",city:"Lahore",rating:4.8,desc:"Phone, laptop, branding mockups."},
+{id:30,name:"AI Voice Pack - Urdu / English",cat:"Audio",price:31,img:"https://images.unsplash.com/photo-1589254065878-42c9da997008?w=600",city:"Islamabad",rating:4.7,desc:"Voiceovers for ads + videos."},
+{id:31,name:"Excel Mastery Course",cat:"Courses",price:26,img:"https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600",city:"Lahore",rating:4.8,desc:"Beginner to advanced + dashboards."},
+{id:32,name:"Portfolio Website Template",cat:"Templates",price:23,img:"https://images.unsplash.com/photo-1547658719-da2b51169166?w=600",city:"Karachi",rating:4.7,desc:"For freelancers. Dark + Light."},
+{id:33,name:"Brand Guidelines Template",cat:"Design",price:18,img:"https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600",city:"Multan",rating:4.6,desc:"Complete brand book template."},
+{id:34,name:"WhatsApp Automation Script",cat:"Code",price:48,img:"https://images.unsplash.com/photo-1611606063065-ee7946f0787a?w=600",city:"Lahore",rating:4.8,desc:"Auto reply + bulk sender."},
+{id:35,name:"Stock Photos - 2000 Pack",cat:"Design",price:27,img:"https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600",city:"Karachi",rating:4.7,desc:"Commercial use allowed."},
+{id:36,name:"TikTok Growth Course",cat:"Courses",price:33,img:"https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600",city:"Lahore",rating:4.8,desc:"Viral hooks + algorithm."},
+{id:37,name:"Email Templates - 100 Pack",cat:"Templates",price:12,img:"https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600",city:"Islamabad",rating:4.6,desc:"Sales + newsletter templates."},
+{id:38,name:"Gaming Thumbnail + Logo Pack",cat:"Design",price:20,img:"https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600",city:"Karachi",rating:4.8,desc:"For gamers / streamers."},
+{id:39,name:"Real Estate Website Code",cat:"Code",price:95,img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600",city:"Lahore",rating:4.9,desc:"Listings + admin + payment."},
+{id:40,name:"Complete Digital Business Bundle",cat:"Ebooks",price:59,img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600",city:"Karachi",rating:4.9,desc:"10 ebooks + 20 templates + 5 courses. All in one."}
 ];
 const FREELANCERS=[
-{name:"Sara Design",user:"@sara.design",skill:"UI/UX Designer",city:"Lahore, Pakistan",price:20,rating:4.9,img:32,about:"5 saal se UI design. Logo, App UI, Website sab bana deti hun."},
-{name:"Ali Khan",user:"@ali123",skill:"Video Editor",city:"Islamabad",price:15,rating:4.8,img:12,about:"Reels, YouTube videos, ads editing expert."},
+{name:"Sara Design",user:"@sara.design",skill:"UI/UX Designer",city:"Lahore, Pakistan",price:20,rating:4.9,img:32,about:"5 saal se UI design. Logo, App UI, Website."},
+{name:"Ali Khan",user:"@ali123",skill:"Video Editor",city:"Islamabad",price:15,rating:4.8,img:12,about:"Reels, YouTube videos, ads editing."},
 {name:"Ayesha Khan",user:"@ayesha.writes",skill:"Content Writer",city:"Karachi",price:12,rating:4.9,img:45,about:"SEO blogs, copywriting, Urdu + English."},
 {name:"Bilal Dev",user:"@bilal.dev",skill:"Web Developer",city:"Lahore",price:35,rating:5.0,img:15,about:"React, Next.js, E-commerce websites."},
-{name:"Fatima Art",user:"@fatima.art",skill:"Graphic Designer",city:"Multan",price:18,rating:4.7,img:44,about:"Posters, brand logos, social media designs."},
+{name:"Fatima Art",user:"@fatima.art",skill:"Graphic Designer",city:"Multan",price:18,rating:4.7,img:44,about:"Posters, brand logos, social media."},
 {name:"Usman SEO",user:"@usman.seo",skill:"SEO Expert",city:"Rawalpindi",price:25,rating:4.8,img:53,about:"Google ranking, keyword research."},
-{name:"Hira Voice",user:"@hira.voice",skill:"Voice Over Artist",city:"Karachi",price:22,rating:4.9,img:47,about:"Urdu / English voice over for ads."},
+{name:"Hira Voice",user:"@hira.voice",skill:"Voice Over Artist",city:"Karachi",price:22,rating:4.9,img:47,about:"Urdu / English voice over."},
 {name:"Danish Photo",user:"@danish.photo",skill:"Photographer",city:"Lahore",price:30,rating:4.8,img:59,about:"Product, wedding, event photography."},
-{name:"Zain Marketing",user:"@zain.mkt",skill:"Digital Marketer",city:"Islamabad",price:28,rating:4.7,img:68,about:"Facebook + TikTok ads, sales funnel."},
+{name:"Zain Marketing",user:"@zain.mkt",skill:"Digital Marketer",city:"Islamabad",price:28,rating:4.7,img:68,about:"Facebook + TikTok ads."},
 {name:"Mahnoor Social",user:"@mahnoor.sm",skill:"Social Media Manager",city:"Karachi",price:20,rating:4.8,img:31,about:"Instagram growth, content calendar."},
 {name:"Ahmed App",user:"@ahmed.app",skill:"App Developer",city:"Lahore",price:45,rating:4.9,img:11,about:"Flutter apps, iOS + Android."},
 {name:"Sana Tutor",user:"@sana.tutor",skill:"Online Tutor",city:"Faisalabad",price:10,rating:4.9,img:26,about:"Math, English, O/A Levels."},
@@ -200,21 +215,18 @@ const CHATS=[
 {name:"Bilal Dev @bilal.dev",last:"Website kal tak ready ho jayegi",time:"09:40",type:"user"},
 {name:"Ayesha Khan",last:"Blog likh diya hai, check karo",time:"Yesterday",type:"user"}
 ];
-
-// ============ STATE ============
 let balance=parseFloat(localStorage.getItem('odsmall_balance')||'1250');
-let cart=[], wishlist=[], activeCat='All', currentMode='market', isLoginMode=false;
+let cart=[], wishlist=[], activeCat='All', isLoginMode=false, supportHuman=false;
 let txs=JSON.parse(localStorage.getItem('odsmall_txs')||'[{"t":"Recharge via USDT","s":"Treasury • Fee 1%","a":"+100.00"},{"t":"Received from @ali","s":"Internal • Fee 0.1%","a":"+99.90"}]');
-const CATS=['All','Electronics','Fashion','Home','Beauty','Sports'];
+const CATS=['All','Design','Templates','Courses','Ebooks','Code','Presets','Audio'];
 function showToast(m){let t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(()=>t.style.display='none',2200);}
-function showPage(p){['signup','home','chats','chatopen','wallet','profile','wishlist','cart','detail'].forEach(x=>{let e=document.getElementById('page-'+x); if(e) e.classList.add('hidden-page')});document.getElementById('page-'+p).classList.remove('hidden-page');window.scrollTo(0,0); if(p==='wishlist') renderWish(); if(p==='cart') renderCart(); if(p==='chats') renderChats(); if(p==='wallet') renderTx();}
+function showPage(p){['signup','home','chats','chatopen','wallet','profile','wishlist','cart','detail','support'].forEach(x=>{let e=document.getElementById('page-'+x); if(e) e.classList.add('hidden-page')});document.getElementById('page-'+p).classList.remove('hidden-page');window.scrollTo(0,0); if(p==='wishlist') renderWish(); if(p==='cart') renderCart(); if(p==='chats') renderChats(); if(p==='wallet') renderTx();}
 function focusSearch(){showPage('home');setTimeout(()=>document.getElementById('searchInput').focus(),200);}
 function toggleAuth(){isLoginMode=!isLoginMode;document.getElementById('authTitle').innerText=isLoginMode?'Login':'Create Account';document.getElementById('authBtn').innerText=isLoginMode?'Login →':'Create Account →';document.getElementById('authToggle').innerText=isLoginMode?'New here? Create Account →':'Already have account? Login →';}
 function doSignup(){let e=document.getElementById('suEmail').value.trim();let p=document.getElementById('suPass').value;if(!e||!p){alert('Email + Password daalo');return;}if(isLoginMode){let s=JSON.parse(localStorage.getItem('odsmall_user')||'null');if(s&&s.email===e&&s.pass===p){localStorage.setItem('odsmall_loggedin','1');document.getElementById('dispEmail').innerText=e;showToast('Login hogaya!');showPage('home');}else alert('Email / Password nahi mila. Pehle Create Account karo.');}else{localStorage.setItem('odsmall_user',JSON.stringify({email:e,pass:p}));localStorage.setItem('odsmall_loggedin','1');document.getElementById('dispEmail').innerText=e;showToast('Account ban gaya!');showPage('home');}}
 function doLogout(){localStorage.removeItem('odsmall_loggedin');showPage('signup');}
-function showMarket(){currentMode='market';document.getElementById('sec-market').classList.remove('hidden-page');document.getElementById('sec-free').classList.add('hidden-page');document.getElementById('tabM').classList.add('tab-active');document.getElementById('tabF').classList.remove('tab-active');applyFilters();}
-function showFreelancers(){currentMode='free';document.getElementById('sec-market').classList.add('hidden-page');document.getElementById('sec-free').classList.remove('hidden-page');document.getElementById('tabF').classList.add('tab-active');document.getElementById('tabM').classList.remove('tab-active');applyFilters();}
-// CATEGORY CHIPS
+function showMarket(){document.getElementById('sec-market').classList.remove('hidden-page');document.getElementById('sec-free').classList.add('hidden-page');document.getElementById('tabM').classList.add('tab-active');document.getElementById('tabF').classList.remove('tab-active');applyFilters();}
+function showFreelancers(){document.getElementById('sec-market').classList.add('hidden-page');document.getElementById('sec-free').classList.remove('hidden-page');document.getElementById('tabF').classList.add('tab-active');document.getElementById('tabM').classList.remove('tab-active');applyFilters();}
 function renderCats(){document.getElementById('catChips').innerHTML=CATS.map(c=>`<button onclick="setCat('${c}')" class="cat-chip ${activeCat===c?'active':''}">${c}</button>`).join('');}
 function setCat(c){activeCat=c;document.getElementById('activeCatLabel').innerText=c==='All'?'All Categories':c;renderCats();applyFilters();}
 function applyFilters(){
@@ -223,42 +235,67 @@ function applyFilters(){
   let sort=document.getElementById('sortFilter').value;
   let filtered=PRODUCTS.filter(p=>{
     if(activeCat!=='All' && p.cat!==activeCat) return false;
-    if(q && !p.name.toLowerCase().includes(q) && !p.cat.toLowerCase().includes(q) && !p.city.toLowerCase().includes(q)) return false;
-    if(pf==='0-30' && !(p.price>=0&&p.price<=30)) return false;
-    if(pf==='30-80' && !(p.price>30&&p.price<=80)) return false;
-    if(pf==='80-200' && !(p.price>80&&p.price<=200)) return false;
-    if(pf==='200+' && !(p.price>200)) return false;
+    if(q && !p.name.toLowerCase().includes(q) && !p.cat.toLowerCase().includes(q)) return false;
+    if(pf==='0-20' && !(p.price>=0&&p.price<=20)) return false;
+    if(pf==='20-50' && !(p.price>20&&p.price<=50)) return false;
+    if(pf==='50-100' && !(p.price>50&&p.price<=100)) return false;
+    if(pf==='100+' && !(p.price>100)) return false;
     return true;
   });
   if(sort==='low') filtered.sort((a,b)=>a.price-b.price);
   if(sort==='high') filtered.sort((a,b)=>b.price-a.price);
   document.getElementById('resultCount').innerText=filtered.length;
   document.getElementById('sec-market').innerHTML=filtered.map(p=>`
-    <div class="card overflow-hidden"><img src="${p.img}" class="h-44 w-full object-cover" onclick="openDetail(${p.id})"><div class="p-3"><div class="flex justify-between"><p class="font-bold">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><p class="text-xs text-slate-500">${p.cat} • ⭐ ${p.rating} • ${p.city} • Escrow Protected</p><div class="flex gap-2 mt-3"><button onclick="buyNow(${p.id})" class="flex-1 btn-black text-sm font-bold py-2.5 rounded-xl">Buy with ODSC</button><button onclick="toggleWish(${p.id})" class="w-11 border rounded-xl">${wishlist.includes(p.id)?'❤️':'🤍'}</button><button onclick="addCart(${p.id})" class="w-11 border rounded-xl">🛒</button></div></div></div>
-  `).join('') || '<div class="card p-4 text-center text-sm">Koi product nahi mila. Search saaf karke dekho.</div>';
-  // Freelancers
-  let ff=FREELANCERS.filter(f=>{
-    if(q && !f.name.toLowerCase().includes(q) && !f.skill.toLowerCase().includes(q) && !f.city.toLowerCase().includes(q)) return false;
-    if(activeCat!=='All' && activeCat!=='Electronics' && !f.skill.toLowerCase().includes(activeCat.toLowerCase().slice(0,4))) return true;
-    return true;
-  });
-  document.getElementById('sec-free').innerHTML=ff.map((f,i)=>`
-    <div class="card p-3 flex gap-3"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-14 h-14 rounded-full"><div class="flex-1"><p class="font-bold text-sm">${f.name} • ${f.user}</p><p class="text-xs text-slate-500">${f.skill} • ${f.city}</p><p class="text-xs mt-1 text-slate-600">${f.about}</p><p class="text-xs font-bold mt-1">${f.price} ODSC onwards • ⭐ ${f.rating}</p></div><button onclick="openChat('${f.name} ${f.user}')" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-full h-fit">Chat</button></div>
-  `).join('');
+    <div class="card overflow-hidden"><img src="${p.img}" class="h-44 w-full object-cover" onclick="openDetail(${p.id})"><div class="p-3"><div class="flex justify-between"><p class="font-bold">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><p class="text-xs text-slate-500">${p.cat} • ⭐ ${p.rating} • ${p.city} • 💾 Digital • ⚡ Instant</p><div class="flex gap-2 mt-3"><button onclick="buyNow(${p.id})" class="flex-1 btn-black text-sm font-bold py-2.5 rounded-xl">Buy with ODSC</button><button onclick="toggleWish(${p.id})" class="w-11 border rounded-xl">${wishlist.includes(p.id)?'❤️':'🤍'}</button><button onclick="addCart(${p.id})" class="w-11 border rounded-xl">🛒</button></div></div></div>
+  `).join('') || '<div class="card p-4 text-center text-sm">Koi digital product nahi mila.</div>';
+  let ff=FREELANCERS.filter(f=>{if(q && !f.name.toLowerCase().includes(q) && !f.skill.toLowerCase().includes(q)) return false; return true;});
+  document.getElementById('sec-free').innerHTML=ff.map(f=>`<div class="card p-3 flex gap-3"><img src="https://i.pravatar.cc/100?img=${f.img}" class="w-14 h-14 rounded-full"><div class="flex-1"><p class="font-bold text-sm">${f.name} • ${f.user}</p><p class="text-xs text-slate-500">${f.skill} • ${f.city}</p><p class="text-xs mt-1 text-slate-600">${f.about}</p><p class="text-xs font-bold mt-1">${f.price} ODSC onwards • ⭐ ${f.rating}</p></div><button onclick="openChat('${f.name} ${f.user}')" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-full h-fit">Chat</button></div>`).join('');
 }
-function doSearchClick(){let q=document.getElementById('searchInput').value;if(!q){showToast('Search me kuch likho - jaise Watch, Shoes');return;}applyFilters();showToast(`"${q}" ke liye ${document.getElementById('resultCount').innerText} results mile`);}
-function openDetail(id){let p=PRODUCTS.find(x=>x.id===id);document.getElementById('dImg').src=p.img;document.getElementById('dName').innerText=p.name;document.getElementById('dCat').innerText=p.cat+' • '+p.city+' • ⭐ '+p.rating;document.getElementById('dPrice').innerText=p.price+' ODSC  (≈ $'+p.price+')';document.getElementById('dDesc').innerText=p.desc;document.getElementById('dBuy').onclick=()=>buyNow(id);document.getElementById('dWish').onclick=()=>toggleWish(id);showPage('detail');}
-function buyNow(id){let p=PRODUCTS.find(x=>x.id===id);if(balance<p.price){alert('Balance kam hai. Pehle Recharge karo.');showPage('wallet');return;}if(!confirm(p.name+' - '+p.price+' ODSC?\nFee 0.1% • Escrow Protected')) return;balance-=p.price;saveBal();addTx('Bought '+p.name,'Escrow • Fee 0.1%','-'+p.price.toFixed(2));showToast('Buy hogaya! Escrow me paisa gaya.');}
+function doSearchClick(){let q=document.getElementById('searchInput').value;if(!q){showToast('Search me kuch likho - jaise Logo, Course, Template');return;}applyFilters();showToast(`"${q}" ke liye ${document.getElementById('resultCount').innerText} results mile`);}
+function openDetail(id){let p=PRODUCTS.find(x=>x.id===id);document.getElementById('dImg').src=p.img;document.getElementById('dName').innerText=p.name;document.getElementById('dCat').innerText=p.cat+' • '+p.city+' • ⭐ '+p.rating+' • Digital Product';document.getElementById('dPrice').innerText=p.price+' ODSC  (≈ $'+p.price+')';document.getElementById('dDesc').innerText=p.desc+'\n\nDelivery: Instant download link milega. No shipping, no wait.';document.getElementById('dBuy').onclick=()=>buyNow(id);document.getElementById('dWish').onclick=()=>toggleWish(id);showPage('detail');}
+function buyNow(id){let p=PRODUCTS.find(x=>x.id===id);if(balance<p.price){alert('Balance kam hai. Pehle Recharge karo.');showPage('wallet');return;}if(!confirm(p.name+' - '+p.price+' ODSC?\nFee 0.1% • Escrow • Instant Digital Delivery')) return;balance-=p.price;saveBal();addTx('Bought '+p.name,'Digital • Escrow • Fee 0.1%','-'+p.price.toFixed(2));showToast('Buy hogaya! Download link mil gaya. 📥');}
 function addCart(id){if(cart.includes(id)){showToast('Pehle se Cart me hai');return;}cart.push(id);updateBadges();showToast('Cart me add hogaya!');}
 function toggleWish(id){if(wishlist.includes(id)){wishlist=wishlist.filter(x=>x!==id);showToast('Wishlist se hataya');}else{wishlist.push(id);showToast('Wishlist me add hogaya!');}updateBadges();applyFilters();}
-function renderWish(){document.getElementById('wishList').innerHTML=wishlist.length? wishlist.map(id=>{let p=PRODUCTS.find(x=>x.id===id);return `<div class="card p-3 flex gap-3"><img src="${p.img}" class="w-16 h-16 rounded-xl object-cover"><div class="flex-1"><p class="font-bold text-sm">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><button onclick="buyNow(${p.id})" class="btn-black text-xs px-3 py-2 rounded-full h-fit">Buy</button><button onclick="toggleWish(${p.id});renderWish()" class="text-xs px-2">✕</button></div>`}).join('') : '<div class="card p-4 text-center text-sm">Wishlist khali hai. Dil wale button se add karo.</div>';}
+function renderWish(){document.getElementById('wishList').innerHTML=wishlist.length? wishlist.map(id=>{let p=PRODUCTS.find(x=>x.id===id);return `<div class="card p-3 flex gap-3"><img src="${p.img}" class="w-16 h-16 rounded-xl object-cover"><div class="flex-1"><p class="font-bold text-sm">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><button onclick="buyNow(${p.id})" class="btn-black text-xs px-3 py-2 rounded-full h-fit">Buy</button><button onclick="toggleWish(${p.id});renderWish()" class="text-xs px-2">✕</button></div>`}).join('') : '<div class="card p-4 text-center text-sm">Wishlist khali hai.</div>';}
 function renderCart(){let total=cart.reduce((s,id)=>s+PRODUCTS.find(x=>x.id===id).price,0);document.getElementById('cartList').innerHTML=cart.length? cart.map(id=>{let p=PRODUCTS.find(x=>x.id===id);return `<div class="card p-3 flex gap-3"><img src="${p.img}" class="w-16 h-16 rounded-xl object-cover"><div class="flex-1"><p class="font-bold text-sm">${p.name}</p><p class="font-black">${p.price} ODSC</p></div><button onclick="removeCart(${id})" class="text-xs px-2">✕</button></div>`}).join('') : '<div class="card p-4 text-center text-sm">Cart khali hai.</div>';document.getElementById('cartTotalBox').classList.toggle('hidden-page',!cart.length);document.getElementById('cartTotal').innerText=total.toFixed(2)+' ODSC';}
 function removeCart(id){cart=cart.filter(x=>x!==id);updateBadges();renderCart();}
-function checkout(){let total=cart.reduce((s,id)=>s+PRODUCTS.find(x=>x.id===id).price,0);if(balance<total){alert('Balance kam hai. Recharge karo.');showPage('wallet');return;}balance-=total;saveBal();addTx('Cart Checkout - '+cart.length+' items','Escrow • Fee 0.1%','-'+total.toFixed(2));cart=[];updateBadges();renderCart();showToast('Checkout hogaya! Order Escrow me hai.');}
+function checkout(){let total=cart.reduce((s,id)=>s+PRODUCTS.find(x=>x.id===id).price,0);if(balance<total){alert('Balance kam hai. Recharge karo.');showPage('wallet');return;}balance-=total;saveBal();addTx('Cart Checkout - '+cart.length+' digital items','Escrow • Fee 0.1%','-'+total.toFixed(2));cart=[];updateBadges();renderCart();showToast('Checkout hogaya! Sab download links mil gaye. 📥');}
 function renderChats(){document.getElementById('chatList').innerHTML=CHATS.map(c=>`<div onclick="openChat('${c.name}')" class="flex gap-3 px-4 py-3 border-b border-slate-100"><div class="w-12 h-12 ${c.type==='group'?'bg-green-600':'bg-slate-900'} rounded-full flex items-center justify-center text-xl text-white">${c.type==='group'?'👥':'👤'}</div><div class="flex-1"><p class="font-bold text-sm">${c.name}</p><p class="text-xs text-slate-500">${c.last}</p></div><span class="text-[10px] text-slate-400">${c.time}</span></div>`).join('');}
 function filterChats(){let q=(document.getElementById('chatSearch').value||'').toLowerCase();let f=CHATS.filter(c=>c.name.toLowerCase().includes(q));document.getElementById('chatList').innerHTML=f.map(c=>`<div onclick="openChat('${c.name}')" class="flex gap-3 px-4 py-3 border-b"><div class="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-white">👤</div><div class="flex-1"><p class="font-bold text-sm">${c.name}</p><p class="text-xs text-slate-500">${c.last}</p></div></div>`).join('')||'<p class="p-4 text-sm text-center">Koi chat nahi mili</p>';}
 function openChat(n){document.getElementById('chatName').innerText=n;document.getElementById('chatMsgs').innerHTML=`<div class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[80%] text-sm">Assalam-o-Alaikum! ${n} se baat ho rahi hai. Kaam ki detail batao?</div><div class="bg-slate-900 text-white p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-sm">Walaikum Salam, Haan batao. Main ODSC me pay kar dunga.</div>`;showPage('chatopen');}
 function sendMsg(){let v=document.getElementById('chatInput').value.trim();if(!v) return;document.getElementById('chatMsgs').innerHTML+=`<div class="bg-slate-900 text-white p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-sm">${v}</div>`;document.getElementById('chatInput').value='';setTimeout(()=>{document.getElementById('chatMsgs').innerHTML+=`<div class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[80%] text-sm">Ok, done! Main kaam shuru karta hun. 👍</div>`;},800);}
+// ============ SUPPORT BOT ============
+function openSupportChat(){supportHuman=false;document.getElementById('supportMsgs').innerHTML=`<div class="bg-amber-50 border border-amber-200 p-3 rounded-2xl text-sm">👋 <b>Assalam-o-Alaikum! Main ODSMALL Support Bot hun.</b><br>Main aapki help kar sakta hun: Payment, Withdraw, Download, Order, Seller issue.<br><br>Neeche se quick option dabao ya apna masla likho. Agar main hal na kar sakun to <b>Human</b> button dabao, main aapko Representative se connect kar dunga.</div>`;showPage('support');}
+function supportQuick(q){document.getElementById('supportInput').value=q;sendSupportMsg();}
+function sendSupportMsg(){
+  let v=document.getElementById('supportInput').value.trim();if(!v) return;
+  document.getElementById('supportMsgs').innerHTML+=`<div class="bg-slate-900 text-white p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-sm">${v}</div>`;
+  document.getElementById('supportInput').value='';
+  document.getElementById('supportMsgs').innerHTML+=`<div id="typing" class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[80%] text-sm text-slate-500">Bot likh raha hai...</div>`;
+  setTimeout(()=>{
+    let t=document.getElementById('typing'); if(t) t.remove();
+    let reply=botReply(v);
+    document.getElementById('supportMsgs').innerHTML+=`<div class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[85%] text-sm">🤖 <b>Support Bot:</b><br>${reply}<br><br><button onclick="connectHuman()" class="bg-slate-900 text-white text-xs px-3 py-1.5 rounded-full mt-1">👤 Human se baat karni hai</button></div>`;
+    document.getElementById('supportMsgs').scrollTop=document.getElementById('supportMsgs').scrollHeight;
+  },900);
+}
+function botReply(msg){
+  let m=msg.toLowerCase();
+  if(m.includes('payment')||m.includes('atak')||m.includes('paisa')) return `Payment ka masla samajh gaya.<br>1. Wallet > Transactions me check karo.<br>2. Agar paisa kata hai aur ODSC nahi aaya to 5 min wait karo.<br>3. Phir bhi na aaye to mujhe Transaction ID bhejo, main Human ko bhej dunga.<br><br>Kya ye hal hua? Nahi to <b>Human</b> dabao.`;
+  if(m.includes('withdraw')) return `Withdraw ka masla:<br>✅ Hamare paas <b>No Hold</b> hai.<br>1. Check karo ke tumne sahi Crypto Address dala hai.<br>2. Minimum withdraw 10 ODSC hai.<br>3. Fee 1% kat ti hai - 100 ODSC pe 99 milega.<br><br>Agar phir bhi atak raha hai to Human se connect kar dun?`;
+  if(m.includes('download')||m.includes('order')) return `Download ka masla:<br>1. Profile > My Orders me jao.<br>2. Download button dabao.<br>3. Link 24h valid hota hai.<br><br>Agar link expire hogaya hai to main naya link bhej dunga. Human chahiye to batao.`;
+  if(m.includes('seller')) return `Seller reply nahi kar raha?<br>1. 24h wait karo, seller ko notification jayegi.<br>2. Agar 48h me reply na aaye to Escrow se paisa wapis mil jayega.<br>3. Main seller ko abhi reminder bhej deta hun.<br><br>Human se baat karni hai to upar Human dabao.`;
+  if(m.includes('human')||m.includes('insan')||m.includes('representative')) return `Bilkul, main aapko Human Representative se connect kar raha hun...`;
+  return `Samajh gaya: "${msg}"<br><br>Main iska hal dekh raha hun...<br>• Agar Payment / Withdraw ka masla hai to upar wale quick buttons dabao.<br>• Agar phir bhi hal na ho to <b>Human</b> dabao, main aapko hamare Representative se connect kar dunga. Wo 5-10 min me reply karenge.`;
+}
+function connectHuman(){
+  if(supportHuman) return;
+  supportHuman=true;
+  document.getElementById('supportMsgs').innerHTML+=`<div class="bg-green-50 border border-green-200 p-3 rounded-2xl text-sm">🔄 <b>Connecting to Human Representative...</b><br>Ticket #ODS-${Math.floor(1000+Math.random()*9000)} ban gaya hai.<br>Queue me aap #2 pe ho. Representative 5-10 min me reply karega.<br><br>Tab tak Bot yahin hai.</div>`;
+  setTimeout(()=>{
+    document.getElementById('supportMsgs').innerHTML+=`<div class="bg-green-100 p-3 rounded-2xl rounded-bl-none max-w-[85%] text-sm">👤 <b>Ahmed - Support Representative (Human):</b><br>Assalam-o-Alaikum! Main Ahmed hun, ODSMALL Support se. Aapka masla maine dekh liya hai, ab main personally dekh raha hun. Apni Order ID / Transaction ID bhej dein, main abhi hal karta hun. 🙏</div>`;
+  },2000);
+}
 function openRecharge(){hideBoxes();document.getElementById('box-recharge').classList.remove('hidden-page');}
 function openWithdraw(){hideBoxes();document.getElementById('box-withdraw').classList.remove('hidden-page');}
 function openSend(){hideBoxes();document.getElementById('box-send').classList.remove('hidden-page');}
@@ -278,7 +315,6 @@ function saveProfile(){document.getElementById('dispName').innerText=document.ge
 function updateBadges(){document.getElementById('wishCount').innerText=wishlist.length;document.getElementById('cartCount').innerText=cart.length;}
 function saveBal(){localStorage.setItem('odsmall_balance',balance);updateBal();}
 function updateBal(){document.getElementById('walletBal').innerText=balance.toFixed(2);document.getElementById('topBal').innerText=balance.toFixed(2);}
-// INIT
 renderCats();applyFilters();renderChats();renderTx();updateBadges();updateBal();
 let savedUser=JSON.parse(localStorage.getItem('odsmall_user')||'null');
 let loggedIn=localStorage.getItem('odsmall_loggedin')==='1';
