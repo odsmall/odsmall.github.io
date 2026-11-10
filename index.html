@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ODSMALL V4.3 - Header Fix</title>
+<title>ODSMALL - Safe Buy, Safe Sell, Safe Work</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body{font-family:'Segoe UI',sans-serif;background:#ffffff;color:#0f172a;padding-bottom:90px}
+  body{font-family:'Segoe UI',sans-serif;background:#ffffff;color:#0f172a;padding-bottom:95px}
   .card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px}
   .btn-black{background:#0f172a;color:white}
   input,select,textarea{background:white!important;border:1px solid #cbd5e1!important;color:#0f172a!important;border-radius:12px;padding:11px;width:100%;outline:none}
+  input:focus{border-color:#0f172a!important}
   .hidden-page{display:none}
   .tab-active{background:#0f172a!important;color:white!important}
   .icon-btn{width:40px;height:40px;border:1px solid #e2e8f0;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:#f8fafc;position:relative;font-size:18px}
@@ -18,89 +19,99 @@
 </head>
 <body>
 
-<!-- ===== TOP HEADER - FIXED AS PER YOUR FEEDBACK ===== -->
-<!-- NO wallet address, NO yellow bubble, NO 0x... Connected -->
+<!-- ============ HEADER ============ -->
 <div class="sticky top-0 z-50 bg-white px-4 py-3 border-b border-slate-100">
   <div class="flex justify-between items-start">
-    <div>
-      <h1 class="text-[26px] font-black tracking-tight leading-none">ODSMALL</h1>
-      <p class="text-[11px] text-slate-500 mt-1">Safe Buy, Safe Sell, Safe Work.</p>
-    </div>
-    <!-- Right: Wishlist + Cart - 2 chhote icons -->
+    <div><h1 class="text-[26px] font-black tracking-tight leading-none">ODSMALL</h1></div>
     <div class="flex flex-col items-end gap-1">
       <div class="flex gap-2">
         <button onclick="showPage('wishlist')" class="icon-btn">❤️<span class="badge" id="wishCount">2</span></button>
         <button onclick="showPage('cart')" class="icon-btn">🛒<span class="badge" id="cartCount">0</span></button>
       </div>
-      <!-- Chhota sa Balance - in dono buttons ke neeche -->
       <p class="text-[11px] font-bold text-slate-700">Balance: <span id="topBal">1,250.00</span> ODSC</p>
     </div>
   </div>
 </div>
 
-<!-- ============ PAGE: SIGNUP ============ -->
+<!-- ============ SIGNUP / LOGIN ============ -->
 <div id="page-signup" class="p-4 max-w-md mx-auto">
-  <h1 class="text-3xl font-black mt-2">Create Account</h1>
-  <p class="text-slate-500 text-sm mt-1">Email + Password se signup. Koi wallet connect nahi.</p>
+  <h1 class="text-3xl font-black mt-2" id="authTitle">Create Account</h1>
+  <p class="text-slate-500 text-sm mt-1">Real Email se account banao. Ek dafa login hua to Refresh pe bhi login rahega.</p>
   <div class="card p-4 mt-4 space-y-3">
     <div><label class="text-xs text-slate-500">Email *</label><input id="suEmail" placeholder="ali@gmail.com"></div>
     <div><label class="text-xs text-slate-500">Password *</label><input type="password" id="suPass" placeholder="********"></div>
-    <button onclick="doSignup()" class="w-full btn-black font-bold py-3 rounded-xl">Create Account →</button>
-    <p class="text-[11px] text-center text-slate-500">Signup karte hi tujhe User ID + Internal ODSC Address milega - Jo sirf Wallet me dikhega</p>
+    <button onclick="doSignup()" class="w-full btn-black font-bold py-3 rounded-xl" id="authBtn">Create Account →</button>
+    <button onclick="toggleAuth()" class="w-full text-center text-xs text-slate-600 underline" id="authToggle">Already have account? Login →</button>
+    <p class="text-[11px] text-center text-slate-500">Demo me Email phone me save hota hai. Real Backend (Firebase) lagane pe ye asli Email verification ban jayega.</p>
   </div>
-  <button onclick="showPage('home')" class="w-full text-center text-xs text-slate-500 mt-3">Already have account? Skip Demo →</button>
+  <button onclick="showPage('home')" class="w-full text-center text-xs text-slate-500 mt-3">Skip Demo → Home dekho</button>
 </div>
 
-<!-- ============ PAGE: HOME - SAME WHITE LAYOUT ============ -->
+<!-- ============ HOME ============ -->
 <div id="page-home" class="px-4 max-w-md mx-auto hidden-page">
   <h1 class="text-[32px] font-black leading-[1.1] mt-4">Safe Buy, Safe Sell,<br>Safe Work.</h1>
   <p class="text-slate-500 text-[15px] mt-2">Escrow-protected marketplace and freelancers. Pay in USDT on Polygon.</p>
-  <div class="grid grid-cols-2 gap-3 mt-4">
-    <button onclick="showMarket()" class="btn-black font-bold py-3 px-2 rounded-xl text-[15px] leading-tight">Browse<br>Marketplace</button>
-    <button onclick="showFreelancers()" class="bg-white border-2 border-slate-900 font-bold py-3 px-2 rounded-xl text-[15px] leading-tight">Find<br>Freelancers</button>
-  </div>
-  <div class="flex gap-3 mt-6">
+
+  <!-- SIRF EK SET TABS - Double nahi -->
+  <div class="flex gap-3 mt-5">
     <button id="tabM" onclick="showMarket()" class="tab-active flex-1 border border-slate-900 font-black py-3 rounded-xl">MARKETPLACE</button>
     <button id="tabF" onclick="showFreelancers()" class="flex-1 border border-slate-300 font-black py-3 rounded-xl">FREELANCERS</button>
   </div>
-  <div class="flex gap-2 mt-4"><input placeholder="Search Marketplace..." class="!rounded-full"><button class="btn-black px-5 rounded-full font-bold">Filter</button></div>
-  <div class="flex gap-2 mt-3"><select class="!rounded-full !w-auto"><option>Category: All</option><option>Electronics</option><option>Design</option></select><select class="!rounded-full !w-auto"><option>Price: Any</option><option>0 - 50 ODSC</option><option>50 - 200 ODSC</option></select></div>
+
+  <!-- SEARCH FIXED - Search poora, Filter sirf icon -->
+  <div class="flex gap-2 mt-4 items-center">
+    <div class="flex-1 flex items-center gap-2 border border-slate-300 rounded-full px-4 py-2 bg-white">
+      <span>🔍</span>
+      <input id="searchInput" placeholder="Search Marketplace..." class="!border-0 !p-0 !rounded-none w-full" style="border:none!important" oninput="doSearch()">
+    </div>
+    <button class="w-11 h-11 shrink-0 border border-slate-900 rounded-full font-bold flex items-center justify-center text-lg" onclick="alert('Filter: Category + Price')">⚙️</button>
+  </div>
+
+  <div class="flex gap-2 mt-3">
+    <select class="!rounded-full !w-auto"><option>Category: All</option><option>Electronics</option><option>Design</option></select>
+    <select class="!rounded-full !w-auto"><option>Price: Any</option><option>0 - 50 ODSC</option><option>50 - 200 ODSC</option></select>
+  </div>
+
   <div id="sec-market" class="mt-5 space-y-4">
     <div class="card overflow-hidden"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" class="h-44 w-full object-cover"><div class="p-3"><div class="flex justify-between"><p class="font-bold">Smart Watch Pro</p><p class="font-black">45 ODSC</p></div><p class="text-xs text-slate-500">Escrow Protected • Lahore</p><div class="flex gap-2 mt-3"><button onclick="buyNow('Smart Watch Pro',45)" class="flex-1 btn-black text-sm font-bold py-2.5 rounded-xl">Buy with ODSC</button><button onclick="addWish(this)" class="w-11 border rounded-xl">❤️</button></div></div></div>
     <div class="card overflow-hidden"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" class="h-44 w-full object-cover"><div class="p-3"><div class="flex justify-between"><p class="font-bold">Headphones X</p><p class="font-black">89 ODSC</p></div><p class="text-xs text-slate-500">Escrow Protected • Karachi</p><div class="flex gap-2 mt-3"><button onclick="buyNow('Headphones X',89)" class="flex-1 btn-black text-sm font-bold py-2.5 rounded-xl">Buy with ODSC</button><button onclick="addWish(this)" class="w-11 border rounded-xl">❤️</button></div></div></div>
+    <div class="card overflow-hidden"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" class="h-44 w-full object-cover"><div class="p-3"><div class="flex justify-between"><p class="font-bold">Running Shoes</p><p class="font-black">65 ODSC</p></div><p class="text-xs text-slate-500">Escrow Protected • Islamabad</p><div class="flex gap-2 mt-3"><button onclick="buyNow('Running Shoes',65)" class="flex-1 btn-black text-sm font-bold py-2.5 rounded-xl">Buy with ODSC</button><button onclick="addWish(this)" class="w-11 border rounded-xl">❤️</button></div></div></div>
   </div>
+
   <div id="sec-free" class="mt-5 space-y-3 hidden-page">
     <div class="card p-3 flex gap-3"><img src="https://i.pravatar.cc/100?img=32" class="w-14 h-14 rounded-full"><div class="flex-1"><p class="font-bold text-sm">Sara Design • @sara.design</p><p class="text-xs text-slate-500">UI/UX Designer • Lahore, Pakistan</p><p class="text-xs mt-1">Hi! Main 5 saal se UI design kar rahi hun.</p><p class="text-xs font-bold mt-1">20 ODSC onwards • ⭐ 4.9</p></div><button onclick="showPage('chats')" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-full h-fit">Chat</button></div>
+    <div class="card p-3 flex gap-3"><img src="https://i.pravatar.cc/100?img=12" class="w-14 h-14 rounded-full"><div class="flex-1"><p class="font-bold text-sm">Ali Khan • @ali123</p><p class="text-xs text-slate-500">Video Editor • Islamabad</p><p class="text-xs mt-1">3 saal se editing. Reels, YouTube videos.</p><p class="text-xs font-bold mt-1">15 ODSC onwards • ⭐ 4.8</p></div><button onclick="showPage('chats')" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-full h-fit">Chat</button></div>
   </div>
 </div>
 
-<!-- WISHLIST / CART - Simple -->
+<!-- ============ WISHLIST / CART ============ -->
 <div id="page-wishlist" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">❤️ Wishlist</h2><div class="card p-4 mt-4"><p class="text-sm">2 items saved hain. Dil wale button se yahan aate hain.</p></div></div>
-<div id="page-cart" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">🛒 Cart</h2><div class="card p-4 mt-4"><p class="text-sm">Cart abhi khali hai. <span id="cartMsg">0 items</span></p></div></div>
+<div id="page-cart" class="p-4 max-w-md mx-auto hidden-page"><h2 class="font-black text-2xl">🛒 Cart</h2><div class="card p-4 mt-4"><p class="text-sm" id="cartMsg">Cart abhi khali hai.</p></div></div>
 
-<!-- CHATS -->
+<!-- ============ CHATS ============ -->
 <div id="page-chats" class="max-w-md mx-auto hidden-page">
   <div class="p-4"><h2 class="font-black text-2xl">Chat</h2><input placeholder="🔍 Search username..." class="mt-3 !rounded-full"></div>
   <div onclick="openChat('ODSMALL Community')" class="flex gap-3 px-4 py-3 border-b border-slate-100"><div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-xl text-white">👥</div><div class="flex-1"><p class="font-bold text-sm">ODSMALL Community</p><p class="text-xs text-slate-500">Ahmed: Welcome bhai 🔥</p></div><span class="text-[10px] text-slate-400">12:30</span></div>
   <div onclick="openChat('Sara Design @sara.design')" class="flex gap-3 px-4 py-3 border-b border-slate-100"><img src="https://i.pravatar.cc/100?img=32" class="w-12 h-12 rounded-full"><div class="flex-1"><p class="font-bold text-sm">Sara Design</p><p class="text-xs text-slate-500">@sara.design • Logo bana dungi 20 ODSC me</p></div><span class="text-[10px] text-slate-400">11:20</span></div>
+  <div onclick="openChat('P2P Trading Group')" class="flex gap-3 px-4 py-3 border-b border-slate-100"><div class="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-xl">💱</div><div class="flex-1"><p class="font-bold text-sm">P2P Trading Group</p><p class="text-xs text-slate-500">Ali: 100 ODSC available hai</p></div><span class="text-[10px] text-slate-400">10:05</span></div>
 </div>
+
 <div id="page-chatopen" class="max-w-md mx-auto hidden-page">
   <div class="flex items-center gap-3 p-3 border-b"><button onclick="showPage('chats')">←</button><img src="https://i.pravatar.cc/100?img=32" class="w-10 h-10 rounded-full"><div class="flex-1"><p id="chatName" class="font-bold text-sm">Sara Design</p><p class="text-[11px] text-green-600">Online</p></div><button onclick="sendODSCFromChat()" class="bg-amber-400 font-bold text-xs px-3 py-2 rounded-full">Send ODSC</button></div>
   <div class="p-4 space-y-3 min-h-[380px]"><div class="bg-slate-100 p-3 rounded-2xl rounded-bl-none max-w-[80%] text-sm">Assalam-o-Alaikum! Logo chahiye? 20 ODSC me bana dungi.</div><div class="bg-slate-900 text-white p-3 rounded-2xl rounded-br-none max-w-[80%] ml-auto text-sm">Walaikum Salam, Haan bana do.</div></div>
   <div class="p-3 flex gap-2"><input placeholder="Message..."><button class="bg-slate-900 text-white px-4 rounded-xl">➤</button></div>
 </div>
 
-<!-- ============ WALLET - YAHAN AB WALLET NUMBER HOGA ============ -->
+<!-- ============ WALLET - Wallet Number SIRF YAHAN ============ -->
 <div id="page-wallet" class="p-4 max-w-md mx-auto hidden-page">
   <div class="card !bg-slate-900 !text-white p-5 text-center">
     <p class="text-xs font-bold opacity-70">TOTAL BALANCE</p>
     <h1 class="text-4xl font-black"><span id="walletBal">1,250.00</span> ODSC</h1>
     <p class="text-sm font-bold">≈ $1,250.00 USD • 1 ODSC = $1</p>
-    <!-- Wallet Number SIRF YAHAN - Header me nahi -->
     <div class="mt-3 bg-white/10 rounded-xl p-3 text-left text-[12px] space-y-1">
       <p><span class="opacity-60">Wallet Number:</span> <b>ODS-a8x9k2p7m4</b> <button onclick="copyAddr()" class="bg-white text-black text-[10px] px-2 py-0.5 rounded-full ml-1">Copy</button></p>
       <p><span class="opacity-60">User ID:</span> <b>USER-829401</b></p>
-      <p class="text-[10px] opacity-60">Ye sirf tumhare Wallet me dikhega. Header pe nahi. Paisa isi Wallet Number pe aata hai.</p>
+      <p class="text-[10px] opacity-60">Ye sirf Wallet me dikhega. Header pe nahi.</p>
     </div>
   </div>
   <div class="grid grid-cols-3 gap-2 mt-3">
@@ -111,15 +122,27 @@
   <div id="box-recharge" class="card p-4 mt-4 hidden-page"><h3 class="font-bold">Recharge ODSC - Kisi bhi Crypto se</h3><label class="text-xs mt-3 block">Kitne ODSC chahiye?</label><input id="rechAmt" type="number" placeholder="100" oninput="calcRecharge()"><p id="rechCalc" class="text-xs text-amber-600 mt-2 font-bold">Tu $101 dega → Tujhe 100 ODSC milenge (1% Fee)</p><select class="mt-2"><option>Pay with USDT (TRC20)</option><option>Pay with BTC</option><option>Pay with ETH</option><option>Pay with SOL</option></select><button onclick="doRecharge()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Pay & Get ODSC</button></div>
   <div id="box-withdraw" class="card p-4 mt-4 hidden-page"><h3 class="font-bold">Withdraw - Apne Crypto Wallet me</h3><p class="text-xs text-green-600 mt-1 font-bold">✅ No Hold - Recharge karke usi time withdraw kar sakte ho.</p><label class="text-xs mt-3 block">Kitne ODSC nikalne hain?</label><input id="wdAmt" type="number" placeholder="100" oninput="calcWithdraw()"><p id="wdCalc" class="text-xs text-amber-600 mt-2 font-bold">Tu 100 ODSC nikalega → Tujhe 99 ODSC ke barabar Crypto milega (1% Fee)</p><label class="text-xs mt-3 block">Tera Crypto Wallet Address</label><input placeholder="0x... ya T... ya bc1..."><select class="mt-2"><option>Receive in USDT</option><option>Receive in BTC</option><option>Receive in SOL</option></select><button onclick="doWithdraw()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Withdraw Now - Instant</button></div>
   <div id="box-send" class="card p-4 mt-4 hidden-page"><h3 class="font-bold">Send ODSC - ODSMALL ke andar</h3><p class="text-xs text-slate-500 mt-1">Username likho, paisa uske Internal Wallet Number pe jayega.</p><label class="text-xs mt-3 block">Kisko bhejna hai? Username</label><input id="sendUser" placeholder="@sara.design"><label class="text-xs mt-3 block">Kitne ODSC?</label><input id="sendAmt" type="number" placeholder="50" oninput="calcSend()"><p id="sendCalc" class="text-xs text-amber-600 mt-2 font-bold">Us ko 49.95 ODSC milenge • 0.05 ODSC Fee (0.1%)</p><button onclick="doSend()" class="w-full btn-black font-bold py-3 rounded-xl mt-3">Send ODSC</button></div>
+  <h3 class="font-bold mt-5">Recent Transactions</h3>
+  <div class="space-y-2 mt-2"><div class="card p-3 flex justify-between"><div><p class="text-sm font-bold">Received from @ali</p><p class="text-[11px] text-slate-400">Internal Ledger • Fee 0.1%</p></div><p class="text-green-600 font-bold">+99.90</p></div><div class="card p-3 flex justify-between"><div><p class="text-sm font-bold">Recharge via USDT</p><p class="text-[11px] text-slate-400">Treasury Wallet • Fee 1%</p></div><p class="text-green-600 font-bold">+100.00</p></div></div>
 </div>
 
-<!-- PROFILE -->
+<!-- ============ PROFILE ============ -->
 <div id="page-profile" class="p-4 max-w-md mx-auto hidden-page">
-  <div class="flex items-center gap-4"><img src="https://i.pravatar.cc/100?img=12" class="w-20 h-20 rounded-full border-2 border-slate-900"><div><h2 class="font-black text-xl" id="dispName">Ali Khan</h2><p class="font-bold text-sm" id="dispUser">@ali123</p><p class="text-[11px] text-slate-500">Profile me Wallet Number nahi dikhega - Wo sirf Wallet me hai</p></div></div>
-  <div class="card p-4 mt-4 space-y-3"><h3 class="font-bold">Edit Profile</h3><div><label class="text-xs text-slate-500">Display Name</label><input id="fName" value="Ali Khan"></div><div><label class="text-xs text-slate-500">Username * - Badal sakta hai</label><input id="fUser" value="ali123" oninput="checkUser()"><p id="userMsg" class="text-[11px] text-green-600 mt-1">✅ Available hai</p><p class="text-[10px] text-slate-500">Purana username 30 din tak kisi ko nahi milega</p></div><div class="grid grid-cols-2 gap-2"><div><label class="text-xs text-slate-500">Age (Optional)</label><input placeholder="24"></div><div><label class="text-xs text-slate-500">City (Optional)</label><input placeholder="Lahore"></div></div><div><label class="text-xs text-slate-500">Country (Optional)</label><select><option>Pakistan</option><option>India</option><option>UAE</option><option>USA</option><option>UK</option></select></div><div><label class="text-xs text-slate-500">About - 500 Letters tak</label><textarea id="fAbout" rows="4" maxlength="500" oninput="countAbout()">Hi! Main 3 saal se logo design aur video editing karta hun.</textarea><p class="text-right text-[11px] text-slate-500"><span id="aboutCount">58</span> / 500</p></div><button onclick="saveProfile()" class="w-full btn-black font-bold py-3 rounded-xl">Save Profile</button></div>
+  <div class="flex items-center gap-4"><img src="https://i.pravatar.cc/100?img=12" class="w-20 h-20 rounded-full border-2 border-slate-900"><div><h2 class="font-black text-xl" id="dispName">Ali Khan</h2><p class="font-bold text-sm" id="dispUser">@ali123</p><p class="text-[11px] text-slate-500" id="dispEmail">ali@gmail.com</p></div></div>
+  <div class="card p-4 mt-4 space-y-3">
+    <h3 class="font-bold">Edit Profile</h3>
+    <div><label class="text-xs text-slate-500">Display Name</label><input id="fName" value="Ali Khan"></div>
+    <div><label class="text-xs text-slate-500">Username * - Badal sakta hai</label><input id="fUser" value="ali123" oninput="checkUser()"><p id="userMsg" class="text-[11px] text-green-600 mt-1">✅ Available hai</p><p class="text-[10px] text-slate-500">Purana username 30 din tak kisi ko nahi milega</p></div>
+    <div class="grid grid-cols-2 gap-2"><div><label class="text-xs text-slate-500">Age (Optional)</label><input placeholder="24"></div><div><label class="text-xs text-slate-500">City (Optional)</label><input placeholder="Lahore"></div></div>
+    <div><label class="text-xs text-slate-500">Country (Optional)</label><select><option>Pakistan</option><option>India</option><option>UAE</option><option>USA</option><option>UK</option></select></div>
+    <div><label class="text-xs text-slate-500">About - 500 Letters tak</label><textarea id="fAbout" rows="4" maxlength="500" oninput="countAbout()">Hi! Main 3 saal se logo design aur video editing karta hun.</textarea><p class="text-right text-[11px] text-slate-500"><span id="aboutCount">58</span> / 500</p></div>
+    <button onclick="saveProfile()" class="w-full btn-black font-bold py-3 rounded-xl">Save Profile</button>
+    <button onclick="doLogout()" class="w-full border border-red-300 text-red-600 font-bold py-3 rounded-xl">Logout</button>
+  </div>
+  <div class="card p-4 mt-4"><p class="text-xs text-slate-600 leading-relaxed">• <b>User ID + ODSC Wallet Number</b> = Asli Pehchan, kabhi nahi badlega<br>• <b>Username</b> = Sirf Board hai, kabhi bhi badal sakta hai<br>• Paisa hamesha <b>Wallet Number</b> pe jata hai</p></div>
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- ============ BOTTOM NAV ============ -->
 <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around items-start pt-2 pb-3 z-50">
   <button onclick="showPage('home')" class="flex flex-col items-center text-xs font-bold"><span class="text-lg">🏠</span>Home</button>
   <button onclick="showPage('chats')" class="flex flex-col items-center text-xs font-bold"><span class="text-lg">💬</span>Chat</button>
@@ -129,14 +152,46 @@
 </div>
 
 <script>
-let balance=1250, wish=2, cart=0;
-function showPage(p){['signup','home','chats','chatopen','wallet','profile','wishlist','cart'].forEach(x=>{let e=document.getElementById('page-'+x); if(e) e.classList.add('hidden-page')});document.getElementById('page-'+p).classList.remove('hidden-page');window.scrollTo(0,0);}
-function doSignup(){if(!document.getElementById('suEmail').value){alert('Email daalo bhai');return;}alert('Account ban gaya! Wallet Number Wallet page me milega.');showPage('profile');}
+let balance = parseFloat(localStorage.getItem('odsmall_balance') || '1250');
+let cart = 0, wish = 2, isLoginMode = false;
+function showPage(p){
+  ['signup','home','chats','chatopen','wallet','profile','wishlist','cart'].forEach(x=>{let e=document.getElementById('page-'+x); if(e) e.classList.add('hidden-page')});
+  document.getElementById('page-'+p).classList.remove('hidden-page');
+  window.scrollTo(0,0);
+}
+function toggleAuth(){
+  isLoginMode=!isLoginMode;
+  document.getElementById('authTitle').innerText=isLoginMode?'Login':'Create Account';
+  document.getElementById('authBtn').innerText=isLoginMode?'Login →':'Create Account →';
+  document.getElementById('authToggle').innerText=isLoginMode?'New here? Create Account →':'Already have account? Login →';
+}
+function doSignup(){
+  let email=document.getElementById('suEmail').value.trim();
+  let pass=document.getElementById('suPass').value;
+  if(!email || !pass){alert('Email + Password daalo');return;}
+  if(isLoginMode){
+    let saved=JSON.parse(localStorage.getItem('odsmall_user')||'null');
+    if(saved && saved.email===email && saved.pass===pass){
+      localStorage.setItem('odsmall_loggedin','1');
+      document.getElementById('dispEmail').innerText=email;
+      alert('Login hogaya! Ab Refresh karoge to bhi login rahoge.');
+      showPage('home');
+    } else {alert('Ye Email / Password nahi mila. Pehle Create Account karo.');}
+  } else {
+    localStorage.setItem('odsmall_user',JSON.stringify({email:email,pass:pass}));
+    localStorage.setItem('odsmall_loggedin','1');
+    document.getElementById('dispEmail').innerText=email;
+    alert('Account ban gaya! Email: '+email+'\nAb Refresh karoge to bhi login rahoge.');
+    showPage('home');
+  }
+}
+function doLogout(){localStorage.removeItem('odsmall_loggedin');alert('Logout hogaya.');showPage('signup');}
 function showMarket(){document.getElementById('sec-market').classList.remove('hidden-page');document.getElementById('sec-free').classList.add('hidden-page');document.getElementById('tabM').classList.add('tab-active');document.getElementById('tabF').classList.remove('tab-active');}
 function showFreelancers(){document.getElementById('sec-market').classList.add('hidden-page');document.getElementById('sec-free').classList.remove('hidden-page');document.getElementById('tabF').classList.add('tab-active');document.getElementById('tabM').classList.remove('tab-active');}
+function doSearch(){let q=document.getElementById('searchInput').value.toLowerCase(); if(q.length>1){console.log('Searching:',q);} }
 function openChat(n){document.getElementById('chatName').innerText=n;showPage('chatopen');}
-function buyNow(n,pr){let f=pr*0.001;if(confirm(n+' - '+pr+' ODSC?')){balance-=pr;updateBal();cart++;document.getElementById('cartCount').innerText=cart;alert('Buy hogaya!');}}
-function addWish(btn){wish++;document.getElementById('wishCount').innerText=wish;btn.innerText='❤️';alert('Wishlist me add hogaya!');}
+function buyNow(n,pr){if(balance<pr){alert('Balance kam hai');return;} balance-=pr; localStorage.setItem('odsmall_balance',balance); updateBal(); cart++; document.getElementById('cartCount').innerText=cart; document.getElementById('cartMsg').innerText=cart+' item cart me hai.'; alert(n+' Buy hogaya!');}
+function addWish(btn){wish++; document.getElementById('wishCount').innerText=wish; alert('Wishlist me add hogaya!');}
 function openRecharge(){hideBoxes();document.getElementById('box-recharge').classList.remove('hidden-page');}
 function openWithdraw(){hideBoxes();document.getElementById('box-withdraw').classList.remove('hidden-page');}
 function openSend(){hideBoxes();document.getElementById('box-send').classList.remove('hidden-page');}
@@ -144,16 +199,20 @@ function hideBoxes(){['box-recharge','box-withdraw','box-send'].forEach(id=>docu
 function calcRecharge(){let v=parseFloat(document.getElementById('rechAmt').value)||0;document.getElementById('rechCalc').innerText=`Tu $${(v*1.01).toFixed(2)} dega → Tujhe ${v} ODSC milenge (1% Fee)`;}
 function calcWithdraw(){let v=parseFloat(document.getElementById('wdAmt').value)||0;document.getElementById('wdCalc').innerText=`Tu ${v} ODSC nikalega → Tujhe ${(v*0.99).toFixed(2)} ODSC ke barabar Crypto milega (1% Fee)`;}
 function calcSend(){let v=parseFloat(document.getElementById('sendAmt').value)||0;document.getElementById('sendCalc').innerText=`Us ko ${(v*0.999).toFixed(2)} ODSC milenge • ${(v*0.001).toFixed(3)} Fee (0.1%)`;}
-function doRecharge(){let v=parseFloat(document.getElementById('rechAmt').value)||0;balance+=v;updateBal();alert(v+' ODSC aa gaye!');}
-function doWithdraw(){let v=parseFloat(document.getElementById('wdAmt').value)||0;if(v>balance){alert('Balance kam hai');return;}balance-=v;updateBal();alert('Withdraw hogaya! Koi Hold nahi tha.');}
-function doSend(){let u=document.getElementById('sendUser').value;let v=parseFloat(document.getElementById('sendAmt').value)||0;if(!u){alert('Username daalo');return;}balance-=v;updateBal();alert(u+' ko '+(v*0.999).toFixed(2)+' ODSC bhej diye.');}
+function doRecharge(){let v=parseFloat(document.getElementById('rechAmt').value)||0; if(!v){alert('Amount daalo');return;} balance+=v; localStorage.setItem('odsmall_balance',balance); updateBal(); alert(v+' ODSC aa gaye!');}
+function doWithdraw(){let v=parseFloat(document.getElementById('wdAmt').value)||0; if(v>balance){alert('Balance kam hai');return;} balance-=v; localStorage.setItem('odsmall_balance',balance); updateBal(); alert('Withdraw hogaya! Koi Hold nahi tha.');}
+function doSend(){let u=document.getElementById('sendUser').value; let v=parseFloat(document.getElementById('sendAmt').value)||0; if(!u){alert('Username daalo');return;} if(v>balance){alert('Balance kam hai');return;} balance-=v; localStorage.setItem('odsmall_balance',balance); updateBal(); alert(u+' ko '+(v*0.999).toFixed(2)+' ODSC bhej diye. Paisa uske Wallet Number pe gaya.');}
 function sendODSCFromChat(){showPage('wallet');openSend();}
 function copyAddr(){alert('Wallet Number copy hogaya: ODS-a8x9k2p7m4');}
-function checkUser(){let v=document.getElementById('fUser').value;document.getElementById('userMsg').innerText=v==='sara'?'❌ Ye liya hua hai':'✅ Available hai';}
+function checkUser(){let v=document.getElementById('fUser').value; document.getElementById('userMsg').innerText=v==='sara'?'❌ Ye liya hua hai':'✅ Available hai';}
 function countAbout(){document.getElementById('aboutCount').innerText=document.getElementById('fAbout').value.length;}
-function saveProfile(){document.getElementById('dispName').innerText=document.getElementById('fName').value;document.getElementById('dispUser').innerText='@'+document.getElementById('fUser').value;alert('Profile Save hogaya!');}
-function updateBal(){document.getElementById('walletBal').innerText=balance.toFixed(2);document.getElementById('topBal').innerText=balance.toFixed(2);}
-showPage('signup');
+function saveProfile(){document.getElementById('dispName').innerText=document.getElementById('fName').value; document.getElementById('dispUser').innerText='@'+document.getElementById('fUser').value; alert('Profile Save hogaya! Username badal gaya, ID aur Wallet Number wohi hai.');}
+function updateBal(){document.getElementById('walletBal').innerText=balance.toFixed(2); document.getElementById('topBal').innerText=balance.toFixed(2);}
+let savedUser=JSON.parse(localStorage.getItem('odsmall_user')||'null');
+let loggedIn=localStorage.getItem('odsmall_loggedin')==='1';
+if(savedUser){document.getElementById('dispEmail').innerText=savedUser.email;}
+updateBal();
+if(loggedIn){showPage('home');} else {showPage('signup');}
 </script>
 </body>
 </html>
