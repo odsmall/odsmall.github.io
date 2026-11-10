@@ -2,23 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ODSMALL - Safe Buy, Safe Sell, Safe Work</title>
+<title>ODSMALL</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,Arial}
 body{background:#F8F9FB;color:#0F172A;padding-bottom:110px}
-header{position:sticky;top:0;background:#fff;border-bottom:1px solid #E5E5E5;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;z-index:20}
-.logo{font-size:22px;font-weight:900;letter-spacing:1px}
-.btn-dark{background:#0F172A;color:#fff;border:none;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer}
-.btn-light{background:#fff;color:#0F172A;border:1px solid #0F172A;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer}
-.hero{padding:20px 16px}.hero h1{font-size:28px;line-height:1.15}.hero p{color:#555;margin-top:8px;font-size:14px}
-.tabs{display:flex;gap:8px;padding:12px 16px}
-.tab{flex:1;padding:13px;border-radius:10px;border:1px solid #ddd;background:#fff;text-align:center;font-weight:800;cursor:pointer}
+header{position:sticky;top:0;background:#fff;border-bottom:1px solid #E5E5E5;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;z-index:20;gap:8px}
+.logo{font-size:21px;font-weight:900;white-space:nowrap}
+.header-right{display:flex;align-items:center;gap:8px}
+.btn-dark{background:#0F172A;color:#fff;border:none;padding:11px 14px;border-radius:10px;font-weight:700;cursor:pointer;white-space:nowrap;font-size:13px}
+.btn-light{background:#fff;color:#0F172A;border:1px solid #0F172A;padding:11px 14px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px}
+.page{display:none;padding:14px 16px}.page.active{display:block}
+.hero h1{font-size:28px;line-height:1.15}.hero p{color:#555;margin-top:8px;font-size:14px}
+.tabs{display:flex;gap:8px;margin:14px 0}
+.tab{flex:1;padding:13px;border-radius:10px;border:1px solid #ddd;background:#fff;text-align:center;font-weight:800;cursor:pointer;font-size:14px}
 .tab.active{background:#0F172A;color:#fff}
-.search{display:flex;gap:8px;padding:0 16px}
-.search input{flex:1;padding:12px;border:1px solid #ddd;border-radius:10px}
-.filters{padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap}
-.filters select{padding:10px;border:1px solid #ddd;border-radius:20px;background:#fff}
-.card{background:#fff;border:1px solid #E5E5E5;border-radius:14px;padding:14px;margin:0 16px 14px}
+.search{display:flex;gap:8px;margin-bottom:12px}.search input{flex:1;padding:12px;border:1px solid #ddd;border-radius:10px}
+.card{background:#fff;border:1px solid #E5E5E5;border-radius:14px;padding:14px;margin-bottom:12px;cursor:pointer}
 .muted{color:#666;font-size:13px}.green{color:#15803D;font-size:13px;font-weight:700}
 .row{display:flex;gap:8px;margin-top:12px}.row button{flex:1}
 nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #E5E5E5;display:flex;justify-content:space-around;padding:10px 0 16px;z-index:20}
@@ -29,120 +28,72 @@ nav div{text-align:center;font-size:12px;color:#888;cursor:pointer}nav div.activ
 .line{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed #eee;font-size:14px}
 .ticket{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:12px;margin-top:12px;display:none}
 input[type=text]{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:8px}
-.warn{background:#FEF3C7;padding:10px;border-radius:10px;font-size:12px;font-weight:700;margin-top:10px}
-.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#0F172A;color:#fff;padding:10px 16px;border-radius:20px;font-size:13px;display:none;z-index:100}
+.chatbox{background:#fff;border:1px solid #ddd;border-radius:12px;padding:12px;height:260px;overflow:auto;margin-top:10px}
+.msg{background:#F1F5F9;padding:8px 10px;border-radius:10px;margin-bottom:8px;font-size:14px}
+.msg.me{background:#0F172A;color:#fff;margin-left:30px}
+.back{color:#0F172A;font-weight:800;cursor:pointer;margin-bottom:10px;display:inline-block}
 </style>
 </head>
 <body>
-<div class="toast" id="toast"></div>
-<header><div class="logo">ODSMALL</div><div><button class="btn-dark" style="padding:9px 13px" onclick="connectWallet()" id="walletBtn">Connect Wallet</button> <span id="cartCount">🛒 0</span></div></header>
+<header><div class="logo">ODSMALL</div><div class="header-right"><span id="cartCount" onclick="goPage('cart')" style="cursor:pointer">🛒 <b id="cartNum">0</b></span><button class="btn-dark" onclick="connectWallet()" id="walletBtn">Connect Wallet</button></div></header>
 
-<div class="hero">
-<h1>Safe Buy, Safe Sell,<br>Safe Work.</h1>
-<p>Escrow-protected marketplace and freelancers. Pay in USDT on Polygon.</p>
-<div style="margin-top:14px;display:flex;gap:8px"><button class="btn-dark" onclick="showTab('market')">Browse Marketplace</button><button class="btn-light" onclick="showTab('freelancer')">Find Freelancers</button></div>
-</div>
-
-<div class="tabs">
-<div class="tab active" id="tab-market" onclick="showTab('market')">MARKETPLACE</div>
-<div class="tab" id="tab-freelancer" onclick="showTab('freelancer')">FREELANCERS</div>
-</div>
-
-<div class="search"><input placeholder="Search..." id="searchInput" oninput="filterCards()"><button class="btn-dark" onclick="showToast('Filter opened')">Filter</button></div>
-
-<div class="filters" id="marketFilters">
-<select id="fCat" onchange="filterCards()"><option value="all">Category: All</option><option value="saas">SaaS</option><option value="ebook">Ebook</option><option value="template">Template</option></select>
-<select id="fPrice" onchange="filterCards()"><option value="all">Price: Any</option><option value="low">Under $50</option><option value="high">$50+</option></select>
-</div>
-
-<div class="filters" id="freeFilters" style="display:none">
-<select><option>Skill: All</option><option>Web Development</option><option>Design</option></select>
-<select><option>Budget: Any</option><option>$50 - $200</option><option>$200+</option></select>
-</div>
+<!-- HOME / MARKETPLACE PAGE -->
+<div class="page active" id="page-home">
+<div class="hero"><h1>Safe Buy, Safe Sell,<br>Safe Work.</h1><p>Escrow-protected marketplace and freelancers. Pay in USDT on Polygon.</p></div>
+<div class="tabs"><div class="tab active" id="tab-market" onclick="showTab('market')">MARKETPLACE</div><div class="tab" id="tab-freelancer" onclick="showTab('freelancer')">FREELANCERS</div></div>
+<div class="search"><input placeholder="Search..." id="searchInput" oninput="filterCards()"><button class="btn-dark" onclick="filterCards()">Filter</button></div>
 
 <div id="marketList">
-<div class="card" data-cat="saas" data-price="45">
-<h3>SaaS Dashboard Template</h3><div class="muted">4.8 ★ (124) • Verified • Instant Download</div>
-<p style="margin-top:8px;font-weight:800">$45.00</p><p class="green">Escrow Protected</p>
-<div class="row"><button class="btn-dark" onclick="openBuy('SaaS Dashboard Template',45)">Buy Now</button><button class="btn-light" onclick="addCart(this)">Add to Cart</button></div>
-</div>
-<div class="card" data-cat="ebook" data-price="25">
-<h3>Solana Trading Ebook - Complete Guide</h3><div class="muted">4.9 ★ (89) • Verified • Instant Download</div>
-<p style="margin-top:8px;font-weight:800">$25.00</p><p class="green">Escrow Protected</p>
-<div class="row"><button class="btn-dark" onclick="openBuy('Solana Trading Ebook',25)">Buy Now</button><button class="btn-light" onclick="addCart(this)">Add to Cart</button></div>
-</div>
-<div class="card" data-cat="template" data-price="120">
-<h3>Website Template Pack - 20 Pages</h3><div class="muted">4.7 ★ (210) • Verified • Instant Download</div>
-<p style="margin-top:8px;font-weight:800">$120.00</p><p class="green">Escrow Protected</p>
-<div class="row"><button class="btn-dark" onclick="openBuy('Website Template Pack',120)">Buy Now</button><button class="btn-light" onclick="addCart(this)">Add to Cart</button></div>
-</div>
+<div class="card" data-cat="saas" data-price="45" onclick="openProduct('SaaS Dashboard Template',45,'SaaS')"><h3>SaaS Dashboard Template</h3><div class="muted">4.8 ★ (124) • Verified • Instant Download</div><p style="margin-top:8px;font-weight:800">$45.00</p><p class="green">Escrow Protected</p><div class="row"><button class="btn-dark" onclick="event.stopPropagation();openBuy('SaaS Dashboard Template',45)">Buy Now</button><button class="btn-light" onclick="event.stopPropagation();addCart('SaaS Dashboard Template',45,this)">Add to Cart</button></div></div>
+<div class="card" data-cat="ebook" data-price="25" onclick="openProduct('Solana Trading Ebook',25,'Ebook')"><h3>Solana Trading Ebook</h3><div class="muted">4.9 ★ (89) • Verified • Instant Download</div><p style="margin-top:8px;font-weight:800">$25.00</p><p class="green">Escrow Protected</p><div class="row"><button class="btn-dark" onclick="event.stopPropagation();openBuy('Solana Trading Ebook',25)">Buy Now</button><button class="btn-light" onclick="event.stopPropagation();addCart('Solana Trading Ebook',25,this)">Add to Cart</button></div></div>
 </div>
 
 <div id="freeList" style="display:none">
-<div class="card">
-<h3>AlexDev • 4.9 ★ (210) • Online</h3><p style="margin-top:6px">I will build your Solana website in 3 days</p><div class="muted">From $350 • Delivery 3 Days</div>
-<div class="row"><button class="btn-dark" onclick="openDeal('AlexDev')">Message Creator</button><button class="btn-light" onclick="showToast('Gig details opened')">View Gig</button></div>
-</div>
-<div class="card">
-<h3>SaraDesign • 5.0 ★ (150) • Online</h3><p style="margin-top:6px">I will design your Brand + Logo + UI</p><div class="muted">From $200 • Delivery 2 Days</div>
-<div class="row"><button class="btn-dark" onclick="openDeal('SaraDesign')">Message Creator</button><button class="btn-light" onclick="showToast('Gig details opened')">View Gig</button></div>
+<div class="card" onclick="openGig('AlexDev')"><h3>AlexDev • 4.9 ★ (210) • Online</h3><p>I will build your Solana website in 3 days</p><div class="muted">From $350 • Delivery 3 Days</div><div class="row"><button class="btn-dark" onclick="event.stopPropagation();goPage('chat')">Message Creator</button><button class="btn-light" onclick="event.stopPropagation();openGig('AlexDev')">View Gig</button></div></div>
+<div class="card" onclick="openGig('SaraDesign')"><h3>SaraDesign • 5.0 ★ (150) • Online</h3><p>I will design your Brand + Logo + UI</p><div class="muted">From $200 • Delivery 2 Days</div><div class="row"><button class="btn-dark" onclick="event.stopPropagation();goPage('chat')">Message Creator</button><button class="btn-light" onclick="event.stopPropagation();openGig('SaraDesign')">View Gig</button></div></div>
 </div>
 </div>
 
-<div style="padding:0 16px">
-<div class="card"><h3>How Escrow Works</h3><p class="muted" style="margin-top:6px">1. Buyer pays - Funds locked in Escrow<br>2. 48h review period<br>3. Auto release if no dispute<br>4. Dispute via Ticket</p></div>
-</div>
+<!-- PRODUCT DETAIL PAGE -->
+<div class="page" id="page-product"><span class="back" onclick="goPage('home')">← Back</span><h2 id="pName">Product</h2><div class="muted" id="pCat">Category</div><p style="margin:12px 0">Full description, preview, reviews and escrow protection details will appear here. This is a real detail page, not a popup.</p><p style="font-size:22px;font-weight:900" id="pPrice">$45</p><div class="row"><button class="btn-dark" onclick="openBuyFromDetail()">Buy Now</button><button class="btn-light" onclick="addCartFromDetail()">Add to Cart</button></div></div>
 
-<div class="modal" id="buyModal"><div class="sheet">
-<h2 id="buyTitle">Buy Now</h2><p class="muted">Pay via ODSMALL Escrow - USDT on Polygon (Demo)</p>
-<div class="line"><span>Price</span><b id="buyPrice">$45.00</b></div>
-<div class="line"><span>Gas Fee</span><b>$0.02</b></div>
-<div class="line"><span>Platform Fee (0.1%)</span><b id="buyFee">$0.04</b></div>
-<div class="line"><span><b>Total</b></span><b id="buyTotal">$45.06</b></div>
-<p class="green" style="margin-top:10px">Funds will be locked for 48h in Escrow.</p>
-<div class="ticket" id="ticketBox"><b>Payment Successful (Demo)</b><br><span id="ticketNo"></span><br><button class="btn-light" style="margin-top:8px" onclick="closeModal()">Done</button></div>
-<div class="row" id="buyBtns"><button class="btn-light" onclick="closeModal()">Cancel</button><button class="btn-dark" onclick="payNow()">Pay with Wallet</button></div>
-</div></div>
+<!-- GIG DETAIL PAGE -->
+<div class="page" id="page-gig"><span class="back" onclick="goPage('home')">← Back</span><h2 id="gName">Freelancer</h2><div class="muted">Top Rated • Portfolio • Reviews</div><p style="margin:12px 0">This freelancer will deliver in 3 days. Chat first, then lock deal via Escrow to start work with protection.</p><div class="row"><button class="btn-dark" onclick="goPage('chat')">Message Creator</button><button class="btn-light" onclick="lockDeal()">Lock Deal</button></div></div>
 
-<div class="modal" id="dealModal"><div class="sheet">
-<h2 id="dealTitle">Message Creator</h2><p class="muted">Deal will be locked via Escrow. You will receive a Ticket.</p>
-<input type="text" placeholder="Describe your project...">
-<input type="text" placeholder="Budget - e.g. $350">
-<div class="row"><button class="btn-light" onclick="closeModal()">Cancel</button><button class="btn-dark" onclick="lockDeal()">Lock Deal</button></div>
-<div class="ticket" id="dealTicket"><b>Deal Locked (Demo)</b><br><span id="dealNo"></span></div>
-</div></div>
+<!-- CART PAGE -->
+<div class="page" id="page-cart"><h2>Your Cart</h2><div id="cartList" style="margin-top:12px"><p class="muted">Cart is empty.</p></div><div class="row"><button class="btn-dark" onclick="checkoutCart()">Checkout All</button></div></div>
 
-<nav><div class="active" onclick="showToast('Home')">⌂<br>Home</div><div onclick="showToast('Chat - Coming Soon')">💬<br>Chat</div><div><div class="center" onclick="showToast('Search')">🔍</div></div><div onclick="showToast('Wallet')">👛<br>Wallet</div><div onclick="showToast('Profile')">👤<br>Profile</div></nav>
+<!-- CHAT PAGE -->
+<div class="page" id="page-chat"><h2>Chat - AlexDev</h2><div class="chatbox" id="chatBox"><div class="msg">Hello! I can build your website. Share requirements.</div><div class="msg me">Hi, I need Solana website in 3 days.</div></div><input type="text" id="chatInput" placeholder="Type message..."><div class="row"><button class="btn-dark" onclick="sendChat()">Send</button><button class="btn-light" onclick="lockDeal()">Lock Deal via Escrow</button></div><p class="muted" style="margin-top:8px">Deal locks via Escrow. No payment outside ODSMALL.</p></div>
+
+<!-- WALLET PAGE -->
+<div class="page" id="page-wallet"><h2>Wallet</h2><div class="card"><p class="muted">Balance (Demo)</p><h2>1,250 USDT</h2><p class="green">Polygon Network</p></div><div class="row"><button class="btn-dark" onclick="connectWallet()">Connect Wallet</button><button class="btn-light" onclick="goPage('home')">Browse</button></div></div>
+
+<!-- PROFILE PAGE -->
+<div class="page" id="page-profile"><h2>Profile</h2><div class="card"><h3>Guest User</h3><p class="muted">Connect wallet to see orders, tickets and deals.</p></div><div class="row"><button class="btn-dark" onclick="connectWallet()">Connect Wallet</button></div></div>
+
+<!-- BUY MODAL -->
+<div class="modal" id="buyModal"><div class="sheet"><h2 id="buyTitle">Buy Now</h2><p class="muted">Pay via Escrow - USDT on Polygon</p><div class="line"><span>Price</span><b id="buyPrice">$45</b></div><div class="line"><span>Gas Fee</span><b>$0.02</b></div><div class="line"><span>Platform Fee (0.1%)</span><b id="buyFee">$0.04</b></div><div class="line"><span><b>Total</b></span><b id="buyTotal">$45.06</b></div><div class="ticket" id="ticketBox"><b>Payment Successful</b><br><span id="ticketNo"></span><br><button class="btn-light" style="margin-top:8px" onclick="closeModal();goPage('profile')">View in Profile</button></div><div class="row" id="buyBtns"><button class="btn-light" onclick="closeModal()">Cancel</button><button class="btn-dark" onclick="payNow()">Pay with Wallet</button></div></div></div>
+
+<nav><div class="active" id="nav-home" onclick="goPage('home')">⌂<br>Home</div><div id="nav-chat" onclick="goPage('chat')">💬<br>Chat</div><div><div class="center" onclick="goPage('home')">🔍</div></div><div id="nav-wallet" onclick="goPage('wallet')">👛<br>Wallet</div><div id="nav-profile" onclick="goPage('profile')">👤<br>Profile</div></nav>
 
 <script>
-let cart=0, curPrice=45, curName='';
-function showToast(m){let t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(()=>t.style.display='none',1800);}
-function showTab(t){
- document.getElementById('tab-market').classList.toggle('active',t==='market');
- document.getElementById('tab-freelancer').classList.toggle('active',t==='freelancer');
- document.getElementById('marketList').style.display=t==='market'?'block':'none';
- document.getElementById('freeList').style.display=t==='freelancer'?'block':'none';
- document.getElementById('marketFilters').style.display=t==='market'?'flex':'none';
- document.getElementById('freeFilters').style.display=t==='freelancer'?'flex':'none';
- document.getElementById('searchInput').placeholder=t==='market'?'Search Marketplace...':'Search Freelancers...';
-}
-function filterCards(){
- let q=document.getElementById('searchInput').value.toLowerCase();
- let cat=document.getElementById('fCat').value, pr=document.getElementById('fPrice').value;
- document.querySelectorAll('#marketList .card').forEach(c=>{
-  let ok=c.innerText.toLowerCase().includes(q);
-  if(cat!=='all' && c.dataset.cat!==cat) ok=false;
-  if(pr==='low' && +c.dataset.price>=50) ok=false;
-  if(pr==='high' && +c.dataset.price<50) ok=false;
-  c.style.display=ok?'block':'none';
- });
-}
-function connectWallet(){document.getElementById('walletBtn').innerText='0x71C...9A2f Connected';showToast('Wallet Connected (Demo)');}
+let cart=[], curName='SaaS Dashboard Template', curPrice=45;
+function goPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));let map={home:'page-home',product:'page-product',gig:'page-gig',cart:'page-cart',chat:'page-chat',wallet:'page-wallet',profile:'page-profile'};document.getElementById(map[p]).classList.add('active');document.querySelectorAll('nav div').forEach(e=>e.classList.remove('active'));window.scrollTo(0,0);}
+function showTab(t){document.getElementById('tab-market').classList.toggle('active',t==='market');document.getElementById('tab-freelancer').classList.toggle('active',t==='freelancer');document.getElementById('marketList').style.display=t==='market'?'block':'none';document.getElementById('freeList').style.display=t==='freelancer'?'block':'none';document.getElementById('searchInput').placeholder=t==='market'?'Search Marketplace...':'Search Freelancers...';}
+function filterCards(){let q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('#marketList .card').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';});}
+function openProduct(n,p,c){curName=n;curPrice=p;document.getElementById('pName').innerText=n;document.getElementById('pCat').innerText=c;document.getElementById('pPrice').innerText='$'+p;goPage('product');}
+function openGig(n){document.getElementById('gName').innerText=n;goPage('gig');}
 function openBuy(n,p){curName=n;curPrice=p;document.getElementById('buyTitle').innerText=n;document.getElementById('buyPrice').innerText='$'+p.toFixed(2);let fee=(p*0.001).toFixed(2);document.getElementById('buyFee').innerText='$'+fee;document.getElementById('buyTotal').innerText='$'+(p+0.02+parseFloat(fee)).toFixed(2);document.getElementById('ticketBox').style.display='none';document.getElementById('buyBtns').style.display='flex';document.getElementById('buyModal').classList.add('open');}
-function payNow(){let t='ODS-'+Math.floor(100000+Math.random()*900000);document.getElementById('ticketNo').innerText='Ticket: '+t+' | Product: '+curName;document.getElementById('ticketBox').style.display='block';document.getElementById('buyBtns').style.display='none';}
-function openDeal(n){document.getElementById('dealTitle').innerText='Message '+n;document.getElementById('dealTicket').style.display='none';document.getElementById('dealModal').classList.add('open');}
-function lockDeal(){let t='DEAL-'+Math.floor(100000+Math.random()*900000);document.getElementById('dealNo').innerText='Ticket: '+t;document.getElementById('dealTicket').style.display='block';showToast('Deal Locked');}
+function openBuyFromDetail(){openBuy(curName,curPrice);}
+function payNow(){let t='ODS-'+Math.floor(100000+Math.random()*900000);document.getElementById('ticketNo').innerText='Ticket: '+t+' | '+curName;document.getElementById('ticketBox').style.display='block';document.getElementById('buyBtns').style.display='none';}
 function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));}
-function addCart(b){cart++;document.getElementById('cartCount').innerText='🛒 '+cart;b.innerText='Added ✓';showToast('Added to Cart');}
+function addCart(n,p,btn){cart.push({n,p});document.getElementById('cartNum').innerText=cart.length;renderCart();if(btn)btn.innerText='Added ✓';}
+function addCartFromDetail(){addCart(curName,curPrice,null);}
+function renderCart(){let el=document.getElementById('cartList');if(cart.length===0){el.innerHTML='<p class="muted">Cart is empty.</p>';return;}el.innerHTML=cart.map((c,i)=>'<div class="card"><b>'+c.n+'</b><br>$'+c.p+' <span style="color:red;cursor:pointer" onclick="cart.splice('+i+',1);document.getElementById(\'cartNum\').innerText=cart.length;renderCart()">Remove</span></div>').join('');}
+function checkoutCart(){if(cart.length===0){alert('Cart is empty');return;}openBuy(cart[0].n,cart[0].p);}
+function connectWallet(){document.getElementById('walletBtn').innerText='0x71C...9A2f';alert('Wallet Connected (Demo)');}
+function sendChat(){let v=document.getElementById('chatInput').value;if(!v)return;let b=document.getElementById('chatBox');b.innerHTML+='<div class="msg me">'+v+'</div>';document.getElementById('chatInput').value='';}
+function lockDeal(){alert('Deal Locked - Ticket: DEAL-'+Math.floor(100000+Math.random()*900000));goPage('chat');}
 </script>
 </body></html>
